@@ -1,0 +1,5 @@
+col (p=20;s=20) {
+    textinput(hint="Enter some text...";)
+    textinput(t="TextInput filled"; hint="Enter more text..."; hc=255,0,0)
+    text(bg=128,0,128; t="[WIP] slider")
+}

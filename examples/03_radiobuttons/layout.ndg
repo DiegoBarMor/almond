@@ -1,0 +1,22 @@
+row(bg=60,60,60) {
+    col(p=10;s=10;w=0.2) {
+        radiobutton( grp="A"; chk=T )
+        radiobutton( grp="A" )
+        radiobutton( grp="B"; chk=T )
+        radiobutton( grp="A"; chk=T )
+        radiobutton( grp="B"; chk=T )
+        radiobutton( grp="B" )
+        radiobutton()
+        radiobutton()
+    }
+    col(p=10;s=10) {
+        text(bg=128,0,0;     t="group A, btn 0 (0 global)")
+        text(bg=128,0,0;     t="group A, btn 1 (1 global)")
+        text(bg=0,0,128;     t="group B, btn 0 (2 global)")
+        text(bg=128,0,0;     t="group A, btn 2 (3 global)")
+        text(bg=0,0,128;     t="group B, btn 1 (4 global)")
+        text(bg=0,0,128;     t="group B, btn 2 (5 global)")
+        text(bg=128,128,128; t="group  , btn 0 (6 global)")
+        text(bg=128,128,128; t="group  , btn 1 (7 global)")
+    }
+}

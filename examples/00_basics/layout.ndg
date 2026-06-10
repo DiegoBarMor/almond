@@ -1,0 +1,43 @@
+col(bg=100,100,100,128;) {                       # only bg is provided, other specs assume default values
+  row ( w = 0 . 2 ; bg = 0 , 128 , 0 , 128 ; ) { # example of arbitrary whitespaces
+    text (bg=128,128,0,128; t="Left"; fs=50)     # example of ; being skipped for the last spec-value pair
+    box()                                        # example of empty (), all specs assume default values
+    t E x T ( b G = 1 2 8 , 0 , 1 2 8 , 1 2 8    # extreme example of case insensitivity and...
+      ; T = " R i g h t " ; )                    # ... arbitrary spaces being ignored (except inside the text value)
+  }                                              #
+  row (w=0.8) {                                  #
+    col (id="col0") {                            # example of usage of the "id" spec
+      btt(id="b0";bgi=128,128,0,128;t="B #0";)   # example of # not being ignored inside a text value
+      btt(id="b1"; fc=0,255,255,255;t="B #1";)   #
+      ()                                         # example of a convenient spacing by just providing ()
+      row{                                       # example of () being ommited because container type is provided and {} follows
+        text (bg=0,0,128; t="Test A";)           # example of bg where alpha isn't provided, so deault 255 is assumed
+        text (bg=0,0,128,128; t="Test B";)       #
+      }                                          #
+      row {                                      #
+        custom_widget(id="custom";               # example of a custom widget...
+            c0=128,0,0; c1=0,128,0;              # ... that also introduces new specs
+            c2=0,0,128; c3=99,99,9;              #
+        )                                        #
+        box {                                    # example of a default container...
+            text(t="overlapping")                # ... with overlapping children
+            text(t="widgets"; fc=255,0,0)        #
+        }                                        #
+      }                                          #
+    }                                            #
+    col {                                        # example of padding and spacing:
+      row (p=10) {                               # ... just padding
+        text(bg=0,0,0,128; t="-")                #
+        text(bg=128,20,20,128; t="Padding")      #
+      }                                          #
+      row (s=10;) {                              # ... just spacing
+        text(bg=20,128,20,128; t="Spacing";)     #
+        text(bg=0,0,0,128; t="-";)               #
+      }                                          #
+      row (p=10; s=10;) {                        # ... both padding and spacing
+        text(bg=20,128,20,128; t="Spacing";)     #
+        text(bg=128,20,20,128; t="Padding";)     #
+      }                                          #
+    }                                            #
+  }                                              #
+}                                                #

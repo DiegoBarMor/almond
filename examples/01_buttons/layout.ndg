@@ -1,0 +1,16 @@
+col (p=20;s=20) {
+    row {
+        col(p=5;s=5) {
+            row {checkbox() text(t="checkbox 0")}
+            row {checkbox() text(t="checkbox 1")}
+            row {checkbox(enabled=f) text(t="disabled")}
+        }
+        col(p=5;s=5) {
+            row {radiobutton(grp=a) text(bg=64,0,0; t="radio 0, Group A")}
+            row {radiobutton(grp=a) text(bg=64,0,0; t="radio 1, Group A")}
+            row {radiobutton(grp=b) text(bg=0,0,64; t="radio 2, Group B")}
+        }
+    }
+    button(t="enabled button"; e=1)
+    button(t="disabled button"; e=0)
+}

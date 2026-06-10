@@ -1,0 +1,21 @@
+col(bg=25,25,25; p=20; s=20) {
+    row(p=20; s=20) {
+        col {
+            text(w=0.7; bg=0,0,128; t="top"; fs=40)
+            checkbox(w=0.3; id="c0")
+        }
+        row {
+            checkbox(w=0.5; id="c1")
+            text(w=0.5; bg=0,128,0; t="right")
+        }
+    }row(p=20; s=20) {
+        row {
+            text(w=0.8; bg=128,0,0; t="left")
+            checkbox(w=0.2; id="c2"; checked=true)
+        }
+        col {
+            checkbox(w=0.5; id="c3")
+            text(w=0.5; bg=64,0,64; t="bottom"; fc = 0,150,0)
+        }
+    }
+}
