@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 set -eu
 
-fbuild="build-linux"
+fbuild="build"
 
 cmake -B $fbuild
 cmake --build $fbuild

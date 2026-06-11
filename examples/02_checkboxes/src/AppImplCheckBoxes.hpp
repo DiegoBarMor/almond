@@ -1,5 +1,5 @@
 #pragma once
-#include "../../../src/almond/App.hpp"
+#include "../../../almond/App.hpp"
 
 class AppImplCheckBoxes : public nd::App {
 public:

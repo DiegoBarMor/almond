@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 set -eu
 
-fbuild="build-linux"
+fbuild="build"
 
 for folder in "$fbuild/bin/examples/"*; do
     (cd "$folder"; ./app) &

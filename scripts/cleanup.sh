@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 set -eu
 
-fbuild="build-linux"
+fbuild="build"
 ftmp="tmp"
 
 mkdir -p $ftmp/_deps/sfml-build
