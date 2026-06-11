@@ -1,6 +1,6 @@
 #pragma once
 #include "Widget.hpp"
-#include "../../assets/font_crimson_roman.hpp"
+#include "../assets/font_crimson_roman.hpp"
 
 namespace nd {
 ////////////////////////////////////////////////////////////////////////////////
