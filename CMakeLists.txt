@@ -16,7 +16,7 @@ FetchContent_MakeAvailable(SFML)
 file(GLOB EXAMPLE_APPS examples/*/app.cpp)
 file(GLOB_RECURSE SHARED_SOURCES CONFIGURE_DEPENDS
     examples/*/src/*.cpp
-    src/*.cpp
+    almond/*.cpp
 )
 
 foreach(EXAMPLE_APP ${EXAMPLE_APPS})
