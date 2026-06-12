@@ -6,6 +6,8 @@ This project was started in 2024 while hosted in an alternate account, then migr
 # ALMOND
 ALMOND is a framework for GUI applications. It is based on **SFML** and aims to provide a minimalistic and practical approach to adding GUI menus to SFML programs. The structure of the GUI can be declared in a text file with ALMOND's custom format, called `NDG` (stands for *almoND Gui*).
 
+![Logo](logo.png)
+
 ## QuickStart
 * Building the examples in Linux
 ```
