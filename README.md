@@ -1,3 +1,8 @@
+# About (author note 06/2026)
+This project was started in 2024 while hosted in an alternate account, then migrated to this repo in 2026. I worked on it for around 2 months before reaching its current state. Development was fast and mostly ad-hoc; I needed a convenient GUI framework for some small programs I was working on, and decided this was a nice chance to learn more about GUI programming and practice C++. The code can still be improved e.g. replace raw pointers with smart pointers.
+## Example program
+- [Visualizer](https://github.com/DiegoBarMor/VisualizerLinearTransforms) for 3D rotations using 3x3 matrices.
+
 # ALMOND
 ALMOND is a framework for GUI applications. It is based on **SFML** and aims to provide a minimalistic and practical approach to adding GUI menus to SFML programs. The structure of the GUI can be declared in a text file with ALMOND's custom format, called `NDG` (stands for *almoND Gui*).
 
