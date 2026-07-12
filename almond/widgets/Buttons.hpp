@@ -128,7 +128,7 @@ protected:
 
 private:
     // d.2c (Other fields)
-    sf::VertexArray __check_mark = sf::VertexArray(sf::TriangleStrip, 6);
+    sf::VertexArray __check_mark = sf::VertexArray(sf::PrimitiveType::TriangleStrip, 6);
 };
 
 

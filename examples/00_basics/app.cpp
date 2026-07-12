@@ -3,7 +3,7 @@
 #include "src/AppImplBasics.hpp"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "ALMOND Example - Basics");
+    sf::RenderWindow window(sf::VideoMode({800, 600}), "ALMOND Example - Basics");
     window.setFramerateLimit(60);
 
     AppImplBasics gui = AppImplBasics(window);

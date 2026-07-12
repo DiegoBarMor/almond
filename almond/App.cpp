@@ -25,8 +25,7 @@ nd::Widget* nd::App::get_widget(std::string id) {
 
 void nd::App::manage_events() {
     if (__root == nullptr) return;
-    sf::Event event;
-    while (__window.pollEvent(event)) {
+    while (const std::optional event = __window.pollEvent()) {
         if (_internal_manage_event(event)) continue;
         __root->handle_event(event);
     }

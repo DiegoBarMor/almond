@@ -3,7 +3,7 @@
 #include "src/AppImplCheckBoxes.hpp"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "ALMOND Example - CheckBoxes");
+    sf::RenderWindow window(sf::VideoMode({800, 600}), "ALMOND Example - CheckBoxes");
     window.setFramerateLimit(60);
 
     AppImplCheckBoxes gui = AppImplCheckBoxes(window);
