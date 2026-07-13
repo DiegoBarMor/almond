@@ -1,24 +1,24 @@
-# About (author note 06/2026)
-This project was started in 2024 while hosted in an alternate account, then migrated to this repo in 2026. I worked on it for around 2 months before reaching its current state. Development was fast and mostly ad-hoc; I needed a convenient GUI framework for some small programs I was working on, and decided this was a nice chance to learn more about GUI programming and practice C++. The code can still be improved e.g. replace raw pointers with smart pointers.
-## Example program
-- [Visualizer](https://github.com/DiegoBarMor/VisualizerLinearTransforms) for 3D rotations using 3x3 matrices.
-
 # ALMOND
 ALMOND is a framework for GUI applications. It is based on **SFML** and aims to provide a minimalistic and practical approach to adding GUI menus to SFML programs. The structure of the GUI can be declared in a text file with ALMOND's custom format, called `NDG` (stands for *almoND Gui*).
 
 ![Logo](logo.png)
 
 ## QuickStart
-* Building the examples in Linux
+* Building and running the examples in Linux
+```bash
+bash scripts/install_dependencies.sh # only the first time an ALMOND/SFML project is used
+bash scripts/build.sh
+bash scripts/run.sh
 ```
-mkdir -p build; cd build
-cmake ..
-```
+
+## Example program
+- [Visualizer](https://github.com/DiegoBarMor/VisualizerLinearTransforms) for 3D rotations using 3x3 matrices.
+
 
 <!-- ****************************************************************************************** MAIN DESCRIPTION -->
 ## Framework description
 ### NDG files
-These are text files that contain the details on how the GUI should be organized, as well as the characteristics of its components. This data driven approach allows for characterizing a GUI using only the NDG file, without the need to re-compile for every time the GUI structure or other details are changed. However, linking callbacks can't be achieved using the NDG file, as this requires compiling custom made functions or lambda expressions.
+These are text files that contain the details on how the GUI should be organized, as well as the characteristics of its components. It allows characterizing of the GUI widgets using only the NDG file, without the need to re-compile for every time the GUI structure or other details are changed. However, linking callbacks can't be achieved using the NDG file, as this requires compiling custom made functions or lambda expressions.
 
 ### Widgets and specs
 The GUI is formed by a collection of **widgets** that interact with the user and with each other. A widget is capable of building and displaying a **SFML** shape, as well as handling *events* and other forms of behaviour. **Containers** are specialized widgets capable of managing and organizing *children* widgets. This allows the GUI to have a hierarchical structure, starting from a **root** container that holds other widgets and containers.
@@ -53,7 +53,7 @@ ALMOND works by instantiating an implementation of `nd::App` into the part of th
 The following is the class inheritance hierarchy for the widgets.
 
 ```
-Widget
+Widget (x)?
 |-- Container
 |   |-- RowLayout
 |   `-- ColumnLayout
@@ -132,7 +132,7 @@ type (spec=value; spec=value; ...) { # an inline comment
 ### Standard datatype representations for the `spec` values
 - **boolean**: can be set to true by providing either `TRUE`, `T` or `1` (case insensitive). Any other value will set the boolean to false.
 - **float**: composed by digits in the range `0-9`, with a dot `.` to indicate the decimal position.
-- **ratio**: consists of a float with a value in the range `0.0-1.0`. If a value outside this range is provided, it gets truncated to the clousest boundary.
+- **ratio**: consists of a float with a value in the range `0.0-1.0`. If a value outside this range is provided, it gets truncated to the closest boundary.
 - **string**: text value surrounded by `""`. The `""` can be skipped if the string doesn't contain character such as `(){};=#`, with the additional consequence that whitespaces will be ignored and the content set to uppercase (basically the parser just treat is as a generic *raw value*).
 - **color**: color value of the format `r,g,b,a`, where *r*,*g*,*b* and *a* are integers in the range `0-255`. If *a* is ommited, the default value `255` is assumed for it.
 
