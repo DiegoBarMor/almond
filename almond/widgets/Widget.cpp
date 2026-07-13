@@ -165,26 +165,26 @@ bool nd::Widget::_internal_on_mouse_wheel_scroll(const std::optional<sf::Event> 
 }
 
 bool nd::Widget::_internal_on_mouse_click(const std::optional<sf::Event> event) {
-    if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonPressed>()) {
-        if (INTERSECTS_MOUSE(mouseButton->position))
-            return _on_mouse_click(event);
-    }
+    if (!_on_mouse_click) return false;
+    const auto* mouseButton = event->getIf<sf::Event::MouseButtonPressed>();
+    if (mouseButton && INTERSECTS_MOUSE(mouseButton->position))
+        return _on_mouse_click(event);
     return false;
 }
 
 bool nd::Widget::_internal_on_mouse_release(const std::optional<sf::Event> event) {
-    if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonReleased>()) {
-        if (INTERSECTS_MOUSE(mouseButton->position))
-            return _on_mouse_release(event);
-    }
+    if (!_on_mouse_release) return false;
+    const auto* mouseButton = event->getIf<sf::Event::MouseButtonReleased>();
+    if (mouseButton && INTERSECTS_MOUSE(mouseButton->position))
+        return _on_mouse_release(event);
     return false;
 }
 
 bool nd::Widget::_internal_on_mouse_move(const std::optional<sf::Event> event) {
-    if (const auto* mouseMove = event->getIf<sf::Event::MouseMoved>()) {
-        if (INTERSECTS_MOUSE(mouseMove->position))
-            return _on_mouse_move(event);
-    }
+    if (!_on_mouse_move) return false;
+    const auto* mouseMove = event->getIf<sf::Event::MouseMoved>();
+    if (mouseMove && INTERSECTS_MOUSE(mouseMove->position))
+        return _on_mouse_move(event);
     return false;
 }
 

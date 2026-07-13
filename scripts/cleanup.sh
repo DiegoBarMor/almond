@@ -2,7 +2,7 @@
 set -eu
 
 fbuild="build"
-ftmp="tmp"
+ftmp="_tmp_build"
 
 mkdir -p $ftmp/_deps/sfml-build
 mv $fbuild/bin $ftmp/bin
