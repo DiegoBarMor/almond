@@ -118,31 +118,30 @@ bool nd::TextInput::_internal_on_mouse_release(const std::optional<sf::Event> ev
 bool nd::TextInput::_internal_on_text_entered(const std::optional<sf::Event> event) {
     if (!__is_focused) return false;
 
-    const auto* keyPress = event->getIf<sf::Event::KeyPressed>();
-    if (!keyPress) return false;
+    const auto *text = event->getIf<sf::Event::TextEntered>();
+    if (!text) return false;
 
-    std::cout << sf::Keyboard::getDescription(keyPress->scancode).toAnsiString() << std::endl; // [DEBUG]
+    std::cout << text->unicode << std::endl; // [DEBUG]
 
-    switch (keyPress->code) {
-
-    // case 3:  // Ctrl+C (Copy) // [WIP]
-    //     sf::Clipboard::setString(_text_str);
-    //     break;
-    // case 8: // Backspace
-    //     if (!_text_str.empty()) _text_str.pop_back();
-    //     break;
-    // case 13:  // Enter
-    //     _text_str += '\n';
-    //     break;
-    // case 24: // Ctrl+X (Cut)
-    //     sf::Clipboard::setString(_text_str);
-    //     _text_str.clear();
-    //     break;
-    // case 22: // Ctrl+V (Paste)
-    //     _text_str += sf::Clipboard::getString();
-    //     break;
+    switch (text->unicode) {
+    case 3:  // Ctrl+C (Copy)
+        sf::Clipboard::setString(_text_str);
+        break;
+    case 8: // Backspace
+        if (!_text_str.empty()) _text_str.pop_back();
+        break;
+    case 13:  // Enter
+        _text_str += '\n';
+        break;
+    case 24: // Ctrl+X (Cut)
+        sf::Clipboard::setString(_text_str);
+        _text_str.clear();
+        break;
+    case 22: // Ctrl+V (Paste)
+        _text_str += sf::Clipboard::getString();
+        break;
     default:
-        _text_str += sf::Keyboard::getDescription(keyPress->scancode);
+        _text_str += text->unicode;
         break;
     }
     build();

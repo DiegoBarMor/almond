@@ -4,9 +4,8 @@ set -eu
 fbuild="build"
 ftmp="_tmp_build"
 
-mkdir -p $ftmp/_deps/sfml-build
-mv $fbuild/bin $ftmp/bin
-mv $fbuild/_deps/sfml-build/lib $ftmp/_deps/sfml-build/lib
+mkdir -p $ftmp/_deps
+mv $fbuild/_deps $ftmp/_deps
 
 rm -rf $fbuild
 mv $ftmp $fbuild

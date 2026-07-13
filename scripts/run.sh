@@ -4,6 +4,7 @@ set -eu
 fbuild="build"
 
 for folder in "$fbuild/bin/examples/"*; do
-    (cd "$folder"; ./app) &
+    exec_name="app_$(basename "$folder")"
+    (cd "$folder" && ./"$exec_name") &
 done
 wait
