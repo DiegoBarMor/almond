@@ -40,7 +40,7 @@ public:
     bool set_spec(std::string key, std::string raw_value) override;
     void add_child(Widget*) override;
     void build() override;
-    bool handle_event(sf::Event event) override;
+    bool handle_event(const std::optional<sf::Event> event) override;
     void draw(sf::RenderWindow& window) override;
 
     // m.0d (Setters/Getters for the spec fields)
@@ -69,10 +69,10 @@ protected:
     void _some_internal_functionality();
 
     // m.1b (Callback wrappers)
-    bool _internal_on_mouse_click  (sf::Event event) override;
-    bool _internal_on_mouse_release(sf::Event event) override;
-    bool _internal_on_mouse_move   (sf::Event event) override;
-    bool _internal_on_key_press    (sf::Event event) override;
+    bool _internal_on_mouse_click  (const std::optional<sf::Event> event) override;
+    bool _internal_on_mouse_release(const std::optional<sf::Event> event) override;
+    bool _internal_on_mouse_move   (const std::optional<sf::Event> event) override;
+    bool _internal_on_key_press    (const std::optional<sf::Event> event) override;
 
     // d.1a (Static fields)
     static std::unordered_map<

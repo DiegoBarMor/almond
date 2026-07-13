@@ -3,7 +3,7 @@
 #include "../../almond/App.hpp"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "ALMOND Example - Buttons");
+    sf::RenderWindow window(sf::VideoMode({800, 600}), "ALMOND Example - Buttons");
     window.setFramerateLimit(60);
 
     nd::App gui = nd::App(window);
@@ -11,12 +11,13 @@ int main() {
 
     ////// Callbacks
     nd::Widget* root = gui.get_widget("root");
-    root->link_on_window_closed([&gui](sf::Event event) {
+    root->link_on_window_closed([&gui](const std::optional<sf::Event> event) {
         gui.get_window().close();
         return true;
     });
-    root->link_on_key_press([&gui](sf::Event event) {
-        if (event.key.code == sf::Keyboard::Escape) {
+    root->link_on_key_press([&gui](const std::optional<sf::Event> event) {
+        const auto* keyPress = event->getIf<sf::Event::KeyPressed>();
+        if (keyPress && keyPress->code == sf::Keyboard::Key::Escape) {
             gui.get_window().close();
             return true;
         }

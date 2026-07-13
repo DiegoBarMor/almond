@@ -26,9 +26,9 @@ protected:
     ButtonPrimitive() : Widget() { _bg_color = __bg_idle; }
 
     // m.1b (Callback wrappers)
-    bool _internal_on_mouse_click  (sf::Event event) override;
-    bool _internal_on_mouse_release(sf::Event event) override;
-    bool _internal_on_mouse_move   (sf::Event event) override;
+    bool _internal_on_mouse_click  (const std::optional<sf::Event> event) override;
+    bool _internal_on_mouse_release(const std::optional<sf::Event> event) override;
+    bool _internal_on_mouse_move   (const std::optional<sf::Event> event) override;
 
     // d.1d (Other fields)
     enum class State {
@@ -77,7 +77,7 @@ public:
     // m.0c (Lifecycle methods - SABHD)
     bool set_spec(std::string key, std::string raw_value) override;
     void build() override;
-    bool handle_event(sf::Event event) override;
+    bool handle_event(const std::optional<sf::Event> event) override;
     void draw(sf::RenderWindow& window) override;
 
     // m.0d (Setters/Getters for the spec fields)
@@ -128,7 +128,7 @@ protected:
 
 private:
     // d.2c (Other fields)
-    sf::VertexArray __check_mark = sf::VertexArray(sf::TriangleStrip, 6);
+    sf::VertexArray __check_mark = sf::VertexArray(sf::PrimitiveType::TriangleStrip, 6);
 };
 
 

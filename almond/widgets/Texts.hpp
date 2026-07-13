@@ -29,7 +29,7 @@ public:
     sf::Color _font_color = sf::Color::White;
 
     // d.1d (Other fields)
-    sf::Text _text_obj;
+    sf::Text _text_obj = sf::Text(*__font);
 
 private:
     // m.2a (Internal functionalities)
@@ -37,6 +37,7 @@ private:
 
     // d.2a (Static fields)
     static sf::Font* __font;
+    static bool __font_loaded;
 
     // d.2b (Spec fields)
     unsigned int __font_size = 20;
@@ -63,8 +64,8 @@ public:
 
 protected:
     // m.1b (Callback wrappers)
-    bool _internal_on_mouse_release(sf::Event event) override;
-    bool _internal_on_text_entered(sf::Event event) override;
+    bool _internal_on_mouse_release(const std::optional<sf::Event> event) override;
+    bool _internal_on_text_entered (const std::optional<sf::Event> event) override;
 
     // d.1b (Spec fields)
     float _outline_thickness = 0.1f; // ratio (0.0f-1.0f) [WIP]

@@ -15,7 +15,7 @@ public:
     bool set_spec(std::string key, std::string raw_value) override;
     void add_child(Widget*) override;
     void build() override;
-    bool handle_event(sf::Event event) override;
+    bool handle_event(const std::optional<sf::Event> event) override;
     void draw(sf::RenderWindow& window) override;
 
     // m.0d (Setters/Getters for the spec fields)

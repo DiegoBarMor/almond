@@ -1,13 +1,13 @@
 #include "Texts.hpp"
 
-sf::Font* nd::Text::__font = nullptr;
+sf::Font *nd::Text::__font = new sf::Font();
+bool nd::Text::__font_loaded = false;
 
 ////////////////////////////////////////////////////////////////////////////////
 
 nd::Text::Text() : nd::Widget() {
-    if (__font == nullptr) {
-        __font = new sf::Font();
-        if (!__font->loadFromMemory(nd::tff_crimson_roman, nd::size_crimson_roman)) {
+    if (!__font_loaded) {
+        if (!__font->openFromMemory(nd::tff_crimson_roman, nd::size_crimson_roman)) {
             std::cerr << "Error loading font" << std::endl;
             return;
         }
@@ -41,8 +41,8 @@ void nd::Text::build() {
     sf::FloatRect bounds = _text_obj.getLocalBounds();
 
     // Center the text
-    if (_size.x > bounds.width ) { pos.x += (_size.x - bounds.width ) / 2.0f; }
-    if (_size.y > bounds.height) { pos.y += (_size.y - bounds.height) / 2.0f; }
+    if (_size.x > bounds.size.x) { pos.x += (_size.x - bounds.size.x) / 2.0f; }
+    if (_size.y > bounds.size.y) { pos.y += (_size.y - bounds.size.y) / 2.0f; }
 
     _text_obj.setPosition(pos);
 }
@@ -106,18 +106,24 @@ void nd::TextInput::draw(sf::RenderWindow& window) {
     window.draw(_text_obj);
 }
 
-bool nd::TextInput::_internal_on_mouse_release(sf::Event event) {
-    __is_focused = INTERSECTS_MOUSE(event.mouseButton);
+bool nd::TextInput::_internal_on_mouse_release(const std::optional<sf::Event> event) {
+    if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonReleased>()) {
+        __is_focused = INTERSECTS_MOUSE(mouseButton->position);
+    }
     build();
     if (!_on_mouse_release) return false;
     return _on_mouse_release(event);
 }
 
-bool nd::TextInput::_internal_on_text_entered(sf::Event event) {
+bool nd::TextInput::_internal_on_text_entered(const std::optional<sf::Event> event) {
     if (!__is_focused) return false;
-    std::cout << event.text.unicode << std::endl; // [DEBUG]
 
-    switch (event.text.unicode) {
+    const auto *text = event->getIf<sf::Event::TextEntered>();
+    if (!text) return false;
+
+    std::cout << text->unicode << std::endl; // [DEBUG]
+
+    switch (text->unicode) {
     case 3:  // Ctrl+C (Copy)
         sf::Clipboard::setString(_text_str);
         break;
@@ -135,7 +141,7 @@ bool nd::TextInput::_internal_on_text_entered(sf::Event event) {
         _text_str += sf::Clipboard::getString();
         break;
     default:
-        _text_str += event.text.unicode;
+        _text_str += text->unicode;
         break;
     }
     build();
