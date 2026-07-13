@@ -39,21 +39,25 @@ bool nd::ButtonPrimitive::get_enabled() {
     return _state != State::DISABLED;
 }
 
-bool nd::ButtonPrimitive::_internal_on_mouse_click(sf::Event event) {
+bool nd::ButtonPrimitive::_internal_on_mouse_click(const std::optional<sf::Event> event) {
     if (_state == State::DISABLED) return false;
-    if (!INTERSECTS_MOUSE(event.mouseButton)) return false;
+    if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonPressed>()) {
+        if (!INTERSECTS_MOUSE(mouseButton->position)) return false;
+    }
     __set_state(State::PRESSED);
     if (!_on_mouse_click) return false;
     return _on_mouse_click(event);
 }
 
-bool nd::ButtonPrimitive::_internal_on_mouse_release(sf::Event event) {
+bool nd::ButtonPrimitive::_internal_on_mouse_release(const std::optional<sf::Event> event) {
     if (_state == State::DISABLED) return false;
-    if (INTERSECTS_MOUSE(event.mouseButton)) {
-        // update the button state and carry out _on_mouse_release as usual
-        __set_state(State::HOVER);
-        if (!_on_mouse_release) return false;
-        return _on_mouse_release(event);
+    if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonReleased>()) {
+        if (INTERSECTS_MOUSE(mouseButton->position)) {
+            // update the button state and carry out _on_mouse_release as usual
+            __set_state(State::HOVER);
+            if (!_on_mouse_release) return false;
+            return _on_mouse_release(event);
+        }
     }
     if (_state == State::PRESSED) {
         // mouse was pressed on the button but released outside its bounds
@@ -64,14 +68,16 @@ bool nd::ButtonPrimitive::_internal_on_mouse_release(sf::Event event) {
     return false;
 }
 
-bool nd::ButtonPrimitive::_internal_on_mouse_move(sf::Event event) {
+bool nd::ButtonPrimitive::_internal_on_mouse_move(const std::optional<sf::Event> event) {
     if (_state == State::DISABLED) return false;
-    if (INTERSECTS_MOUSE(event.mouseMove)) {
-        if (_state == State::IDLE) {
-            __set_state(State::HOVER);
+    if (const auto* mouseMove = event->getIf<sf::Event::MouseMoved>()) {
+        if (INTERSECTS_MOUSE(mouseMove->position)) {
+            if (_state == State::IDLE) {
+                __set_state(State::HOVER);
+            }
+            if (!_on_mouse_move) return false;
+            return _on_mouse_move(event);
         }
-        if (!_on_mouse_move) return false;
-        return _on_mouse_move(event);
     }
     if (_state == State::HOVER) {
         __set_state(State::IDLE);
@@ -145,13 +151,14 @@ void nd::ToggleableButton::build() {
     _shape_overlay.setFillColor(_color_overlay);
 }
 
-bool nd::ToggleableButton::handle_event(sf::Event event) {
+bool nd::ToggleableButton::handle_event(const std::optional<sf::Event> event) {
     if (_state == State::DISABLED) return false;
-    if (
-        event.type == sf::Event::MouseButtonReleased &&
-        INTERSECTS_MOUSE(event.mouseButton)
-    ) {
-        _internal_on_toggle();
+    if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonReleased>()) {
+        if (
+            event->is<sf::Event::MouseButtonReleased>() &&
+            INTERSECTS_MOUSE(mouseButton->position)
+        )
+            _internal_on_toggle();
     }
     return nd::ButtonPrimitive::handle_event(event);
 }

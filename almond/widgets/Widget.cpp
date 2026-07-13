@@ -46,7 +46,7 @@ void nd::Widget::build() {
     _init_shape();
 }
 
-bool nd::Widget::handle_event(sf::Event event) {
+bool nd::Widget::handle_event(const std::optional<sf::Event> event) {
     return _internal_handle_event(event);
 }
 
@@ -88,146 +88,147 @@ void nd::Widget::_init_shape() {
     _shape.setFillColor(get_bg_color());
 }
 
-bool nd::Widget::_internal_handle_event(sf::Event event) {
-    switch (event.type) {
-        case sf::Event::Closed:                 return _internal_on_window_closed(event);
-        case sf::Event::Resized:                return _internal_on_window_resized(event);
-        case sf::Event::LostFocus:              return _internal_on_window_lost_focus(event);
-        case sf::Event::GainedFocus:            return _internal_on_window_gained_focus(event);
-        case sf::Event::MouseEntered:           return _internal_on_window_mouse_enter(event);
-        case sf::Event::MouseLeft:              return _internal_on_window_mouse_leave(event);
-        case sf::Event::TextEntered:            return _internal_on_text_entered(event);
-        case sf::Event::KeyPressed:             return _internal_on_key_press(event);
-        case sf::Event::KeyReleased:            return _internal_on_key_release(event);
-        case sf::Event::MouseWheelScrolled:     return _internal_on_mouse_wheel_scroll(event);
-        case sf::Event::MouseButtonPressed:     return _internal_on_mouse_click(event);
-        case sf::Event::MouseButtonReleased:    return _internal_on_mouse_release(event);
-        case sf::Event::MouseMoved:             return _internal_on_mouse_move(event);
-        case sf::Event::JoystickButtonPressed:  return _internal_on_joystick_button_press(event);
-        case sf::Event::JoystickButtonReleased: return _internal_on_joystick_button_release(event);
-        case sf::Event::JoystickMoved:          return _internal_on_joystick_move(event);
-        case sf::Event::JoystickConnected:      return _internal_on_joystick_connect(event);
-        case sf::Event::JoystickDisconnected:   return _internal_on_joystick_disconnect(event);
-        case sf::Event::TouchBegan:             return _internal_on_touch_begin(event);
-        case sf::Event::TouchMoved:             return _internal_on_touch_move(event);
-        case sf::Event::TouchEnded:             return _internal_on_touch_end(event);
-        case sf::Event::SensorChanged:          return _internal_on_sensor_change(event);
-        default: return false;
-    }
+bool nd::Widget::_internal_handle_event(const std::optional<sf::Event> event) {
+    if (event->is<sf::Event::Closed>())                 return _internal_on_window_closed(event);
+    if (event->is<sf::Event::Resized>())                return _internal_on_window_resized(event);
+    if (event->is<sf::Event::FocusLost>())              return _internal_on_window_focus_lost(event);
+    if (event->is<sf::Event::FocusGained>())            return _internal_on_window_focus_gained(event);
+    if (event->is<sf::Event::MouseEntered>())           return _internal_on_window_mouse_enter(event);
+    if (event->is<sf::Event::MouseLeft>())              return _internal_on_window_mouse_leave(event);
+    if (event->is<sf::Event::TextEntered>())            return _internal_on_text_entered(event);
+    if (event->is<sf::Event::KeyPressed>())             return _internal_on_key_press(event);
+    if (event->is<sf::Event::KeyReleased>())            return _internal_on_key_release(event);
+    if (event->is<sf::Event::MouseWheelScrolled>())     return _internal_on_mouse_wheel_scroll(event);
+    if (event->is<sf::Event::MouseButtonPressed>())     return _internal_on_mouse_click(event);
+    if (event->is<sf::Event::MouseButtonReleased>())    return _internal_on_mouse_release(event);
+    if (event->is<sf::Event::MouseMoved>())             return _internal_on_mouse_move(event);
+    if (event->is<sf::Event::JoystickButtonPressed>())  return _internal_on_joystick_button_press(event);
+    if (event->is<sf::Event::JoystickButtonReleased>()) return _internal_on_joystick_button_release(event);
+    if (event->is<sf::Event::JoystickMoved>())          return _internal_on_joystick_move(event);
+    if (event->is<sf::Event::JoystickConnected>())      return _internal_on_joystick_connect(event);
+    if (event->is<sf::Event::JoystickDisconnected>())   return _internal_on_joystick_disconnect(event);
+    if (event->is<sf::Event::TouchBegan>())             return _internal_on_touch_begin(event);
+    if (event->is<sf::Event::TouchMoved>())             return _internal_on_touch_move(event);
+    if (event->is<sf::Event::TouchEnded>())             return _internal_on_touch_end(event);
+    if (event->is<sf::Event::SensorChanged>())          return _internal_on_sensor_change(event);
+    return false;
 }
 
-bool nd::Widget::_internal_on_window_closed(sf::Event event) {
+bool nd::Widget::_internal_on_window_closed(const std::optional<sf::Event> event) {
     if (_on_window_closed) { return _on_window_closed(event); }
     return false;
 }
 
-bool nd::Widget::_internal_on_window_resized(sf::Event event) {
+bool nd::Widget::_internal_on_window_resized(const std::optional<sf::Event> event) {
     if (_on_window_resized) { return _on_window_resized(event); }
     return false;
 }
 
-bool nd::Widget::_internal_on_window_lost_focus(sf::Event event) {
-    if (_on_window_lost_focus) { return _on_window_lost_focus(event); }
+bool nd::Widget::_internal_on_window_focus_lost(const std::optional<sf::Event> event) {
+    if (_on_window_focus_lost) { return _on_window_focus_lost(event); }
     return false;
 }
 
-bool nd::Widget::_internal_on_window_gained_focus(sf::Event event) {
-    if (_on_window_gained_focus) { return _on_window_gained_focus(event); }
+bool nd::Widget::_internal_on_window_focus_gained(const std::optional<sf::Event> event) {
+    if (_on_window_focus_gained) { return _on_window_focus_gained(event); }
     return false;
 }
 
-bool nd::Widget::_internal_on_window_mouse_enter(sf::Event event) {
+bool nd::Widget::_internal_on_window_mouse_enter(const std::optional<sf::Event> event) {
     if (_on_window_mouse_enter) { return _on_window_mouse_enter(event); }
     return false;
 }
 
-bool nd::Widget::_internal_on_window_mouse_leave(sf::Event event) {
+bool nd::Widget::_internal_on_window_mouse_leave(const std::optional<sf::Event> event) {
     if (_on_window_mouse_leave) { return _on_window_mouse_leave(event); }
     return false;
 }
 
-bool nd::Widget::_internal_on_text_entered(sf::Event event) {
+bool nd::Widget::_internal_on_text_entered(const std::optional<sf::Event> event) {
     if (_on_text_entered) { return _on_text_entered(event); }
     return false;
 }
 
-bool nd::Widget::_internal_on_key_press(sf::Event event) {
+bool nd::Widget::_internal_on_key_press(const std::optional<sf::Event> event) {
     if (_on_key_press) { return _on_key_press(event); }
     return false;
 }
 
-bool nd::Widget::_internal_on_key_release(sf::Event event) {
+bool nd::Widget::_internal_on_key_release(const std::optional<sf::Event> event) {
     if (_on_key_release) { return _on_key_release(event); }
     return false;
 }
 
-bool nd::Widget::_internal_on_mouse_wheel_scroll(sf::Event event) {
+bool nd::Widget::_internal_on_mouse_wheel_scroll(const std::optional<sf::Event> event) {
     if (_on_mouse_wheel_scroll) { return _on_mouse_wheel_scroll(event); }
     return false;
 }
 
-bool nd::Widget::_internal_on_mouse_click(sf::Event event) {
-    if (_on_mouse_click && INTERSECTS_MOUSE(event.mouseButton)) {
-        return _on_mouse_click(event);
+bool nd::Widget::_internal_on_mouse_click(const std::optional<sf::Event> event) {
+    if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonPressed>()) {
+        if (INTERSECTS_MOUSE(mouseButton->position))
+            return _on_mouse_click(event);
     }
     return false;
 }
 
-bool nd::Widget::_internal_on_mouse_release(sf::Event event) {
-    if (_on_mouse_release && INTERSECTS_MOUSE(event.mouseButton)) {
-        return _on_mouse_release(event);
+bool nd::Widget::_internal_on_mouse_release(const std::optional<sf::Event> event) {
+    if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonReleased>()) {
+        if (INTERSECTS_MOUSE(mouseButton->position))
+            return _on_mouse_release(event);
     }
     return false;
 }
 
-bool nd::Widget::_internal_on_mouse_move(sf::Event event) {
-    if (_on_mouse_move && INTERSECTS_MOUSE(event.mouseMove)) {
-        return _on_mouse_move(event);
+bool nd::Widget::_internal_on_mouse_move(const std::optional<sf::Event> event) {
+    if (const auto* mouseMove = event->getIf<sf::Event::MouseMoved>()) {
+        if (INTERSECTS_MOUSE(mouseMove->position))
+            return _on_mouse_move(event);
     }
     return false;
 }
 
-bool nd::Widget::_internal_on_joystick_button_press(sf::Event event) {
+bool nd::Widget::_internal_on_joystick_button_press(const std::optional<sf::Event> event) {
     if (_on_joystick_button_press) { return _on_joystick_button_press(event); }
     return false;
 }
 
-bool nd::Widget::_internal_on_joystick_button_release(sf::Event event) {
+bool nd::Widget::_internal_on_joystick_button_release(const std::optional<sf::Event> event) {
     if (_on_joystick_button_release) { return _on_joystick_button_release(event); }
     return false;
 }
 
-bool nd::Widget::_internal_on_joystick_move(sf::Event event) {
+bool nd::Widget::_internal_on_joystick_move(const std::optional<sf::Event> event) {
     if (_on_joystick_move) { return _on_joystick_move(event); }
     return false;
 }
 
-bool nd::Widget::_internal_on_joystick_connect(sf::Event event) {
+bool nd::Widget::_internal_on_joystick_connect(const std::optional<sf::Event> event) {
     if (_on_joystick_connect) { return _on_joystick_connect(event); }
     return false;
 }
 
-bool nd::Widget::_internal_on_joystick_disconnect(sf::Event event) {
+bool nd::Widget::_internal_on_joystick_disconnect(const std::optional<sf::Event> event) {
     if (_on_joystick_disconnect) { return _on_joystick_disconnect(event); }
     return false;
 }
 
-bool nd::Widget::_internal_on_touch_begin(sf::Event event) {
+bool nd::Widget::_internal_on_touch_begin(const std::optional<sf::Event> event) {
     if (_on_touch_begin) { return _on_touch_begin(event); }
     return false;
 }
 
-bool nd::Widget::_internal_on_touch_move(sf::Event event) {
+bool nd::Widget::_internal_on_touch_move(const std::optional<sf::Event> event) {
     if (_on_touch_move) { return _on_touch_move(event); }
     return false;
 }
 
-bool nd::Widget::_internal_on_touch_end(sf::Event event) {
+bool nd::Widget::_internal_on_touch_end(const std::optional<sf::Event> event) {
     if (_on_touch_end) { return _on_touch_end(event); }
     return false;
 }
 
-bool nd::Widget::_internal_on_sensor_change(sf::Event event) {
+bool nd::Widget::_internal_on_sensor_change(const std::optional<sf::Event> event) {
     if (_on_sensor_change) { return _on_sensor_change(event); }
     return false;
 }

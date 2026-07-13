@@ -24,7 +24,7 @@ public:
 protected:
     // Override this to link callbacks that could be handled "globally" by the App.
     // For example, closing the window when pressing the Escape key or handling the window resizing.
-    virtual bool _internal_manage_event(sf::Event) { return false; }
+    virtual bool _internal_manage_event(const std::optional<sf::Event> event) { return false; }
 
     // Override this to add behaviour that should happen before creating the root widget.
     // For example, adding custom prototypes.

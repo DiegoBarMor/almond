@@ -29,7 +29,7 @@ void nd::Container::build() {
     }
 }
 
-bool nd::Container::handle_event(sf::Event event) {
+bool nd::Container::handle_event(const std::optional<sf::Event> event) {
     for (auto &child : _children) {
         if (child->handle_event(event))
             return true; // event handled by child, no need to continue

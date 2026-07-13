@@ -21,10 +21,10 @@ bool CustomWidget::set_spec(std::string key, std::string raw_value) {
 }
 
 void CustomWidget::build() {
-    __vertices = sf::VertexArray(sf::Quads, 4);
+    __vertices = sf::VertexArray(sf::PrimitiveType::TriangleStrip, 4);
     __vertices[0].position = _pos;
-    __vertices[1].position = sf::Vector2f(_pos.x + _size.x, _pos.y);
-    __vertices[2].position = _pos + _size;
+    __vertices[1].position = _pos + _size;
+    __vertices[2].position = sf::Vector2f(_pos.x + _size.x, _pos.y);
     __vertices[3].position = sf::Vector2f(_pos.x, _pos.y + _size.y);
     __vertices[0].color = __color_0;
     __vertices[1].color = __color_1;

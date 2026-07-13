@@ -3,9 +3,10 @@
 #include <functional>
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
+#include <SFML/Main.hpp>
 #include "../parsers/strings.hpp"
 
-#define CALLBACK_BOOL std::function<bool(sf::Event)>
+#define CALLBACK_BOOL std::function<bool(const std::optional<sf::Event>)>
 #define CALLBACK_VOID std::function<void()>
 #define INTERSECTS_MOUSE(pos) contains_point(sf::Vector2f((float)pos.x, (float)pos.y))
 
@@ -27,7 +28,7 @@ public:
     virtual bool set_spec(std::string key, std::string raw_value);
     virtual void add_child(Widget*);
     virtual void build();
-    virtual bool handle_event(sf::Event event);
+    virtual bool handle_event(const std::optional<sf::Event> event);
     virtual void draw(sf::RenderWindow& window);
 
     // m.0d (Setters/Getters for the spec fields)
@@ -49,8 +50,8 @@ public:
     // m.0f (Linkers for the callbacks)
     virtual void link_on_window_closed          (CALLBACK_BOOL callback) { _on_window_closed           = callback; }
     virtual void link_on_window_resized         (CALLBACK_BOOL callback) { _on_window_resized          = callback; }
-    virtual void link_on_window_lost_focus      (CALLBACK_BOOL callback) { _on_window_lost_focus       = callback; }
-    virtual void link_on_window_gained_focus    (CALLBACK_BOOL callback) { _on_window_gained_focus     = callback; }
+    virtual void link_on_window_focus_lost      (CALLBACK_BOOL callback) { _on_window_focus_lost       = callback; }
+    virtual void link_on_window_focus_gained    (CALLBACK_BOOL callback) { _on_window_focus_gained     = callback; }
     virtual void link_on_window_mouse_enter     (CALLBACK_BOOL callback) { _on_window_mouse_enter      = callback; }
     virtual void link_on_window_mouse_leave     (CALLBACK_BOOL callback) { _on_window_mouse_leave      = callback; }
     virtual void link_on_text_entered           (CALLBACK_BOOL callback) { _on_text_entered            = callback; }
@@ -77,31 +78,31 @@ public:
 protected:
     // m.1a (Internal functionalities)
     void _init_shape();
-    bool _internal_handle_event(sf::Event event);
+    bool _internal_handle_event(const std::optional<sf::Event> event);
 
     // m.1b (Callback wrappers)
-    virtual bool _internal_on_window_closed          (sf::Event event);
-    virtual bool _internal_on_window_resized         (sf::Event event);
-    virtual bool _internal_on_window_lost_focus      (sf::Event event);
-    virtual bool _internal_on_window_gained_focus    (sf::Event event);
-    virtual bool _internal_on_window_mouse_enter     (sf::Event event);
-    virtual bool _internal_on_window_mouse_leave     (sf::Event event);
-    virtual bool _internal_on_text_entered           (sf::Event event);
-    virtual bool _internal_on_key_press              (sf::Event event);
-    virtual bool _internal_on_key_release            (sf::Event event);
-    virtual bool _internal_on_mouse_wheel_scroll     (sf::Event event);
-    virtual bool _internal_on_mouse_click            (sf::Event event);
-    virtual bool _internal_on_mouse_release          (sf::Event event);
-    virtual bool _internal_on_mouse_move             (sf::Event event);
-    virtual bool _internal_on_joystick_button_press  (sf::Event event);
-    virtual bool _internal_on_joystick_button_release(sf::Event event);
-    virtual bool _internal_on_joystick_move          (sf::Event event);
-    virtual bool _internal_on_joystick_connect       (sf::Event event);
-    virtual bool _internal_on_joystick_disconnect    (sf::Event event);
-    virtual bool _internal_on_touch_begin            (sf::Event event);
-    virtual bool _internal_on_touch_move             (sf::Event event);
-    virtual bool _internal_on_touch_end              (sf::Event event);
-    virtual bool _internal_on_sensor_change          (sf::Event event);
+    virtual bool _internal_on_window_closed          (const std::optional<sf::Event> event);
+    virtual bool _internal_on_window_resized         (const std::optional<sf::Event> event);
+    virtual bool _internal_on_window_focus_lost      (const std::optional<sf::Event> event);
+    virtual bool _internal_on_window_focus_gained    (const std::optional<sf::Event> event);
+    virtual bool _internal_on_window_mouse_enter     (const std::optional<sf::Event> event);
+    virtual bool _internal_on_window_mouse_leave     (const std::optional<sf::Event> event);
+    virtual bool _internal_on_text_entered           (const std::optional<sf::Event> event);
+    virtual bool _internal_on_key_press              (const std::optional<sf::Event> event);
+    virtual bool _internal_on_key_release            (const std::optional<sf::Event> event);
+    virtual bool _internal_on_mouse_wheel_scroll     (const std::optional<sf::Event> event);
+    virtual bool _internal_on_mouse_click            (const std::optional<sf::Event> event);
+    virtual bool _internal_on_mouse_release          (const std::optional<sf::Event> event);
+    virtual bool _internal_on_mouse_move             (const std::optional<sf::Event> event);
+    virtual bool _internal_on_joystick_button_press  (const std::optional<sf::Event> event);
+    virtual bool _internal_on_joystick_button_release(const std::optional<sf::Event> event);
+    virtual bool _internal_on_joystick_move          (const std::optional<sf::Event> event);
+    virtual bool _internal_on_joystick_connect       (const std::optional<sf::Event> event);
+    virtual bool _internal_on_joystick_disconnect    (const std::optional<sf::Event> event);
+    virtual bool _internal_on_touch_begin            (const std::optional<sf::Event> event);
+    virtual bool _internal_on_touch_move             (const std::optional<sf::Event> event);
+    virtual bool _internal_on_touch_end              (const std::optional<sf::Event> event);
+    virtual bool _internal_on_sensor_change          (const std::optional<sf::Event> event);
 
     // d.1a (Static fields)
     static std::unordered_map<std::string, Widget*> _prototypes;
@@ -110,8 +111,8 @@ protected:
     // d.1c (Client callbacks)
     CALLBACK_BOOL _on_window_closed;
     CALLBACK_BOOL _on_window_resized;
-    CALLBACK_BOOL _on_window_lost_focus;
-    CALLBACK_BOOL _on_window_gained_focus;
+    CALLBACK_BOOL _on_window_focus_lost;
+    CALLBACK_BOOL _on_window_focus_gained;
     CALLBACK_BOOL _on_window_mouse_enter;
     CALLBACK_BOOL _on_window_mouse_leave;
     CALLBACK_BOOL _on_text_entered;
