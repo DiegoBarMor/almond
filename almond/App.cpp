@@ -15,11 +15,7 @@ void nd::App::setup(const std::string &filename, sf::Vector2f pos, sf::Vector2f 
 }
 
 nd::Widget* nd::App::get_widget(std::string id) {
-    nd::Widget* widget = nd::Widget::get_widget_by_id(id);
-    if (widget == nullptr) {
-        std::cerr << "WARNING: Widget with id '" << id << "' not found." << std::endl;
-    }
-    return widget;
+    return _widget_manager.get_widget_by_id(id);
 }
 
 void nd::App::manage_events() {
@@ -47,7 +43,7 @@ void nd::App::__create(const std::string &filename) {
         std::cout << "No NDG file provided. Creating empty Container as the root widget." << std::endl;
         __root = new nd::Container();
     }
-    __root->set_spec("ID", "root");
+    _widget_manager.set_id(__root, "root");
 }
 
 void nd::App::__build(sf::Vector2f pos, sf::Vector2f size) {

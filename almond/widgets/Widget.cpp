@@ -2,17 +2,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-std::unordered_map<std::string, nd::Widget*> nd::Widget::_table_id_widgets = {};
-
-nd::Widget* nd::Widget::get_widget_by_id(std::string id) {
-    return _table_id_widgets[id];
-}
-
 bool nd::Widget::set_spec(std::string key, std::string raw_value) {
-    if (key == "ID" || key == "IDENTIFIER") {
-        set_id(raw_value);
-        return true;
-    }
     if (key == "W" || key == "WEIGHT") {
         __weight = nd::parse_float_string(raw_value);
         return true;
@@ -38,11 +28,6 @@ bool nd::Widget::handle_event(const std::optional<sf::Event> event) {
 
 void nd::Widget::draw(sf::RenderWindow& window) {
     window.draw(_shape);
-}
-
-void nd::Widget::set_id(std::string id) {
-    __id = id;
-    _table_id_widgets[id] = this;
 }
 
 void nd::Widget::set_bg_color(sf::Color color) {

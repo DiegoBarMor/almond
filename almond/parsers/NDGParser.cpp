@@ -71,7 +71,10 @@ void nd::NDGParser::__parse_specs_val(char ch) {
         return;
     }
     if (__current != nullptr) {
-        if (!__current->set_spec(__specs_key, __buffer)) {
+        if (__specs_key == "ID" || __specs_key == "IDENTIFIER") {
+            __widget_manager.set_id(__current, __buffer);
+        }
+        else if (!__current->set_spec(__specs_key, __buffer)) {
             std::cerr << "Failed to set spec: " <<
             __specs_key << " = " << __buffer << std::endl;
         }

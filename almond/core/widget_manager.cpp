@@ -36,6 +36,18 @@ nd::Widget* nd::WidgetManager::create_widget(std::string type) {
         nd::Widget* widget = __prototypes[type]->clone();
         return widget;
     }
-    std::cerr << "Invalid GUI type: " << type << std::endl;
+    std::cerr << "WARNING: Invalid GUI type: " << type << std::endl;
+    return nullptr;
+}
+
+void nd::WidgetManager::set_id(nd::Widget* widget, std::string id) {
+    __id_widgets[id] = widget;
+}
+
+nd::Widget* nd::WidgetManager::get_widget_by_id(std::string id) {
+    if (__id_widgets.find(id) != __id_widgets.end()) {
+        return __id_widgets[id];
+    }
+    std::cerr << "WARNING: Widget with id '" << id << "' not found." << std::endl;
     return nullptr;
 }

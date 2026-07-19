@@ -15,9 +15,12 @@ public:
     }
     nd::Widget* create_widget(std::string type);
 
+    void set_id(nd::Widget* widget, std::string id);
+    Widget* get_widget_by_id(std::string id);
 
 private:
     std::unordered_map<std::string, nd::Widget*> __prototypes;
+    std::unordered_map<std::string, nd::Widget*> __id_widgets;
 
 };
 
