@@ -102,7 +102,7 @@ void nd::NDGParser::__parse_next_gui(char ch) {
 }
 
 void nd::NDGParser::__add_gui_widget() {
-    __current = nd::Widget::GUIFactory(__buffer, __prototypes);
+    __current = __widget_manager.create_widget(__buffer);
     if (__current == nullptr) {
         std::cerr << "Failed to create widget: " << __buffer << std::endl;
         return;

@@ -17,7 +17,6 @@ class Widget {
 public:
     // m.0a (Construction methods)
     Widget() {};
-    static Widget* GUIFactory(std::string type, std::unordered_map<std::string, nd::Widget*> prototypes);
     virtual Widget* clone() { return new Widget(); }
 
     // m.0b (Static methods)

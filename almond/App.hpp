@@ -2,6 +2,7 @@
 #include "widgets/Widget.hpp"
 #include "widgets/Containers.hpp"
 #include "widgets/Buttons.hpp"
+#include "core/widget_manager.hpp"
 #include "parsers/NDGParser.hpp"
 
 namespace nd {
@@ -39,11 +40,9 @@ protected:
     // Linking widget callbacks could be done here.
     virtual void _on_build() {};
 
-    std::unordered_map<std::string, Widget*> _prototypes;
-    std::unordered_map<std::string, Widget*> _table_id_widgets;
+    WidgetManager _widget_manager = WidgetManager();
 
 private:
-    void __init();
     void __create(const std::string &filename);
     void __build(sf::Vector2f pos, sf::Vector2f size);
 

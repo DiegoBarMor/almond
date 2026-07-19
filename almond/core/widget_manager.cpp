@@ -1,0 +1,41 @@
+#include "widget_manager.hpp"
+
+nd::WidgetManager::WidgetManager() {
+    __prototypes = {};
+    nd::Widget* pt_generic   = new nd::Widget();
+    nd::Widget* pt_container = new nd::Container();
+    nd::Widget* pt_row       = new nd::RowLayout();
+    nd::Widget* pt_col       = new nd::ColumnLayout();
+    nd::Widget* pt_text      = new nd::Text();
+    nd::Widget* pt_textinput = new nd::TextInput();
+    nd::Widget* pt_button    = new nd::LabeledButton();
+    nd::Widget* pt_checkbox  = new nd::CheckBox();
+    nd::Widget* pt_radio     = new nd::RadioButton();
+    __prototypes["SPACE"]        = pt_generic  ;
+    __prototypes[""]             = pt_generic  ;
+    __prototypes["CONTAINER"]    = pt_container;
+    __prototypes["BOX"]          = pt_container;
+    __prototypes["LAYOUTROW"]    = pt_row      ;
+    __prototypes["ROW"]          = pt_row      ;
+    __prototypes["LAYOUTCOL"]    = pt_col      ;
+    __prototypes["COL"]          = pt_col      ;
+    __prototypes["TEXT"]         = pt_text     ;
+    __prototypes["TXT"]          = pt_text     ;
+    __prototypes["TEXTINPUT"]    = pt_textinput;
+    __prototypes["TIN"]          = pt_textinput;
+    __prototypes["BUTTON"]       = pt_button   ;
+    __prototypes["BTT"]          = pt_button   ;
+    __prototypes["CHECKBOX"]     = pt_checkbox ;
+    __prototypes["CBX"]          = pt_checkbox ;
+    __prototypes["RADIOBUTTON"]  = pt_radio    ;
+    __prototypes["RBN"]          = pt_radio    ;
+}
+
+nd::Widget* nd::WidgetManager::create_widget(std::string type) {
+    if (__prototypes.find(type) != __prototypes.end()) {
+        nd::Widget* widget = __prototypes[type]->clone();
+        return widget;
+    }
+    std::cerr << "Invalid GUI type: " << type << std::endl;
+    return nullptr;
+}

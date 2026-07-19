@@ -11,7 +11,7 @@ bool callback_key_press(AppImplBasics* gui, const std::optional<sf::Event> event
 
 void AppImplBasics::_on_init() {
     // pre-creation operations, custom prototypes must be added here before parsing the GUI file
-    _prototypes["CUSTOM_WIDGET"] = new CustomWidget();
+    _widget_manager.add_prototype("CUSTOM_WIDGET", new CustomWidget());
 }
 
 void AppImplBasics::_on_create() {
