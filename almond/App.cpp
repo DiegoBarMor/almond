@@ -37,6 +37,8 @@ void nd::App::draw() {
 }
 
 void nd::App::__init() {
+    _prototypes = {};
+    _table_id_widgets = {};
     nd::Widget* pt_generic   = new nd::Widget();
     nd::Widget* pt_container = new nd::Container();
     nd::Widget* pt_row       = new nd::RowLayout();
@@ -46,29 +48,29 @@ void nd::App::__init() {
     nd::Widget* pt_button    = new nd::LabeledButton();
     nd::Widget* pt_checkbox  = new nd::CheckBox();
     nd::Widget* pt_radio     = new nd::RadioButton();
-    nd::Widget::add_prototype("SPACE",       pt_generic   );
-    nd::Widget::add_prototype("",            pt_generic   );
-    nd::Widget::add_prototype("CONTAINER",   pt_container );
-    nd::Widget::add_prototype("BOX",         pt_container );
-    nd::Widget::add_prototype("LAYOUTROW",   pt_row       );
-    nd::Widget::add_prototype("ROW",         pt_row       );
-    nd::Widget::add_prototype("LAYOUTCOL",   pt_col       );
-    nd::Widget::add_prototype("COL",         pt_col       );
-    nd::Widget::add_prototype("TEXT",        pt_text      );
-    nd::Widget::add_prototype("TXT",         pt_text      );
-    nd::Widget::add_prototype("TEXTINPUT",   pt_textinput );
-    nd::Widget::add_prototype("TIN",         pt_textinput );
-    nd::Widget::add_prototype("BUTTON",      pt_button    );
-    nd::Widget::add_prototype("BTT",         pt_button    );
-    nd::Widget::add_prototype("CHECKBOX",    pt_checkbox  );
-    nd::Widget::add_prototype("CBX",         pt_checkbox  );
-    nd::Widget::add_prototype("RADIOBUTTON", pt_radio     );
-    nd::Widget::add_prototype("RBN",         pt_radio     );
+    _prototypes["SPACE"]        = pt_generic  ;
+    _prototypes[""]             = pt_generic  ;
+    _prototypes["CONTAINER"]    = pt_container;
+    _prototypes["BOX"]          = pt_container;
+    _prototypes["LAYOUTROW"]    = pt_row      ;
+    _prototypes["ROW"]          = pt_row      ;
+    _prototypes["LAYOUTCOL"]    = pt_col      ;
+    _prototypes["COL"]          = pt_col      ;
+    _prototypes["TEXT"]         = pt_text     ;
+    _prototypes["TXT"]          = pt_text     ;
+    _prototypes["TEXTINPUT"]    = pt_textinput;
+    _prototypes["TIN"]          = pt_textinput;
+    _prototypes["BUTTON"]       = pt_button   ;
+    _prototypes["BTT"]          = pt_button   ;
+    _prototypes["CHECKBOX"]     = pt_checkbox ;
+    _prototypes["CBX"]          = pt_checkbox ;
+    _prototypes["RADIOBUTTON"]  = pt_radio    ;
+    _prototypes["RBN"]          = pt_radio    ;
 }
 
 void nd::App::__create(const std::string &filename) {
     if (filename != "") {
-        __root = nd::NDGParser::parse(filename);
+        __root = nd::NDGParser(_prototypes).parse(filename);
         if (__root == nullptr) {
             std::cerr << "Failed to parse NDG file: " << filename << std::endl;
             std::cout << "Creating empty Container as the root widget." << std::endl;

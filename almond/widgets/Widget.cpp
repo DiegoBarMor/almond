@@ -2,12 +2,11 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-std::unordered_map<std::string, nd::Widget*> nd::Widget::_prototypes = {};
 std::unordered_map<std::string, nd::Widget*> nd::Widget::_table_id_widgets = {};
 
-nd::Widget* nd::Widget::GUIFactory(std::string type) {
-    if (_prototypes.find(type) != _prototypes.end()) {
-        nd::Widget* widget = _prototypes[type]->clone();
+nd::Widget* nd::Widget::GUIFactory(std::string type, std::unordered_map<std::string, nd::Widget*> prototypes) {
+    if (prototypes.find(type) != prototypes.end()) {
+        nd::Widget* widget = prototypes[type]->clone();
         return widget;
     }
     std::cerr << "Invalid GUI type: " << type << std::endl;
@@ -16,10 +15,6 @@ nd::Widget* nd::Widget::GUIFactory(std::string type) {
 
 nd::Widget* nd::Widget::get_widget_by_id(std::string id) {
     return _table_id_widgets[id];
-}
-
-void nd::Widget::add_prototype(std::string type, nd::Widget* prototype) {
-    _prototypes[type] = prototype;
 }
 
 bool nd::Widget::set_spec(std::string key, std::string raw_value) {

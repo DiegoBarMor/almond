@@ -1,15 +1,14 @@
 #include "NDGParser.hpp"
 
 nd::Widget* nd::NDGParser::parse(const std::string &filename) {
-    nd::NDGParser parser = nd::NDGParser();
     std::ifstream file(filename);
     if (!file.is_open()) {
         std::cerr << "Failed to open file: " << filename << std::endl;
         return nullptr;
     }
-    parser.__parse_file(file);
+    __parse_file(file);
     file.close();
-    return parser.__root;
+    return __root;
 }
 
 void nd::NDGParser::__parse_file(std::ifstream &file) {
@@ -103,7 +102,7 @@ void nd::NDGParser::__parse_next_gui(char ch) {
 }
 
 void nd::NDGParser::__add_gui_widget() {
-    __current = nd::Widget::GUIFactory(__buffer);
+    __current = nd::Widget::GUIFactory(__buffer, __prototypes);
     if (__current == nullptr) {
         std::cerr << "Failed to create widget: " << __buffer << std::endl;
         return;

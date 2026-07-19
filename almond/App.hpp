@@ -39,6 +39,9 @@ protected:
     // Linking widget callbacks could be done here.
     virtual void _on_build() {};
 
+    std::unordered_map<std::string, Widget*> _prototypes;
+    std::unordered_map<std::string, Widget*> _table_id_widgets;
+
 private:
     void __init();
     void __create(const std::string &filename);

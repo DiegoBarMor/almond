@@ -138,7 +138,7 @@ bool nd::TextInput::_internal_on_text_entered(const std::optional<sf::Event> eve
         _text_str.clear();
         break;
     case 22: // Ctrl+V (Paste)
-        _text_str += sf::Clipboard::getString();
+        _text_str += sf::Clipboard::getString().toAnsiString();
         break;
     default:
         _text_str += text->unicode;

@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
+### Run this script only the first time an ALMOND/SFML project is used
+
 sudo apt update
 sudo apt install \
     libxrandr-dev \

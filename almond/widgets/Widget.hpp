@@ -17,12 +17,11 @@ class Widget {
 public:
     // m.0a (Construction methods)
     Widget() {};
-    static Widget* GUIFactory(std::string type);
+    static Widget* GUIFactory(std::string type, std::unordered_map<std::string, nd::Widget*> prototypes);
     virtual Widget* clone() { return new Widget(); }
 
     // m.0b (Static methods)
     static Widget* get_widget_by_id(std::string id);
-    static void add_prototype(std::string type, Widget* prototype);
 
     // m.0c (Lifecycle methods - SABHD)
     virtual bool set_spec(std::string key, std::string raw_value);
@@ -105,7 +104,6 @@ protected:
     virtual bool _internal_on_sensor_change          (const std::optional<sf::Event> event);
 
     // d.1a (Static fields)
-    static std::unordered_map<std::string, Widget*> _prototypes;
     static std::unordered_map<std::string, Widget*> _table_id_widgets;
 
     // d.1c (Client callbacks)

@@ -13,8 +13,10 @@ public:
         SPECS_VAL, // parsing the value for the current spec
         NEXT_GUI   // parsing brackets, deal with staying in the same GUI or moving to the next
     };
-    NDGParser() {}
-    static Widget* parse(const std::string &filename);
+    NDGParser(std::unordered_map<std::string, nd::Widget*> prototypes) {
+        __prototypes = prototypes;
+    }
+    Widget* parse(const std::string &filename);
 
 private:
     void __parse_file(std::ifstream &file);
@@ -29,6 +31,8 @@ private:
     bool __quote_open = false;
     std::string __buffer = "";
     std::string __specs_key = "";
+
+    std::unordered_map<std::string, nd::Widget*> __prototypes;
 
     State __state = State::TYPE;
     Widget* __root = nullptr;
