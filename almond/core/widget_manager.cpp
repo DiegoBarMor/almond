@@ -32,12 +32,16 @@ nd::WidgetManager::WidgetManager() {
 }
 
 nd::Widget* nd::WidgetManager::create_widget(std::string type) {
-    if (__prototypes.find(type) != __prototypes.end()) {
-        nd::Widget* widget = __prototypes[type]->clone();
-        return widget;
+    if (__prototypes.find(type) == __prototypes.end()) {
+        std::cerr << "WARNING: Invalid GUI type: " << type << std::endl;
+        return nullptr;
     }
-    std::cerr << "WARNING: Invalid GUI type: " << type << std::endl;
-    return nullptr;
+
+    nd::Widget* widget = __prototypes[type]->clone();
+    if (type == "RBN" || type == "RADIOBUTTON") {
+        __list_radiobuttons.push_back((nd::RadioButton*)widget);
+    }
+    return widget;
 }
 
 void nd::WidgetManager::set_id(nd::Widget* widget, std::string id) {
@@ -50,4 +54,12 @@ nd::Widget* nd::WidgetManager::get_widget_by_id(std::string id) {
     }
     std::cerr << "WARNING: Widget with id '" << id << "' not found." << std::endl;
     return nullptr;
+}
+
+void nd::WidgetManager::group_radiobuttons() {
+    if (!__is_first_build) return;
+    __is_first_build = false;
+
+    if (__list_radiobuttons.size() == 0) return;
+    __list_radiobuttons[0]->first_build(__list_radiobuttons);
 }

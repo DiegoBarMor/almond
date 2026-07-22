@@ -3,7 +3,7 @@
 #include "../../almond/App.hpp"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode({800, 600}), "ALMOND Example - TextINputs and Sliders");
+    sf::RenderWindow window(sf::VideoMode({800, 600}), "ALMOND Example 04 - TextINputs and Sliders");
     window.setFramerateLimit(60);
 
     nd::App gui = nd::App(window);

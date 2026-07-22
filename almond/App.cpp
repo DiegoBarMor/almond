@@ -50,4 +50,5 @@ void nd::App::__build(sf::Vector2f pos, sf::Vector2f size) {
     __root->set_pos(pos);
     __root->set_size(size);
     __root->build();
+    _widget_manager.group_radiobuttons();
 }

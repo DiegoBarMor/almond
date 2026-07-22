@@ -136,9 +136,14 @@ private:
 
 class RadioButton : public ToggleableButton {
 public:
+    struct RadioButtonGroup {
+        int selected_idx = -1;
+        std::vector<RadioButton*> buttons = {};
+    };
+
     // m.0a (Construction methods)
     RadioButton() : ToggleableButton() { }
-    RadioButton* clone() override;
+    RadioButton* clone() override { return new RadioButton(); }
 
     // m.0c (Lifecycle methods - SABHD)
     bool set_spec(std::string key, std::string raw_value) override;
@@ -148,24 +153,14 @@ public:
     // m.0d (Setters/Getters for the spec fields)
     std::string get_group_id() { return __group_id; }
 
+    // m.0g (Other functionalities)
+    void first_build(std::vector<nd::RadioButton*> list_radiobuttons);
+
 protected:
     // m.1b (Callback wrappers)
     void _internal_on_toggle() override;
 
 private:
-    struct RadioButtonGroup {
-        int selected_idx = -1;
-        std::vector<RadioButton*> buttons = {};
-    };
-
-    // m.2a (Internal functionalities)
-    void __first_build();
-
-    // d.2a (Static fields)
-    static bool __is_first_build;
-    static std::vector<RadioButton*> __list_radiobuttons;
-    static std::unordered_map<std::string, RadioButtonGroup*> __table_groups;
-
     // d.2b (Spec fields)
     std::string __group_id = "";
 
