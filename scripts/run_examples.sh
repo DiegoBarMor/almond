@@ -3,6 +3,8 @@ set -eu
 
 fbuild="build"
 
+bash scripts/build.sh
+
 for folder in "$fbuild/bin/examples/"*; do
     exec_name="app_$(basename "$folder")"
     (cd "$folder" && ./"$exec_name") &

@@ -4,37 +4,31 @@ The classes deriving from `nd::Widget` should follow these conventions, speciall
 1) Public interface (0)
     1) Methods (m.0)
         1) Construction methods (m.0a)
-        2) Static methods (m.0b)
-        3) Lifecycle methods - SABHD (m.0c)
-        4) Setters/Getters for spec fields (m.0d)
-        5) Setters/Getters for other internal fields (m.0e)
-        6) Linkers for the callbacks (m.0f)
-        7) Other functionalities (m.0g)
+        2) Lifecycle methods - SABHD (m.0c)
+        3) Setters/Getters for spec fields (m.0d)
+        4) Setters/Getters for other internal fields (m.0e)
+        5) Linkers for the callbacks (m.0f)
+        6) Other functionalities (m.0g)
 2) Protected (1)
     1) Methods (m.1)
         1) Internal functionalities (m.1a)
         2) Callback wrappers (m.1b)
     2) Data (d.1)
-        1) Static fields (d.1a)
-        2) Spec fields (d.1b)
-        4) Client callbacks (d.1c)
+        1) Spec fields (d.1b)
+        2) Client callbacks (d.1c)
         3) Other fields (d.1d)
 3) Private (2)
     1) Methods (m.2)
         1) Internal functionalities (m.2a)
     2) Data (d.2)
-        1) Static fields (d.2a)
-        2) Spec fields (d.2b)
-        3) Other fields (d.2c)
-```
+        1) Spec fields (d.2b)
+        2) Other fields (d.2c)
+```cpp
 class NewClass : public ParentClass {
 public:
     // m.0a (Construction methods)
     NewClass : ParentClass {}
     NewClass* clone() override { return new NewClass(); }
-
-    // m.0b (Static methods)
-    static void some_static_method(std::string str, nd::Widget* widget);
 
     // m.0c (Lifecycle methods - SABHD)
     bool set_spec(std::string key, std::string raw_value) override;
@@ -74,11 +68,6 @@ protected:
     bool _internal_on_mouse_move   (const std::optional<sf::Event> event) override;
     bool _internal_on_key_press    (const std::optional<sf::Event> event) override;
 
-    // d.1a (Static fields)
-    static std::unordered_map<
-        std::string, std::vector<nd::Widget*>
-    > _some_protected_table; // init in the .cpp file
-
     // d.1b (Spec fields)
     bool _spec_0 = false;
 
@@ -94,9 +83,6 @@ protected:
 private:
     // m.2a (Internal functionalities)
     void __some_private_functionality();
-
-    // d.2a (Static fields)
-    static std::unordered_map<std::string, int> __some_private_table; // init in the .cpp file
 
     // d.2b (Spec fields)
     std::string __spec_1 = "";

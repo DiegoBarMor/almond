@@ -1,5 +1,6 @@
 #pragma once
 #include <fstream>
+#include "../core/widget_manager.hpp"
 #include "../widgets/Widget.hpp"
 
 namespace nd {
@@ -13,8 +14,8 @@ public:
         SPECS_VAL, // parsing the value for the current spec
         NEXT_GUI   // parsing brackets, deal with staying in the same GUI or moving to the next
     };
-    NDGParser() {}
-    static Widget* parse(const std::string &filename);
+    NDGParser(nd::WidgetManager &widget_manager) : __widget_manager(widget_manager) {}
+    Widget* parse(const std::string &filename);
 
 private:
     void __parse_file(std::ifstream &file);
@@ -29,6 +30,8 @@ private:
     bool __quote_open = false;
     std::string __buffer = "";
     std::string __specs_key = "";
+
+    nd::WidgetManager& __widget_manager;
 
     State __state = State::TYPE;
     Widget* __root = nullptr;

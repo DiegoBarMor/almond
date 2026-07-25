@@ -3,7 +3,7 @@
 #include "../../almond/App.hpp"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode({800, 600}), "ALMOND Example - Buttons");
+    sf::RenderWindow window(sf::VideoMode({800, 600}), "ALMOND Example 01 - Buttons");
     window.setFramerateLimit(60);
 
     nd::App gui = nd::App(window);
