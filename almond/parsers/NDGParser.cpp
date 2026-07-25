@@ -1,15 +1,14 @@
 #include "NDGParser.hpp"
 
 nd::Widget* nd::NDGParser::parse(const std::string &filename) {
-    nd::NDGParser parser = nd::NDGParser();
     std::ifstream file(filename);
     if (!file.is_open()) {
         std::cerr << "Failed to open file: " << filename << std::endl;
         return nullptr;
     }
-    parser.__parse_file(file);
+    __parse_file(file);
     file.close();
-    return parser.__root;
+    return __root;
 }
 
 void nd::NDGParser::__parse_file(std::ifstream &file) {
@@ -72,7 +71,10 @@ void nd::NDGParser::__parse_specs_val(char ch) {
         return;
     }
     if (__current != nullptr) {
-        if (!__current->set_spec(__specs_key, __buffer)) {
+        if (__specs_key == "ID" || __specs_key == "IDENTIFIER") {
+            __widget_manager.set_id(__current, __buffer);
+        }
+        else if (!__current->set_spec(__specs_key, __buffer)) {
             std::cerr << "Failed to set spec: " <<
             __specs_key << " = " << __buffer << std::endl;
         }
@@ -103,7 +105,7 @@ void nd::NDGParser::__parse_next_gui(char ch) {
 }
 
 void nd::NDGParser::__add_gui_widget() {
-    __current = nd::Widget::GUIFactory(__buffer);
+    __current = __widget_manager.create_widget(__buffer);
     if (__current == nullptr) {
         std::cerr << "Failed to create widget: " << __buffer << std::endl;
         return;

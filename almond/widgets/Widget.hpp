@@ -17,12 +17,7 @@ class Widget {
 public:
     // m.0a (Construction methods)
     Widget() {};
-    static Widget* GUIFactory(std::string type);
     virtual Widget* clone() { return new Widget(); }
-
-    // m.0b (Static methods)
-    static Widget* get_widget_by_id(std::string id);
-    static void add_prototype(std::string type, Widget* prototype);
 
     // m.0c (Lifecycle methods - SABHD)
     virtual bool set_spec(std::string key, std::string raw_value);
@@ -32,10 +27,8 @@ public:
     virtual void draw(sf::RenderWindow& window);
 
     // m.0d (Setters/Getters for the spec fields)
-    void        set_id      (std::string id );
     void        set_weight  (float weight   ) { __weight = weight; }
     void        set_bg_color(sf::Color color);
-    std::string get_id      ()                { return __id;       }
     float       get_weight  ()                { return __weight;   }
     sf::Color   get_bg_color()                { return _bg_color;  }
 
@@ -104,10 +97,6 @@ protected:
     virtual bool _internal_on_touch_end              (const std::optional<sf::Event> event);
     virtual bool _internal_on_sensor_change          (const std::optional<sf::Event> event);
 
-    // d.1a (Static fields)
-    static std::unordered_map<std::string, Widget*> _prototypes;
-    static std::unordered_map<std::string, Widget*> _table_id_widgets;
-
     // d.1c (Client callbacks)
     CALLBACK_BOOL _on_window_closed;
     CALLBACK_BOOL _on_window_resized;
@@ -140,7 +129,6 @@ protected:
 
 private:
     // d.2b (Spec fields)
-    std::string __id = "";
     float __weight = 1.f;
 
     // d.2c (Other fields)

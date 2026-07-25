@@ -8,8 +8,8 @@ namespace nd {
 class Text : public Widget {
 public:
     // m.0a (Construction methods)
-    Text();
-    Text* clone() override { return new Text(); }
+    Text(sf::Font font) : Widget(), font(font), _text_obj(sf::Text(font)) {}
+    Text* clone() override { return new Text(font); }
 
     // m.0c (Lifecycle methods - SABHD)
     bool set_spec(std::string key, std::string raw_value) override;
@@ -24,20 +24,20 @@ public:
     unsigned int get_font_size ()                  { return __font_size;  }
     sf::Color    get_font_color()                  { return _font_color;  }
 
+    // d.0d (Other fields)
+    sf::Font font = sf::Font();
+
+protected:
     // d.1b (Spec fields)
     std::string _text_str = "";
     sf::Color _font_color = sf::Color::White;
 
     // d.1d (Other fields)
-    sf::Text _text_obj = sf::Text(*__font);
+    sf::Text _text_obj = sf::Text(font);
 
 private:
     // m.2a (Internal functionalities)
     void __update_sfml_text();
-
-    // d.2a (Static fields)
-    static sf::Font* __font;
-    static bool __font_loaded;
 
     // d.2b (Spec fields)
     unsigned int __font_size = 20;
@@ -48,8 +48,8 @@ private:
 class TextInput : public Text {
 public:
     // m.0a (Construction methods)
-    TextInput();
-    TextInput* clone() override { return new TextInput(); }
+    TextInput(sf::Font font);
+    TextInput* clone() override { return new TextInput(font); }
 
     // m.0c (Lifecycle methods - SABHD)
     bool set_spec(std::string key, std::string raw_value) override;
