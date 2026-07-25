@@ -1,19 +1,6 @@
 #include "Texts.hpp"
 
-sf::Font *nd::Text::__font = new sf::Font();
-bool nd::Text::__font_loaded = false;
-
 ////////////////////////////////////////////////////////////////////////////////
-
-nd::Text::Text() : nd::Widget() {
-    if (!__font_loaded) {
-        if (!__font->openFromMemory(nd::tff_crimson_roman, nd::size_crimson_roman)) {
-            std::cerr << "Error loading font" << std::endl;
-            return;
-        }
-    }
-}
-
 bool nd::Text::set_spec(std::string key, std::string raw_value) {
     if (key == "T" || key == "TEXT") {
         _text_str = raw_value;
@@ -53,15 +40,14 @@ void nd::Text::draw(sf::RenderWindow& window) {
 }
 
 void nd::Text::__update_sfml_text() {
-    if (__font == nullptr) return;
-    _text_obj.setFont(*__font);
+    _text_obj.setFont(font);
     _text_obj.setString(_text_str);
     _text_obj.setCharacterSize(__font_size);
     _text_obj.setFillColor(_font_color);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-nd::TextInput::TextInput() : Text() {
+nd::TextInput::TextInput(sf::Font font) : Text(font) {
     _font_color = sf::Color::Black;
     set_bg_color(sf::Color(0x4A4A4AFF));
 }

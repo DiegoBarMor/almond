@@ -24,6 +24,7 @@ private:
     std::unordered_map<std::string, nd::Widget*> __prototypes;
     std::unordered_map<std::string, nd::Widget*> __id_widgets;
 
+    sf::Font __font;
     bool __is_first_build = true;
     std::vector<nd::RadioButton*> __list_radiobuttons = {};
 };

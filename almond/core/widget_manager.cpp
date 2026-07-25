@@ -1,14 +1,18 @@
 #include "widget_manager.hpp"
 
 nd::WidgetManager::WidgetManager() {
+    if (!__font.openFromMemory(nd::tff_crimson_roman, nd::size_crimson_roman)) {
+        std::cerr << "Error loading font" << std::endl;
+    }
+
     __prototypes = {};
     nd::Widget* pt_generic   = new nd::Widget();
     nd::Widget* pt_container = new nd::Container();
     nd::Widget* pt_row       = new nd::RowLayout();
     nd::Widget* pt_col       = new nd::ColumnLayout();
-    nd::Widget* pt_text      = new nd::Text();
-    nd::Widget* pt_textinput = new nd::TextInput();
-    nd::Widget* pt_button    = new nd::LabeledButton();
+    nd::Widget* pt_text      = new nd::Text(__font);
+    nd::Widget* pt_textinput = new nd::TextInput(__font);
+    nd::Widget* pt_button    = new nd::LabeledButton(__font);
     nd::Widget* pt_checkbox  = new nd::CheckBox();
     nd::Widget* pt_radio     = new nd::RadioButton();
     __prototypes["SPACE"]        = pt_generic  ;
