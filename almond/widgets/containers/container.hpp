@@ -8,7 +8,7 @@ public:
     Container* clone() override { return new Container(); }
 
     bool set_spec(std::string key, std::string raw_value) override; // HEAD@set_spec
-    void add_child(Widget*) override; // HEAD@add_child
+    void add_child(Widget* child) override; // HEAD@add_child
     void build() override; // HEAD@build
     bool handle_event(const std::optional<sf::Event> event) override; // HEAD@handle_event
     void draw(sf::RenderWindow& window) override; // HEAD@draw
