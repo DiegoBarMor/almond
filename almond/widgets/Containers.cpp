@@ -4,11 +4,11 @@
 
 bool nd::Container::set_spec(std::string key, std::string raw_value) {
     if (key == "P" || key == "PADDING") {
-        __padding = nd::parse_float_string(raw_value);
+        __padding = nd::ParserStrings::str2float(raw_value);
         return true;
     }
     if (key == "S" || key == "SPACING") {
-        __spacing = nd::parse_float_string(raw_value);
+        __spacing = nd::ParserStrings::str2float(raw_value);
         return true;
     }
     return nd::Widget::set_spec(key, raw_value);

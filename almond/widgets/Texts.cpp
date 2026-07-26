@@ -13,7 +13,7 @@ bool nd::Text::set_spec(std::string key, std::string raw_value) {
         return true;
     }
     if (key == "FC" || key == "FONT_COLOR") {
-        _font_color = nd::parse_color_string(raw_value);
+        _font_color = nd::ParserStrings::str2color(raw_value);
         __update_sfml_text();
         return true;
     }
@@ -58,7 +58,7 @@ bool nd::TextInput::set_spec(std::string key, std::string raw_value) {
         return true;
     }
     if (key == "HC" || key == "HINT_COLOR") {
-        __hint_color = nd::parse_color_string(raw_value);
+        __hint_color = nd::ParserStrings::str2color(raw_value);
         return true;
     }
     return nd::Text::set_spec(key, raw_value);

@@ -1,6 +1,7 @@
-#include "NDGParser.hpp"
+#include "parser_ndg.hpp"
 
-nd::Widget* nd::NDGParser::parse(const std::string &filename) {
+// -----------------------------------------------------------------------------
+nd::Widget* nd::ParserNDG::parse(const std::string &filename) { // FUNC@parse
     std::ifstream file(filename);
     if (!file.is_open()) {
         std::cerr << "Failed to open file: " << filename << std::endl;
@@ -9,9 +10,11 @@ nd::Widget* nd::NDGParser::parse(const std::string &filename) {
     __parse_file(file);
     file.close();
     return __root;
-}
+} // END@parse
 
-void nd::NDGParser::__parse_file(std::ifstream &file) {
+
+// -----------------------------------------------------------------------------
+void nd::ParserNDG::__parse_file(std::ifstream &file) { // FUNC@__parse_file
     char ch;
     while (file.get(ch)) {
         if (ch == '\n' || ch == '\r') {
@@ -29,9 +32,11 @@ void nd::NDGParser::__parse_file(std::ifstream &file) {
             __parse_next_gui(ch); break;
         }
     }
-}
+} // END@__parse_file
 
-void nd::NDGParser::__parse_type(char ch) {
+
+// -----------------------------------------------------------------------------
+void nd::ParserNDG::__parse_type(char ch) { // FUNC@__parse_type
     if (__ignore(ch)) return;
     if (ch != '(' && ch != '{') {
         __buffer += toupper(ch);
@@ -39,9 +44,11 @@ void nd::NDGParser::__parse_type(char ch) {
     }
     __parse_next_gui(ch);
     __buffer = "";
-}
+} // END@__parse_type
 
-void nd::NDGParser::__parse_specs_key(char ch) {
+
+// -----------------------------------------------------------------------------
+void nd::ParserNDG::__parse_specs_key(char ch) { // FUNC@__parse_specs_key
     if (__ignore(ch)) return;
     if (ch == ')') {
         __state = State::NEXT_GUI;
@@ -54,9 +61,11 @@ void nd::NDGParser::__parse_specs_key(char ch) {
     __specs_key = __buffer;
     __state = State::SPECS_VAL;
     __buffer = "";
-}
+} // END@__parse_specs_key
 
-void nd::NDGParser::__parse_specs_val(char ch) {
+
+// -----------------------------------------------------------------------------
+void nd::ParserNDG::__parse_specs_val(char ch) { // FUNC@__parse_specs_val
     if (ch == '"') {
         __quote_open = !__quote_open;
         return;
@@ -81,9 +90,11 @@ void nd::NDGParser::__parse_specs_val(char ch) {
     }
     __state = ch == ';' ? State::SPECS_KEY : State::NEXT_GUI;
     __buffer = "";
-}
+} // END@__parse_specs_val
 
-void nd::NDGParser::__parse_next_gui(char ch) {
+
+// -----------------------------------------------------------------------------
+void nd::ParserNDG::__parse_next_gui(char ch) { // FUNC@__parse_next_gui
     if (__ignore(ch)) return;
     if (ch == '(') {
         __add_gui_widget();
@@ -102,9 +113,11 @@ void nd::NDGParser::__parse_next_gui(char ch) {
     }
     __buffer += toupper(ch);
     __state = State::TYPE;
-}
+} // END@__parse_next_gui
 
-void nd::NDGParser::__add_gui_widget() {
+
+// -----------------------------------------------------------------------------
+void nd::ParserNDG::__add_gui_widget() { // FUNC@__add_gui_widget
     __current = __widget_manager.create_widget(__buffer);
     if (__current == nullptr) {
         std::cerr << "Failed to create widget: " << __buffer << std::endl;
@@ -116,9 +129,14 @@ void nd::NDGParser::__add_gui_widget() {
     }
     if (__parent == nullptr) { __parent = __root; }
     __parent->add_child(__current);
-}
+} // END@__add_gui_widget
 
-bool nd::NDGParser::__ignore(char ch) {
+
+// -----------------------------------------------------------------------------
+bool nd::ParserNDG::__ignore(char ch) { // FUNC@__ignore
     if (ch == '#') { __reading_comment = true; }
     return __reading_comment || std::isspace(ch);
-}
+} // END@__ignore
+
+
+// -----------------------------------------------------------------------------

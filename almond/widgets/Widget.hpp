@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
 #include <SFML/Main.hpp>
-#include "../parsers/strings.hpp"
+#include "../parsers/parser_strings.hpp"
 
 #define CALLBACK_BOOL std::function<bool(const std::optional<sf::Event>)>
 #define CALLBACK_VOID std::function<void()>

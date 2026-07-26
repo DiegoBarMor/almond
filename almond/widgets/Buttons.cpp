@@ -4,23 +4,23 @@
 
 bool nd::ButtonPrimitive::set_spec(std::string key, std::string raw_value) {
     if (key == "E" || key == "ENABLED") {
-        set_enabled(nd::parse_bool_string(raw_value));
+        set_enabled(nd::ParserStrings::str2bool(raw_value));
         return true;
     }
     if (key == "BGI" || key == "BG_IDLE") {
-        __bg_idle = nd::parse_color_string(raw_value);
+        __bg_idle = nd::ParserStrings::str2color(raw_value);
         return true;
     }
     if (key == "BGH" || key == "BG_HOVER") {
-        __bg_hover = nd::parse_color_string(raw_value);
+        __bg_hover = nd::ParserStrings::str2color(raw_value);
         return true;
     }
     if (key == "BGP" || key == "BG_PRESSED") {
-        __bg_pressed = nd::parse_color_string(raw_value);
+        __bg_pressed = nd::ParserStrings::str2color(raw_value);
         return true;
     }
     if (key == "BGD" || key == "BG_DISABLED") {
-        __bg_disabled = nd::parse_color_string(raw_value);
+        __bg_disabled = nd::ParserStrings::str2color(raw_value);
         return true;
     }
     return nd::Widget::set_spec(key, raw_value);
@@ -124,15 +124,15 @@ void nd::LabeledButton::draw(sf::RenderWindow& window) {
 
 bool nd::ToggleableButton::set_spec(std::string key, std::string raw_value) {
     if (key == "CHK" || key == "CHECKED") {
-        set_checked(nd::parse_bool_string(raw_value));
+        set_checked(nd::ParserStrings::str2bool(raw_value));
         return true;
     }
     if (key == "FGM" || key == "COLOR_MARK") {
-        _color_mark = nd::parse_color_string(raw_value);
+        _color_mark = nd::ParserStrings::str2color(raw_value);
         return true;
     }
     if (key == "OTH" || key == "OUTLINE_THICKNESS") {
-        _outline_thickness = nd::parse_ratio_string(raw_value);
+        _outline_thickness = nd::ParserStrings::str2ratio(raw_value);
         return true;
     }
     return nd::ButtonPrimitive::set_spec(key, raw_value);

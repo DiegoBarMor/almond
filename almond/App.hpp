@@ -3,7 +3,7 @@
 #include "widgets/Containers.hpp"
 #include "widgets/Buttons.hpp"
 #include "core/widget_manager.hpp"
-#include "parsers/NDGParser.hpp"
+#include "parsers/parser_ndg.hpp"
 
 namespace nd {
 ////////////////////////////////////////////////////////////////////////////////

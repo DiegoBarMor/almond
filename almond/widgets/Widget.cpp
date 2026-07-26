@@ -4,11 +4,11 @@
 
 bool nd::Widget::set_spec(std::string key, std::string raw_value) {
     if (key == "W" || key == "WEIGHT") {
-        __weight = nd::parse_float_string(raw_value);
+        __weight = nd::ParserStrings::str2float(raw_value);
         return true;
     }
     if (key == "BG" || key == "BG_COLOR") {
-        _bg_color = nd::parse_color_string(raw_value);
+        _bg_color = nd::ParserStrings::str2color(raw_value);
         return true;
     }
     return false;

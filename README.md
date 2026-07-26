@@ -24,7 +24,7 @@ The GUI is formed by a collection of **widgets** that interact with the user and
 
 Widgets are characterized by **specs** (short for *specifications*), which are pieces of data given by the client, either through the NDG file or by accessing through the public interface of the widgets directly. Specs introduced by a widget class carry on in widgets that are derived via inheritance. Other internal characteristics of the widgets, such as position and size, might also be accessible via the widget's public interface.
 
-### The NDGParser class
+### The ParserNDG class
 [TODO]
 
 ### The App class
@@ -69,7 +69,7 @@ Widget (x)?
 Classes that can't be instantiated directly are denoted with a `(x)`.
 
 ### About the classes
-- `nd::Widget`: Provides a public interface common to any kind of widget. It implements basic GUI behaviour, such as building and displaying a shape and event handling. This allows the `NDGParser` to construct different widgets, containers, etc without the need of knowing what they are, as it just passes construction responsability to `nd::Widget::GUIFactory` in the form of strings, and `nd::Widget` instantiates the widgets by cloning their respective prototype from the  `nd::WidgetManager::__prototypes` hashtable. This table is to be filled out by the `App` (and its implementations) using `nd::Widget::add_prototype` before performing any parsing. The `NDGParser` uses a similar approach with setting `specs`: it passes responsability to the virtual `nd::Widget::set_spec`, which can be overriden by derived classes to accept more kinds of `specs`. `nd::Widget` shouldn't be instantiated directly, so it has no prototype.
+- `nd::Widget`: Provides a public interface common to any kind of widget. It implements basic GUI behaviour, such as building and displaying a shape and event handling. This allows the `ParserNDG` to construct different widgets, containers, etc without the need of knowing what they are, as it just passes construction responsability to `nd::Widget::GUIFactory` in the form of strings, and `nd::Widget` instantiates the widgets by cloning their respective prototype from the  `nd::WidgetManager::__prototypes` hashtable. This table is to be filled out by the `App` (and its implementations) using `nd::Widget::add_prototype` before performing any parsing. The `ParserNDG` uses a similar approach with setting `specs`: it passes responsability to the virtual `nd::Widget::set_spec`, which can be overriden by derived classes to accept more kinds of `specs`. `nd::Widget` shouldn't be instantiated directly, so it has no prototype.
 - `nd::Container`: Implements the possibility of building and holding other widgets as children. Instantiating `nd::Container` directly provides a container that makes its children overlap by assigning them the same size and position.
 - `nd::RowLayout`: This is a more specialized container that space its children horizontally according to their weights.
 - `nd::ColumnLayout`: This is a more specialized container that space its children vertically according to their weights.

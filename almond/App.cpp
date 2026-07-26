@@ -33,7 +33,7 @@ void nd::App::draw() {
 
 void nd::App::__create(const std::string &filename) {
     if (filename != "") {
-        __root = nd::NDGParser(_widget_manager).parse(filename);
+        __root = nd::ParserNDG(_widget_manager).parse(filename);
         if (__root == nullptr) {
             std::cerr << "Failed to parse NDG file: " << filename << std::endl;
             std::cout << "Creating empty Container as the root widget." << std::endl;
