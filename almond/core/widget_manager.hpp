@@ -8,6 +8,8 @@
 #include "../widgets/containers/container.hpp"
 #include "../widgets/containers/layout_column.hpp"
 #include "../widgets/containers/layout_row.hpp"
+#include "../widgets/texts/text.hpp"
+#include "../widgets/texts/text_input.hpp"
 
 namespace nd {
 class WidgetManager {

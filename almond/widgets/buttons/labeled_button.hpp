@@ -1,6 +1,6 @@
 #pragma once
 #include "button_primitive.hpp"
-#include "../Texts.hpp"
+#include "../texts/text.hpp"
 
 namespace nd {
 class LabeledButton : public ButtonPrimitive {

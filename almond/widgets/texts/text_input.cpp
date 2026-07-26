@@ -1,58 +1,14 @@
-#include "Texts.hpp"
+#include "text_input.hpp"
 
-////////////////////////////////////////////////////////////////////////////////
-bool nd::Text::set_spec(std::string key, std::string raw_value) {
-    if (key == "T" || key == "TEXT") {
-        _text_str = raw_value;
-        __update_sfml_text();
-        return true;
-    }
-    if (key == "FS" || key == "FONT_SIZE") {
-        __font_size = std::stoi(raw_value);
-        __update_sfml_text();
-        return true;
-    }
-    if (key == "FC" || key == "FONT_COLOR") {
-        _font_color = nd::ParserStrings::str2color(raw_value);
-        __update_sfml_text();
-        return true;
-    }
-    return nd::Widget::set_spec(key, raw_value);
-}
-
-void nd::Text::build() {
-    nd::Widget::build();
-    __update_sfml_text();
-
-    sf::Vector2f pos = _pos;
-    sf::FloatRect bounds = _text_obj.getLocalBounds();
-
-    // Center the text
-    if (_size.x > bounds.size.x) { pos.x += (_size.x - bounds.size.x) / 2.0f; }
-    if (_size.y > bounds.size.y) { pos.y += (_size.y - bounds.size.y) / 2.0f; }
-
-    _text_obj.setPosition(pos);
-}
-
-void nd::Text::draw(sf::RenderWindow& window) {
-    window.draw(_shape);
-    window.draw(_text_obj);
-}
-
-void nd::Text::__update_sfml_text() {
-    _text_obj.setFont(font);
-    _text_obj.setString(_text_str);
-    _text_obj.setCharacterSize(__font_size);
-    _text_obj.setFillColor(_font_color);
-}
-
-////////////////////////////////////////////////////////////////////////////////
-nd::TextInput::TextInput(sf::Font font) : Text(font) {
+// -----------------------------------------------------------------------------
+nd::TextInput::TextInput(sf::Font font) : Text(font) { // FUNC@TextInput
     _font_color = sf::Color::Black;
     set_bg_color(sf::Color(0x4A4A4AFF));
-}
+} // END@TextInput
 
-bool nd::TextInput::set_spec(std::string key, std::string raw_value) {
+
+// -----------------------------------------------------------------------------
+bool nd::TextInput::set_spec(std::string key, std::string raw_value) { // FUNC@set_spec
     if (key == "H" || key == "HINT") {
         __hint_str = raw_value;
         return true;
@@ -62,9 +18,11 @@ bool nd::TextInput::set_spec(std::string key, std::string raw_value) {
         return true;
     }
     return nd::Text::set_spec(key, raw_value);
-}
+} // END@set_spec
 
-void nd::TextInput::build() {
+
+// -----------------------------------------------------------------------------
+void nd::TextInput::build() { // FUNC@build
     std::string temp_str = _text_str;
     sf::Color temp_color = _font_color;
 
@@ -84,24 +42,30 @@ void nd::TextInput::build() {
     __shape_overlay.setFillColor(
         __is_focused ? __color_overlay_focused : __color_overlay_idle
     );
-}
+} // END@build
 
-void nd::TextInput::draw(sf::RenderWindow& window) {
+
+// -----------------------------------------------------------------------------
+void nd::TextInput::draw(sf::RenderWindow& window) { // FUNC@draw
     window.draw(_shape);
     window.draw(__shape_overlay);
     window.draw(_text_obj);
-}
+} // END@draw
 
-bool nd::TextInput::_internal_on_mouse_release(const std::optional<sf::Event> event) {
+
+// -----------------------------------------------------------------------------
+bool nd::TextInput::_internal_on_mouse_release(const std::optional<sf::Event> event) { // FUNC@_internal_on_mouse_release
     if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonReleased>()) {
         __is_focused = INTERSECTS_MOUSE(mouseButton->position);
     }
     build();
     if (!_on_mouse_release) return false;
     return _on_mouse_release(event);
-}
+} // END@_internal_on_mouse_release
 
-bool nd::TextInput::_internal_on_text_entered(const std::optional<sf::Event> event) {
+
+// -----------------------------------------------------------------------------
+bool nd::TextInput::_internal_on_text_entered(const std::optional<sf::Event> event) { // FUNC@_internal_on_text_entered
     if (!__is_focused) return false;
 
     const auto* text = event->getIf<sf::Event::TextEntered>();
@@ -132,6 +96,7 @@ bool nd::TextInput::_internal_on_text_entered(const std::optional<sf::Event> eve
     }
     build();
     return nd::Text::_internal_on_text_entered(event);
-}
+} // END@_internal_on_text_entered
 
-////////////////////////////////////////////////////////////////////////////////
+
+// -----------------------------------------------------------------------------

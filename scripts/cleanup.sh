@@ -2,12 +2,10 @@
 set -eu
 
 fbuild="build"
-ftmp="_tmp_build"
+ftmp=$(mktemp -d)
 
-mkdir -p $ftmp/_deps
-mv $fbuild/_deps $ftmp/_deps
-
+mv $fbuild/_deps "$ftmp/_deps"
 rm -rf $fbuild
-mv $ftmp $fbuild
+mv "$ftmp/_deps" $fbuild/_deps
 
 clear
