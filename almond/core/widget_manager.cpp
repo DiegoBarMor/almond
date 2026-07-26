@@ -9,8 +9,8 @@ nd::WidgetManager::WidgetManager() { // FUNC@WidgetManager
     __prototypes = {};
     nd::Widget* pt_generic   = new nd::Widget();
     nd::Widget* pt_container = new nd::Container();
-    nd::Widget* pt_row       = new nd::RowLayout();
-    nd::Widget* pt_col       = new nd::ColumnLayout();
+    nd::Widget* pt_row       = new nd::LayoutRow();
+    nd::Widget* pt_col       = new nd::LayoutColumn();
     nd::Widget* pt_text      = new nd::Text(__font);
     nd::Widget* pt_textinput = new nd::TextInput(__font);
     nd::Widget* pt_button    = new nd::LabeledButton(__font);

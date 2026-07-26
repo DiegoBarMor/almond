@@ -1,6 +1,8 @@
 #pragma once
 #include "widgets/Widget.hpp"
-#include "widgets/Containers.hpp"
+#include "widgets/containers/container.hpp"
+#include "widgets/containers/layout_row.hpp"
+#include "widgets/containers/layout_column.hpp"
 #include "widgets/Buttons.hpp"
 #include "core/widget_manager.hpp"
 #include "parsers/parser_ndg.hpp"

@@ -1,7 +1,9 @@
 #pragma once
 #include "../widgets/Widget.hpp"
-#include "../widgets/Containers.hpp"
 #include "../widgets/Buttons.hpp"
+#include "../widgets/containers/container.hpp"
+#include "../widgets/containers/layout_row.hpp"
+#include "../widgets/containers/layout_column.hpp"
 
 namespace nd {
 class WidgetManager {
