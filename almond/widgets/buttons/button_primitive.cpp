@@ -46,55 +46,55 @@ bool nd::ButtonPrimitive::get_enabled() { // FUNC@get_enabled
 
 
 // -----------------------------------------------------------------------------
-bool nd::ButtonPrimitive::_internal_on_mouse_click(const std::optional<sf::Event> event) { // FUNC@_internal_on_mouse_click
+bool nd::ButtonPrimitive::_internal_on_mouse_button_pressed(const std::optional<sf::Event> event) { // FUNC@_internal_on_mouse_button_pressed
     if (_state == State::DISABLED) return false;
     if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonPressed>()) {
         if (!INTERSECTS_MOUSE(mouseButton->position)) return false;
     }
     __set_state(State::PRESSED);
-    if (!_on_mouse_click) return false;
-    return _on_mouse_click(event);
-} // END@_internal_on_mouse_click
+    if (!_on_mouse_button_pressed) return false;
+    return _on_mouse_button_pressed(event);
+} // END@_internal_on_mouse_button_pressed
 
 
 // -----------------------------------------------------------------------------
-bool nd::ButtonPrimitive::_internal_on_mouse_release(const std::optional<sf::Event> event) { // FUNC@_internal_on_mouse_release
+bool nd::ButtonPrimitive::_internal_on_mouse_button_released(const std::optional<sf::Event> event) { // FUNC@_internal_on_mouse_button_released
     if (_state == State::DISABLED) return false;
     if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonReleased>()) {
         if (INTERSECTS_MOUSE(mouseButton->position)) {
-            // update the button state and carry out _on_mouse_release as usual
+            // update the button state and carry out _on_mouse_button_released as usual
             __set_state(State::HOVER);
-            if (!_on_mouse_release) return false;
-            return _on_mouse_release(event);
+            if (!_on_mouse_button_released) return false;
+            return _on_mouse_button_released(event);
         }
     }
     if (_state == State::PRESSED) {
         // mouse was pressed on the button but released outside its bounds
-        // the button state is updated, but _on_mouse_release is not called
+        // the button state is updated, but _on_mouse_button_released is not called
         // basically, the on_release action is cancelled
         __set_state(State::IDLE);
     }
     return false;
-} // END@_internal_on_mouse_release
+} // END@_internal_on_mouse_button_released
 
 
 // -----------------------------------------------------------------------------
-bool nd::ButtonPrimitive::_internal_on_mouse_move(const std::optional<sf::Event> event) { // FUNC@_internal_on_mouse_move
+bool nd::ButtonPrimitive::_internal_on_mouse_moved(const std::optional<sf::Event> event) { // FUNC@_internal_on_mouse_moved
     if (_state == State::DISABLED) return false;
     if (const auto* mouseMove = event->getIf<sf::Event::MouseMoved>()) {
         if (INTERSECTS_MOUSE(mouseMove->position)) {
             if (_state == State::IDLE) {
                 __set_state(State::HOVER);
             }
-            if (!_on_mouse_move) return false;
-            return _on_mouse_move(event);
+            if (!_on_mouse_moved) return false;
+            return _on_mouse_moved(event);
         }
     }
     if (_state == State::HOVER) {
         __set_state(State::IDLE);
     }
     return false;
-} // END@_internal_on_mouse_move
+} // END@_internal_on_mouse_moved
 
 
 // -----------------------------------------------------------------------------

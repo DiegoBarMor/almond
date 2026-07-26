@@ -1,5 +1,5 @@
 #pragma once
-#include "../widgets/Widget.hpp"
+#include "../widgets/widget.hpp"
 #include "../widgets/buttons/button_primitive.hpp"
 #include "../widgets/buttons/check_box.hpp"
 #include "../widgets/buttons/labeled_button.hpp"

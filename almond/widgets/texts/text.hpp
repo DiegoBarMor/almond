@@ -1,5 +1,5 @@
 #pragma once
-#include "../Widget.hpp"
+#include "../widget.hpp"
 #include "font_crimson_roman.hpp"
 
 namespace nd {
@@ -15,9 +15,9 @@ public:
     void         set_text_str  (std::string text)  { _text_str = text;    }
     void         set_font_size (unsigned int size) { __font_size = size;  }
     void         set_font_color(sf::Color color)   { _font_color = color; }
-    std::string  get_text_str  ()                  { return _text_str;    }
-    unsigned int get_font_size ()                  { return __font_size;  }
-    sf::Color    get_font_color()                  { return _font_color;  }
+    std::string  get_text_str  () { return _text_str;   }
+    unsigned int get_font_size () { return __font_size; }
+    sf::Color    get_font_color() { return _font_color; }
 
     sf::Font font = sf::Font();
 

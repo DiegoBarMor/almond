@@ -1,7 +1,7 @@
 #pragma once
 #include <fstream>
 #include "../core/widget_manager.hpp"
-#include "../widgets/Widget.hpp"
+#include "../widgets/widget.hpp"
 
 namespace nd {
 class ParserNDG {

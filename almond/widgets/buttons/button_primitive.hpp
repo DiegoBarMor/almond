@@ -1,5 +1,5 @@
 #pragma once
-#include "../Widget.hpp"
+#include "../widget.hpp"
 
 namespace nd {
 class ButtonPrimitive : public Widget {
@@ -13,17 +13,17 @@ public:
     void      set_bg_pressed (sf::Color color) { __bg_pressed = color;  }
     void      set_bg_disabled(sf::Color color) { __bg_disabled = color; }
     bool      get_enabled    (); // HEAD@get_enabled
-    sf::Color get_bg_idle    ()                { return __bg_idle;      }
-    sf::Color get_bg_hover   ()                { return __bg_hover;     }
-    sf::Color get_bg_pressed ()                { return __bg_pressed;   }
-    sf::Color get_bg_disabled()                { return __bg_disabled;  }
+    sf::Color get_bg_idle    () { return __bg_idle;     }
+    sf::Color get_bg_hover   () { return __bg_hover;    }
+    sf::Color get_bg_pressed () { return __bg_pressed;  }
+    sf::Color get_bg_disabled() { return __bg_disabled; }
 
 protected:
     ButtonPrimitive() : Widget() { _bg_color = __bg_idle; }
 
-    bool _internal_on_mouse_click  (const std::optional<sf::Event> event) override; // HEAD@_internal_on_mouse_click
-    bool _internal_on_mouse_release(const std::optional<sf::Event> event) override; // HEAD@_internal_on_mouse_release
-    bool _internal_on_mouse_move   (const std::optional<sf::Event> event) override; // HEAD@_internal_on_mouse_move
+    bool _internal_on_mouse_button_pressed(const std::optional<sf::Event> event) override; // HEAD@_internal_on_mouse_button_pressed
+    bool _internal_on_mouse_button_released(const std::optional<sf::Event> event) override; // HEAD@_internal_on_mouse_button_released
+    bool _internal_on_mouse_moved(const std::optional<sf::Event> event) override; // HEAD@_internal_on_mouse_moved
 
     enum class State {
         IDLE,    // button isn't pressed and mouse isn't over it

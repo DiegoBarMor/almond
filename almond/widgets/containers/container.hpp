@@ -1,5 +1,5 @@
 #pragma once
-#include "../Widget.hpp"
+#include "../widget.hpp"
 
 namespace nd {
 class Container : public Widget {
@@ -15,8 +15,8 @@ public:
 
     void  set_padding(float padding) { __padding = padding; }
     void  set_spacing(float spacing) { __spacing = spacing; }
-    float get_padding()              { return __padding;    }
-    float get_spacing()              { return __spacing;    }
+    float get_padding() { return __padding; }
+    float get_spacing() { return __spacing; }
 
 protected:
     float _calc_offset_pos (int child_index); // HEAD@_calc_offset_pos

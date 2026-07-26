@@ -15,12 +15,12 @@ public:
 
     void        set_hint_str  (std::string hint) { __hint_str = hint;    }
     void        set_hint_color(sf::Color color)  { __hint_color = color; }
-    std::string get_hint_str  ()                 { return __hint_str;    }
-    sf::Color   get_hint_color()                 { return __hint_color;  }
+    std::string get_hint_str  () { return __hint_str;   }
+    sf::Color   get_hint_color() { return __hint_color; }
 
 protected:
-    bool _internal_on_mouse_release(const std::optional<sf::Event> event) override; // HEAD@_internal_on_mouse_release
-    bool _internal_on_text_entered (const std::optional<sf::Event> event) override; // HEAD@_internal_on_text_entered
+    bool _internal_on_mouse_button_released(const std::optional<sf::Event> event) override; // HEAD@_internal_on_mouse_button_released
+    bool _internal_on_text_entered(const std::optional<sf::Event> event) override; // HEAD@_internal_on_text_entered
 
     float _outline_thickness = 0.1f; // ratio (0.0f-1.0f) [WIP]
 

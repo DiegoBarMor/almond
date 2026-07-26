@@ -39,7 +39,7 @@ void AppImplCheckBoxes::_on_create() {
 
     // linking callbacks with lambda expressions
     // note that the AppImplCheckBoxes instance has to be captured with [] to access its methods
-    root->link_on_key_press([this](const std::optional<sf::Event> event) {
+    root->link_on_key_pressed([this](const std::optional<sf::Event> event) {
         return callback_key_press(this, event);
     });
 

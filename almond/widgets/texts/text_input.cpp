@@ -54,14 +54,14 @@ void nd::TextInput::draw(sf::RenderWindow& window) { // FUNC@draw
 
 
 // -----------------------------------------------------------------------------
-bool nd::TextInput::_internal_on_mouse_release(const std::optional<sf::Event> event) { // FUNC@_internal_on_mouse_release
+bool nd::TextInput::_internal_on_mouse_button_released(const std::optional<sf::Event> event) { // FUNC@_internal_on_mouse_button_released
     if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonReleased>()) {
         __is_focused = INTERSECTS_MOUSE(mouseButton->position);
     }
     build();
-    if (!_on_mouse_release) return false;
-    return _on_mouse_release(event);
-} // END@_internal_on_mouse_release
+    if (!_on_mouse_button_released) return false;
+    return _on_mouse_button_released(event);
+} // END@_internal_on_mouse_button_released
 
 
 // -----------------------------------------------------------------------------

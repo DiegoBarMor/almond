@@ -12,9 +12,9 @@ public:
     void      set_checked          (bool checked)    { _checked = checked;             }
     void      set_color_mark       (sf::Color color) { _color_mark = color;            }
     void      set_outline_thickness(float thickness) { _outline_thickness = thickness; }
-    bool      get_checked          ()                { return _checked;                }
-    sf::Color get_color_mark       ()                { return _color_mark;             }
-    float     get_outline_thickness()                { return _outline_thickness;      }
+    bool      get_checked          () { return _checked;           }
+    sf::Color get_color_mark       () { return _color_mark;        }
+    float     get_outline_thickness() { return _outline_thickness; }
 
     virtual void link_on_toggle(CALLBACK_VOID callback) { _on_toggle = callback; }
 

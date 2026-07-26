@@ -1,23 +1,21 @@
 #pragma once
-#include "core/widget_manager.hpp"
-#include "parsers/parser_ndg.hpp"
+#include "widget_manager.hpp"
+#include "../parsers/parser_ndg.hpp"
 
 namespace nd {
-////////////////////////////////////////////////////////////////////////////////
-
 class App {
 public:
     App(sf::RenderWindow& window) : __window(window) {}
     void setup(
         const std::string& filename = "",
         sf::Vector2f pos = {0, 0}, sf::Vector2f size = {0, 0}
-    );
+    ); // HEAD@setup
 
     // These methods are called by the client code when interacting with the GUI.
     sf::RenderWindow& get_window() { return __window; }
-    nd::Widget* get_widget(std::string id);
-    void manage_events();
-    void draw();
+    nd::Widget* get_widget(std::string id); // HEAD@get_widget
+    void manage_events(); // HEAD@manage_events
+    void draw(); // HEAD@draw
 
 protected:
     // Override this to link callbacks that could be handled "globally" by the App.
@@ -40,14 +38,12 @@ protected:
     WidgetManager _widget_manager = WidgetManager();
 
 private:
-    void __create(const std::string& filename);
-    void __build(sf::Vector2f pos, sf::Vector2f size);
+    void __create(const std::string& filename); // HEAD@__create
+    void __build(sf::Vector2f pos, sf::Vector2f size); // HEAD@__build
 
     Widget* __root = nullptr;
     sf::RenderWindow& __window;
     sf::Vector2f __pos = {0, 0};
     sf::Vector2f __size = {0, 0};
 };
-
-////////////////////////////////////////////////////////////////////////////////
 }

@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 
-#include "../../almond/App.hpp"
+#include "../../almond/core/app.hpp"
 
 int main() {
     sf::RenderWindow window(sf::VideoMode({800, 600}), "ALMOND Example 01 - Buttons");
@@ -11,11 +11,11 @@ int main() {
 
     ////// Callbacks
     nd::Widget* root = gui.get_widget("root");
-    root->link_on_window_closed([&gui](const std::optional<sf::Event> event) {
+    root->link_on_closed([&gui](const std::optional<sf::Event> event) {
         gui.get_window().close();
         return true;
     });
-    root->link_on_key_press([&gui](const std::optional<sf::Event> event) {
+    root->link_on_key_pressed([&gui](const std::optional<sf::Event> event) {
         const auto* keyPress = event->getIf<sf::Event::KeyPressed>();
         if (keyPress && keyPress->code == sf::Keyboard::Key::Escape) {
             gui.get_window().close();
