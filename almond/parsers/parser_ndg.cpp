@@ -1,7 +1,7 @@
 #include "parser_ndg.hpp"
 
 // -----------------------------------------------------------------------------
-nd::Widget* nd::ParserNDG::parse(const std::string &filename) { // FUNC@parse
+nd::Widget* nd::ParserNDG::parse(const std::string& filename) { // FUNC@parse
     std::ifstream file(filename);
     if (!file.is_open()) {
         std::cerr << "Failed to open file: " << filename << std::endl;
@@ -14,7 +14,7 @@ nd::Widget* nd::ParserNDG::parse(const std::string &filename) { // FUNC@parse
 
 
 // -----------------------------------------------------------------------------
-void nd::ParserNDG::__parse_file(std::ifstream &file) { // FUNC@__parse_file
+void nd::ParserNDG::__parse_file(std::ifstream& file) { // FUNC@__parse_file
     char ch;
     while (file.get(ch)) {
         if (ch == '\n' || ch == '\r') {

@@ -54,7 +54,7 @@ public:
     // m.0c (Lifecycle methods - SABHD)
     bool set_spec(std::string key, std::string raw_value) override;
     void build() override;
-    void draw(sf::RenderWindow &window) override;
+    void draw(sf::RenderWindow& window) override;
 
     // m.0d (Setters/Getters for the spec fields)
     void        set_hint_str  (std::string hint) { __hint_str = hint;    }

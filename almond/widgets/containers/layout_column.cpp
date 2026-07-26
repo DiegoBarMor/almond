@@ -11,12 +11,12 @@ void nd::LayoutColumn::build() { // FUNC@build
         sy = 0.0f,
         weight_children = 0.f;
 
-    for (auto &child : _children) {
+    for (auto& child : _children) {
         weight_children += child->get_weight();
     }
     if (weight_children < 1.0f) { weight_children = 1.0f; }
 
-    for (auto &child : _children) {
+    for (auto& child : _children) {
         py += sy + _calc_offset_pos(i);
         sy = child->get_weight() / weight_children * _size.y - _calc_offset_size(i);
         child->set_pos(sf::Vector2f(px, py));

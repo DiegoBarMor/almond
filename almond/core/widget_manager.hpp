@@ -1,9 +1,13 @@
 #pragma once
 #include "../widgets/Widget.hpp"
-#include "../widgets/Buttons.hpp"
+#include "../widgets/buttons/button_primitive.hpp"
+#include "../widgets/buttons/check_box.hpp"
+#include "../widgets/buttons/labeled_button.hpp"
+#include "../widgets/buttons/radio_button.hpp"
+#include "../widgets/buttons/toggleable_button.hpp"
 #include "../widgets/containers/container.hpp"
-#include "../widgets/containers/layout_row.hpp"
 #include "../widgets/containers/layout_column.hpp"
+#include "../widgets/containers/layout_row.hpp"
 
 namespace nd {
 class WidgetManager {

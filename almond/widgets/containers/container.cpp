@@ -25,7 +25,7 @@ void nd::Container::add_child(nd::Widget* child) { // FUNC@add_child
 // -----------------------------------------------------------------------------
 void nd::Container::build() { // FUNC@build
     _init_shape();
-    for (auto &child : _children) {
+    for (auto& child : _children) {
         child->set_pos(_pos);
         child->set_size(_size);
         child->build();
@@ -35,7 +35,7 @@ void nd::Container::build() { // FUNC@build
 
 // -----------------------------------------------------------------------------
 bool nd::Container::handle_event(const std::optional<sf::Event> event) { // FUNC@handle_event
-    for (auto &child : _children) {
+    for (auto& child : _children) {
         if (child->handle_event(event))
             return true; // event handled by child, no need to continue
     }
@@ -48,7 +48,7 @@ bool nd::Container::handle_event(const std::optional<sf::Event> event) { // FUNC
 // -----------------------------------------------------------------------------
 void nd::Container::draw(sf::RenderWindow& window) { // FUNC@draw
     window.draw(_shape);
-    for (auto &child : _children) {
+    for (auto& child : _children) {
         child->draw(window);
     }
 } // END@draw

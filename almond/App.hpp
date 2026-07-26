@@ -1,9 +1,4 @@
 #pragma once
-#include "widgets/Widget.hpp"
-#include "widgets/containers/container.hpp"
-#include "widgets/containers/layout_row.hpp"
-#include "widgets/containers/layout_column.hpp"
-#include "widgets/Buttons.hpp"
 #include "core/widget_manager.hpp"
 #include "parsers/parser_ndg.hpp"
 
@@ -14,7 +9,7 @@ class App {
 public:
     App(sf::RenderWindow& window) : __window(window) {}
     void setup(
-        const std::string &filename = "",
+        const std::string& filename = "",
         sf::Vector2f pos = {0, 0}, sf::Vector2f size = {0, 0}
     );
 
@@ -45,7 +40,7 @@ protected:
     WidgetManager _widget_manager = WidgetManager();
 
 private:
-    void __create(const std::string &filename);
+    void __create(const std::string& filename);
     void __build(sf::Vector2f pos, sf::Vector2f size);
 
     Widget* __root = nullptr;

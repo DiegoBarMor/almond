@@ -1,6 +1,6 @@
 #include "App.hpp"
 
-void nd::App::setup(const std::string &filename, sf::Vector2f pos, sf::Vector2f size) {
+void nd::App::setup(const std::string& filename, sf::Vector2f pos, sf::Vector2f size) {
     if (size == sf::Vector2f(0, 0)) {
         size = sf::Vector2f((float)__window.getSize().x, (float)__window.getSize().y);
     }
@@ -31,7 +31,7 @@ void nd::App::draw() {
     __root->draw(__window);
 }
 
-void nd::App::__create(const std::string &filename) {
+void nd::App::__create(const std::string& filename) {
     if (filename != "") {
         __root = nd::ParserNDG(_widget_manager).parse(filename);
         if (__root == nullptr) {

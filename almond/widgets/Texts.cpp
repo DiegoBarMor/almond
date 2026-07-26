@@ -104,7 +104,7 @@ bool nd::TextInput::_internal_on_mouse_release(const std::optional<sf::Event> ev
 bool nd::TextInput::_internal_on_text_entered(const std::optional<sf::Event> event) {
     if (!__is_focused) return false;
 
-    const auto *text = event->getIf<sf::Event::TextEntered>();
+    const auto* text = event->getIf<sf::Event::TextEntered>();
     if (!text) return false;
 
     std::cout << text->unicode << std::endl; // [DEBUG]
