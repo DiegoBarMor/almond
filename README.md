@@ -24,7 +24,7 @@ The GUI is formed by a collection of **widgets** that interact with the user and
 
 Widgets are characterized by **specs** (short for *specifications*), which are pieces of data given by the client, either through the NDG file or by accessing through the public interface of the widgets directly. Specs introduced by a widget class carry on in widgets that are derived via inheritance. Other internal characteristics of the widgets, such as position and size, might also be accessible via the widget's public interface.
 
-### The NDGParser class
+### The ParserNDG class
 [TODO]
 
 ### The App class
@@ -54,8 +54,8 @@ The following is the class inheritance hierarchy for the widgets.
 ```
 Widget (x)?
 |-- Container
-|   |-- RowLayout
-|   `-- ColumnLayout
+|   |-- LayoutRow
+|   `-- LayoutColumn
 |-- Text
 |   `-- TextInput
 |-- ButtonPrimitive (x)
@@ -69,15 +69,15 @@ Widget (x)?
 Classes that can't be instantiated directly are denoted with a `(x)`.
 
 ### About the classes
-- `nd::Widget`: Provides a public interface common to any kind of widget. It implements basic GUI behaviour, such as building and displaying a shape and event handling. This allows the `NDGParser` to construct different widgets, containers, etc without the need of knowing what they are, as it just passes construction responsability to `nd::Widget::GUIFactory` in the form of strings, and `nd::Widget` instantiates the widgets by cloning their respective prototype from the  `nd::WidgetManager::__prototypes` hashtable. This table is to be filled out by the `App` (and its implementations) using `nd::Widget::add_prototype` before performing any parsing. The `NDGParser` uses a similar approach with setting `specs`: it passes responsability to the virtual `nd::Widget::set_spec`, which can be overriden by derived classes to accept more kinds of `specs`. `nd::Widget` shouldn't be instantiated directly, so it has no prototype.
+- `nd::Widget`: Provides a public interface common to any kind of widget. It implements basic GUI behaviour, such as building and displaying a shape and event handling. This allows the `ParserNDG` to construct different widgets, containers, etc without the need of knowing what they are, as it just passes construction responsability to `nd::Widget::GUIFactory` in the form of strings, and `nd::Widget` instantiates the widgets by cloning their respective prototype from the  `nd::WidgetManager::__prototypes` hashtable. This table is to be filled out by the `App` (and its implementations) using `nd::Widget::add_prototype` before performing any parsing. The `ParserNDG` uses a similar approach with setting `specs`: it passes responsability to the virtual `nd::Widget::set_spec`, which can be overriden by derived classes to accept more kinds of `specs`. `nd::Widget` shouldn't be instantiated directly, so it has no prototype.
 - `nd::Container`: Implements the possibility of building and holding other widgets as children. Instantiating `nd::Container` directly provides a container that makes its children overlap by assigning them the same size and position.
-- `nd::RowLayout`: This is a more specialized container that space its children horizontally according to their weights.
-- `nd::ColumnLayout`: This is a more specialized container that space its children vertically according to their weights.
+- `nd::LayoutRow`: This is a more specialized container that space its children horizontally according to their weights.
+- `nd::LayoutColumn`: This is a more specialized container that space its children vertically according to their weights.
 - `nd::Text`: This widget displays a string of text. All `nd::Text` instances use the same font (loaded as `nd::WidgetManager::__font`).
 - `nd::TextInput`: This version of `nd::Text` displays a *hint* when its content string is empty. When a `nd::TextInput` instance is *focused*, its content string can be populated or deleted via user input. The content can be copied/cut/pasted with the standard shortcuts.
 - `nd::ButtonPrimitive`: This widget primitive is capable of storing a *click* state, which allows for better handling of click operations. It also changes `bg_color` dinamically according to its *click* state. `nd::ButtonPrimitive` shouldn't be instantiated directly, so it has no prototype.
 - `nd::LabeledButton`: This is an implementation of `nd::ButtonPrimitive` that also contains a `nd::Text` member, which allows for buttons with text labels. It passes the unique specs of `nd::Text` to it.
-- `nd::ToggleableButton`: This is an implementation of `nd::ButtonPrimitive` that stores a state of *checked* that is toggled every time an `_on_mouse_release` event is handled succesfully. When the widget's *checked* state changes, its display updates automatically, which provides a visual cue of its status (this must be implemented by the children classes). `nd::ToggleableButton` shouldn't be instantiated directly, so it has no prototype.
+- `nd::ToggleableButton`: This is an implementation of `nd::ButtonPrimitive` that stores a state of *checked* that is toggled every time an `_on_mouse_button_released` event is handled succesfully. When the widget's *checked* state changes, its display updates automatically, which provides a visual cue of its status (this must be implemented by the children classes). `nd::ToggleableButton` shouldn't be instantiated directly, so it has no prototype.
 - `nd::CheckBox`: This kind of `nd::ToggleableButton` implements a basic display that reflects the widget's *checked* status.
 - `nd::RadioButton`: This is a kind of `nd::ToggleableButton` where different instances of `nd::RadioButton` get grouped together according by their *group_id* spec. For any given group, exactly one `nd::RadioButton` instance needs to be *checked*: toggling on another instance in the group will toggle off the previously *checked* one, and trying to directly toggle off the *checked* one will not succeed.
 
@@ -140,8 +140,8 @@ type (spec=value; spec=value; ...) { # an inline comment
 |---------------|-----------|--------------------|
 | `space`       | ` `       | `nd::Widget`       |
 | `container`   | `box`     | `nd::Container`    |
-| `layoutrow`   | `row`     | `nd::RowLayout`    |
-| `layoutcol`   | `col`     | `nd::ColumnLayout` |
+| `layoutrow`   | `row`     | `nd::LayoutRow`    |
+| `layoutcol`   | `col`     | `nd::LayoutColumn` |
 | `text`        | `txt`     | `nd::Text`         |
 | `textinput`   | `tin`     | `nd::TextInput`    |
 | `button`      | `btt`     | `nd::Button`       |

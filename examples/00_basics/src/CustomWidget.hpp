@@ -1,5 +1,5 @@
 #pragma once
-#include "../../../almond/widgets/Widget.hpp"
+#include "../../../almond/widgets/widget.hpp"
 
 class CustomWidget : public nd::Widget {
 public:
