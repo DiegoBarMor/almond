@@ -5,11 +5,10 @@ import shutil
 SYSTEM_INCLUDES = []
 
 # ------------------------------------------------------------------------------
-def process(line: str) -> str:
-    if line.strip().startswith("#include <"):
-        SYSTEM_INCLUDES.append(line)
-        return ""
-    return line
+def process(line: str) -> "str|None":
+    if not line.strip().startswith("#include <"):
+        return line
+    SYSTEM_INCLUDES.append(line)
 
 # ------------------------------------------------------------------------------
 def main():
@@ -17,7 +16,7 @@ def main():
     paths_dst = list(FOLDER_DST.glob("**/*.hpp")) + list(FOLDER_DST.glob("**/*.cpp"))
     for path_dst in paths_dst:
         lines = path_dst.read_text().splitlines()
-        out = [process(line) for line in lines]
+        out = [line for line in map(process, lines) if line is not None]
         path_dst.write_text("\n".join(out))
 
     PATH_TXT_INCLUDES.write_text(

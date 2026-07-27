@@ -4,4 +4,5 @@ desktop.ini
 
 tmp/
 build/
-_tmp_build/
+
+almond.hpp

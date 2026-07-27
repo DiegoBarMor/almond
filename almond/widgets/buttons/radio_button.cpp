@@ -39,9 +39,9 @@ void nd::RadioButton::draw(sf::RenderWindow& window) { // FUNC@draw
 void nd::RadioButton::first_build(std::vector<nd::RadioButton*> list_radiobuttons) { // FUNC@first_build
     std::unordered_map<std::string, nd::RadioButton::RadioButtonGroup*> table_groups = {};
     for (auto rb : list_radiobuttons) {
-        RadioButtonGroup* group = table_groups[rb->__group_id];
+        nd::RadioButton::RadioButtonGroup* group = table_groups[rb->__group_id];
         if (group == nullptr) {
-            group = new RadioButtonGroup();
+            group = new nd::RadioButton::RadioButtonGroup();
             table_groups[rb->__group_id] = group;
         }
         rb->__group = group;
