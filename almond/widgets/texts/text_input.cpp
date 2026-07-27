@@ -1,13 +1,6 @@
 #include "text_input.hpp"
 
 // -----------------------------------------------------------------------------
-nd::TextInput::TextInput(sf::Font font) : Text(font) { // FUNC@TextInput
-    _font_color = sf::Color::Black;
-    set_bg_color(sf::Color(0x4A4A4AFF));
-} // END@TextInput
-
-
-// -----------------------------------------------------------------------------
 bool nd::TextInput::set_spec(std::string key, std::string raw_value) { // FUNC@set_spec
     if (key == "H" || key == "HINT") {
         __hint_str = raw_value;

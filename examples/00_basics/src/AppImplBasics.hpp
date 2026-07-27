@@ -1,5 +1,5 @@
 #pragma once
-#include "../../../almond/core/app.hpp"
+#include "../almond.hpp"
 #include "CustomWidget.hpp"
 
 class AppImplBasics : public nd::App {

@@ -2,11 +2,12 @@
 #include "text.hpp"
 
 namespace nd {
-////////////////////////////////////////////////////////////////////////////////
-
 class TextInput : public Text {
 public:
-    TextInput(sf::Font font); // HEAD@TextInput
+    TextInput(sf::Font font) : Text(font) {
+        _font_color = sf::Color::Black;
+        set_bg_color(sf::Color(0x4A4A4AFF));
+    }
     TextInput* clone() override { return new TextInput(font); }
 
     bool set_spec(std::string key, std::string raw_value) override; // HEAD@set_spec

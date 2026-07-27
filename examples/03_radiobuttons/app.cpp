@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 
-#include "../../almond/core/app.hpp"
+#include "almond.hpp"
 
 int main() {
     sf::RenderWindow window(sf::VideoMode({800, 600}), "ALMOND Example 03 - Radio Buttons");
