@@ -2,19 +2,19 @@
 
 bool CustomWidget::set_spec(std::string key, std::string raw_value) {
     if (key == "C0" || key == "COLOR_0") {
-        __color_0 = nd::parse_color_string(raw_value);
+        __color_0 = nd::ParserStrings::str2color(raw_value);
         return true;
     }
     if (key == "C1" || key == "COLOR_1") {
-        __color_1 = nd::parse_color_string(raw_value);
+        __color_1 = nd::ParserStrings::str2color(raw_value);
         return true;
     }
     if (key == "C2" || key == "COLOR_2") {
-        __color_2 = nd::parse_color_string(raw_value);
+        __color_2 = nd::ParserStrings::str2color(raw_value);
         return true;
     }
     if (key == "C3" || key == "COLOR_3") {
-        __color_3 = nd::parse_color_string(raw_value);
+        __color_3 = nd::ParserStrings::str2color(raw_value);
         return true;
     }
     return nd::Widget::set_spec(key, raw_value);
