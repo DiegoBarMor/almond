@@ -6,8 +6,9 @@ ALMOND is a framework for GUI applications. It is based on **SFML** and aims to 
 ## QuickStart
 * Building and running the examples in Linux
 ```bash
-bash scripts/install_dependencies.sh # only the first time an ALMOND/SFML project is used
-bash scripts/run_examples.sh
+bash scripts/install_sfml.sh # only the first time an ALMOND/SFML project is used
+bash scripts/examples/build.sh
+bash scripts/examples/run.sh
 ```
 
 ## Example program
