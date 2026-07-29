@@ -26,6 +26,9 @@ public:
 
     void group_radiobuttons(); // HEAD@group_radiobuttons
 
+    sf::Font get_font() { return __font; }
+    void set_font(sf::Font font) { __font = font; }
+
 private:
     std::unordered_map<std::string, nd::Widget*> __prototypes;
     std::unordered_map<std::string, nd::Widget*> __id_widgets;

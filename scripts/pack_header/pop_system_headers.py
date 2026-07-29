@@ -2,13 +2,13 @@ import sys
 from pathlib import Path
 import shutil
 
-SYSTEM_INCLUDES = []
+SYSTEM_INCLUDES = set()
 
 # ------------------------------------------------------------------------------
 def process(line: str) -> "str|None":
     if not line.strip().startswith("#include <"):
         return line
-    SYSTEM_INCLUDES.append(line)
+    SYSTEM_INCLUDES.add(line)
 
 # ------------------------------------------------------------------------------
 def main():

@@ -2,7 +2,6 @@
 
 ## Priority
 - Replace raw pointers with smart pointers
-- Reorganize the repo
 
 ## Implementations / Improvements
 - Implement more widget types:
@@ -22,7 +21,7 @@
     - Consider using a linked list approach instead of the RadioButtonGroup structs. This will allow for better managing when adding/deleting radiobuttons.
 - Implement text alignment spec for `nd::Text`
 - Allow to specify vertical and horizontal padding separately.
-- Implement ALMOND as a [library](https://learn.microsoft.com/en-us/cpp/build/walkthrough-creating-and-using-a-dynamic-link-library-cpp?view=msvc-170).
+- Add back the option to use CMake for a local installation (let the user decide).
 
 ## Issues
 - Fix the click detection after the window changes shape/size.

@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.3.1] - 2026-07-29
+- Added getter/setter for `sf::WidgetManager::__font` (useful for creating custom widgets that need fonts).
+
 ## [0.3.0] - 2026-07-28
 - ALMOND now statically links to a global installation of SFML (instead of each almond project building it locally).
     - CMake usage was also replaced with bash scripts.
