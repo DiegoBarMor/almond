@@ -15,7 +15,7 @@ gcc -E -P -x c++ -std=c++17 "$folder_tmp1/main.cpp" -I "$folder_tmp1" -o "$folde
     cat "$folder_tmp1/system_includes.txt";
     echo;
     echo "// ALMOND v$(cat almond/version.txt)";
-    echo "// Single header last modified: $(date +%Y%m%d_%H%M%S)";
+    echo "// Single header last packed on $(date +%Y%m%d_%H%M%S)";
     cat "$folder_tmp1/almond.cpp";
 } >> "$folder_tmp1/almond.hpp"
 
