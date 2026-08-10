@@ -1,6 +1,6 @@
 #pragma once
-#include <fstream>
-#include "../core/widget_manager.hpp"
+#include "../core/globals.hpp"
+#include "../core/manager_drawables.hpp"
 #include "../widgets/widget.hpp"
 
 namespace nd {
@@ -12,7 +12,7 @@ public:
         SPECS_VAL, // parsing the value for the current spec
         NEXT_GUI   // parsing brackets, deal with staying in the same GUI or moving to the next
     };
-    ParserNDG(nd::WidgetManager& widget_manager) : __widget_manager(widget_manager) {}
+    ParserNDG(nd::ManagerDrawables& manager_drawables) : __manager_drawables(manager_drawables) {}
     Widget* parse(const std::string& filename); // HEAD@parse
 
 private:
@@ -29,7 +29,7 @@ private:
     std::string __buffer = "";
     std::string __specs_key = "";
 
-    nd::WidgetManager& __widget_manager;
+    nd::ManagerDrawables& __manager_drawables;
 
     State __state = State::TYPE;
     Widget* __root = nullptr;

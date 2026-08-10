@@ -1,5 +1,5 @@
 #pragma once
-#include "widget_manager.hpp"
+#include "manager_drawables.hpp"
 #include "../parsers/parser_ndg.hpp"
 
 namespace nd {
@@ -35,7 +35,7 @@ protected:
     // Linking widget callbacks could be done here.
     virtual void _on_build() {};
 
-    WidgetManager _widget_manager = WidgetManager();
+    ManagerDrawables _manager_drawables = ManagerDrawables();
 
 private:
     void __create(const std::string& filename); // HEAD@__create

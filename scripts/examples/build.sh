@@ -1,6 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
+if [ ! -d "scripts" ]; then
+    echo "Error: script must be run in the project folder containing the 'scripts' directory."
+    exit 1
+fi
+
 bash scripts/pack_header/run.sh # generates "almond.hpp"
 
 for folder_src in examples/*; do

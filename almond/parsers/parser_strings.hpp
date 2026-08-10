@@ -1,6 +1,5 @@
 #pragma once
-#include <iostream>
-#include <SFML/Graphics.hpp>
+#include "../core/globals.hpp"
 
 namespace nd {
 namespace ParserStrings {

@@ -12,9 +12,9 @@
 #include "../widgets/texts/text_input.hpp"
 
 namespace nd {
-class WidgetManager {
+class ManagerDrawables {
 public:
-    WidgetManager(); // HEAD@WidgetManager
+    ManagerDrawables(); // HEAD@ManagerDrawables
 
     void add_prototype(std::string type, nd::Widget* prototype) {
         __prototypes[type] = prototype;

@@ -18,7 +18,7 @@ void nd::App::setup(const std::string& filename, sf::Vector2f pos, sf::Vector2f 
 
 // -----------------------------------------------------------------------------
 nd::Widget* nd::App::get_widget(std::string id) { // FUNC@get_widget
-    return _widget_manager.get_widget_by_id(id);
+    return _manager_drawables.get_widget_by_id(id);
 } // END@get_widget
 
 
@@ -42,7 +42,7 @@ void nd::App::draw() { // FUNC@draw
 // -----------------------------------------------------------------------------
 void nd::App::__create(const std::string& filename) { // FUNC@__create
     if (filename != "") {
-        __root = nd::ParserNDG(_widget_manager).parse(filename);
+        __root = nd::ParserNDG(_manager_drawables).parse(filename);
         if (__root == nullptr) {
             std::cerr << "Failed to parse NDG file: " << filename << std::endl;
             std::cout << "Creating empty Container as the root widget." << std::endl;
@@ -52,7 +52,7 @@ void nd::App::__create(const std::string& filename) { // FUNC@__create
         std::cout << "No NDG file provided. Creating empty Container as the root widget." << std::endl;
         __root = new nd::Container();
     }
-    _widget_manager.set_id(__root, "root");
+    _manager_drawables.set_id(__root, "root");
 } // END@__create
 
 
@@ -61,7 +61,7 @@ void nd::App::__build(sf::Vector2f pos, sf::Vector2f size) { // FUNC@__build
     __root->set_pos(pos);
     __root->set_size(size);
     __root->build();
-    _widget_manager.group_radiobuttons();
+    _manager_drawables.group_radiobuttons();
 } // END@__build
 
 
