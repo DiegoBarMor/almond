@@ -10,12 +10,12 @@ int main() {
     gui.setup("layout.ndg");
 
     ////// Callbacks
-    nd::Widget* root = gui.get_widget("root");
-    root->link_on_closed([&gui](const std::optional<sf::Event> event) {
+    nd::Behavior behavior = gui.get_root_behavior();
+    behavior.link_on_closed([&gui](const std::optional<sf::Event> event) {
         gui.get_window().close();
         return true;
     });
-    root->link_on_key_pressed([&gui](const std::optional<sf::Event> event) {
+    behavior.link_on_key_pressed([&gui](const std::optional<sf::Event> event) {
         const auto* keyPress = event->getIf<sf::Event::KeyPressed>();
         if (keyPress && keyPress->code == sf::Keyboard::Key::Escape) {
             gui.get_window().close();

@@ -17,6 +17,8 @@ public:
     void manage_events(); // HEAD@manage_events
     void draw(); // HEAD@draw
 
+    nd::Behavior& get_root_behavior() { return __root_behavior; }
+
 protected:
     // Override this to link callbacks that could be handled "globally" by the App.
     // For example, closing the window when pressing the Escape key or handling the window resizing.
@@ -45,5 +47,6 @@ private:
     sf::RenderWindow& __window;
     sf::Vector2f __pos = {0, 0};
     sf::Vector2f __size = {0, 0};
+    nd::Behavior __root_behavior = nd::Behavior();
 };
 }
