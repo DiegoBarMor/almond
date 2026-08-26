@@ -1,5 +1,5 @@
 #pragma once
-#include "behavior.hpp"
+#include "event_manager.hpp"
 #include "../widgets/widget.hpp"
 #include "../widgets/buttons/button_primitive.hpp"
 #include "../widgets/buttons/check_box.hpp"
@@ -13,9 +13,9 @@
 #include "../widgets/texts/text_input.hpp"
 
 namespace nd {
-class ManagerDrawables {
+class DrawableManager {
 public:
-    ManagerDrawables(); // HEAD@ManagerDrawables
+    DrawableManager(); // HEAD@DrawableManager
 
     void add_prototype(std::string type, nd::Widget* prototype) {
         __prototypes[type] = prototype;

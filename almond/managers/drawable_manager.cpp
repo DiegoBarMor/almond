@@ -1,7 +1,7 @@
-#include "manager_drawables.hpp"
+#include "drawable_manager.hpp"
 
 // -----------------------------------------------------------------------------
-nd::ManagerDrawables::ManagerDrawables() { // FUNC@ManagerDrawables
+nd::DrawableManager::DrawableManager() { // FUNC@DrawableManager
     if (!__font.openFromMemory(nd::tff_crimson_roman, nd::size_crimson_roman)) {
         std::cerr << "Error loading font" << std::endl;
     }
@@ -34,11 +34,11 @@ nd::ManagerDrawables::ManagerDrawables() { // FUNC@ManagerDrawables
     __prototypes["CBX"]         = pt_checkbox ;
     __prototypes["RADIOBUTTON"] = pt_radio    ;
     __prototypes["RBN"]         = pt_radio    ;
-} // END@ManagerDrawables
+} // END@DrawableManager
 
 
 // -----------------------------------------------------------------------------
-nd::Widget* nd::ManagerDrawables::create_widget(std::string type) { // FUNC@create_widget
+nd::Widget* nd::DrawableManager::create_widget(std::string type) { // FUNC@create_widget
     if (__prototypes.find(type) == __prototypes.end()) {
         std::cerr << "WARNING: Invalid GUI type: " << type << std::endl;
         return nullptr;
@@ -53,7 +53,7 @@ nd::Widget* nd::ManagerDrawables::create_widget(std::string type) { // FUNC@crea
 
 
 // -----------------------------------------------------------------------------
-nd::Widget* nd::ManagerDrawables::get_widget_by_id(std::string id) { // FUNC@get_widget_by_id
+nd::Widget* nd::DrawableManager::get_widget_by_id(std::string id) { // FUNC@get_widget_by_id
     if (__id_widgets.find(id) == __id_widgets.end()) {
         std::cerr << "WARNING: Widget with id '" << id << "' not found." << std::endl;
         return nullptr;
@@ -63,7 +63,7 @@ nd::Widget* nd::ManagerDrawables::get_widget_by_id(std::string id) { // FUNC@get
 
 
 // -----------------------------------------------------------------------------
-void nd::ManagerDrawables::group_radiobuttons() { // FUNC@group_radiobuttons
+void nd::DrawableManager::group_radiobuttons() { // FUNC@group_radiobuttons
     if (!__is_first_build) return;
     __is_first_build = false;
 

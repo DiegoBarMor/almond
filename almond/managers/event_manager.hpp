@@ -2,9 +2,9 @@
 #include "../core/globals.hpp"
 
 namespace nd {
-class Behavior {
+class EventManager {
 public:
-    Behavior() {};
+    EventManager() {};
     virtual void link_on_closed                  (CALLBACK_BOOL callback) { _on_closed                   = callback; }
     virtual void link_on_resized                 (CALLBACK_BOOL callback) { _on_resized                  = callback; }
     virtual void link_on_focus_lost              (CALLBACK_BOOL callback) { _on_focus_lost               = callback; }
