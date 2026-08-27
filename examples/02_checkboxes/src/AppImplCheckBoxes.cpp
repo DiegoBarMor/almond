@@ -31,7 +31,6 @@ void AppImplCheckBoxes::_on_init() {
 }
 
 void AppImplCheckBoxes::_on_create() {
-    nd::Widget* root = get_widget("root");
     nd::CheckBox* c0 = (nd::CheckBox*)get_widget("c0");
     nd::CheckBox* c1 = (nd::CheckBox*)get_widget("c1");
     nd::CheckBox* c2 = (nd::CheckBox*)get_widget("c2");
@@ -39,7 +38,7 @@ void AppImplCheckBoxes::_on_create() {
 
     // linking callbacks with lambda expressions
     // note that the AppImplCheckBoxes instance has to be captured with [] to access its methods
-    root->link_on_key_pressed([this](const std::optional<sf::Event> event) {
+    _event_man.add_on_key_pressed([this](const std::optional<sf::Event> event) {
         return callback_key_press(this, event);
     });
 

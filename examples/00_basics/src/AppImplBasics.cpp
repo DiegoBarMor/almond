@@ -15,7 +15,6 @@ void AppImplBasics::_on_init() {
 }
 
 void AppImplBasics::_on_create() {
-    nd::Widget* root = get_widget("root");
     nd::Widget* col0 = get_widget("col0");
     nd::Widget* b0   = get_widget("b0");
     nd::Widget* b1   = get_widget("b1");
@@ -26,7 +25,7 @@ void AppImplBasics::_on_create() {
 
     // linking callbacks with lambda expressions
     // note that the AppImplBasics instance has to be captured with [] to access its methods
-    root->link_on_key_pressed([this](const std::optional<sf::Event> event) {
+    _event_man.add_on_key_pressed([this](const std::optional<sf::Event> event) {
         return callback_key_press(this, event);
     });
 

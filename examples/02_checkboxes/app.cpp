@@ -6,19 +6,19 @@ int main() {
     sf::RenderWindow window(sf::VideoMode({800, 600}), "ALMOND Example 02 - CheckBoxes");
     window.setFramerateLimit(60);
 
-    AppImplCheckBoxes gui = AppImplCheckBoxes(window);
-    gui.setup("layout.ndg");
+    AppImplCheckBoxes app = AppImplCheckBoxes(window);
+    app.setup("layout.ndg");
 
     ////// Callbacks
-    nd::EventManager event_man = gui.get_event_manager();
-    event_man.add_on_closed([&gui](const std::optional<sf::Event> event) {
-        gui.get_window().close();
+    nd::EventManager event_man = app.get_event_manager();
+    event_man.add_on_closed([&app](const std::optional<sf::Event> event) {
+        app.get_window().close();
         return true;
     });
-    event_man.add_on_key_pressed([&gui](const std::optional<sf::Event> event) {
+    event_man.add_on_key_pressed([&app](const std::optional<sf::Event> event) {
         const auto* keyPress = event->getIf<sf::Event::KeyPressed>();
         if (keyPress && keyPress->code == sf::Keyboard::Key::Escape) {
-            gui.get_window().close();
+            app.get_window().close();
             return true;
         }
         return false;
@@ -26,9 +26,9 @@ int main() {
 
     ////// Main loop
     while (window.isOpen()) {
-        gui.manage_events();
+        app.manage_events();
         window.clear(sf::Color::Black);
-        gui.draw();
+        app.draw();
         window.display();
     }
     return 0;

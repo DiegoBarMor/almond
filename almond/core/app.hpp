@@ -17,7 +17,7 @@ public:
     void manage_events(); // HEAD@manage_events
     void draw(); // HEAD@draw
 
-    nd::EventManager& get_event_manager() { return __event_man; }
+    nd::EventManager& get_event_manager() { return _event_man; }
 
 protected:
     // Override this to add behaviour that should happen before creating the root widget.
@@ -34,13 +34,13 @@ protected:
     virtual void _on_build() {};
 
     nd::DrawableManager _drawable_man = nd::DrawableManager();
+    nd::EventManager _event_man = nd::EventManager();
 
 private:
     void __create(const std::string& filename); // HEAD@__create
     void __build(sf::Vector2f pos, sf::Vector2f size); // HEAD@__build
 
     Widget* __root = nullptr;
-    nd::EventManager __event_man = nd::EventManager();
     sf::RenderWindow& __window;
     sf::Vector2f __pos = {0, 0};
     sf::Vector2f __size = {0, 0};
