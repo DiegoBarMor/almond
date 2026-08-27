@@ -1,9 +1,12 @@
 #include "AppImplCheckBoxes.hpp"
 
-bool callback_key_press(AppImplCheckBoxes* gui, const std::optional<sf::Event> event) {
-    const auto* keyPress = event->getIf<sf::Event::KeyPressed>();
-    std::cout << "Root key pressed: " << sf::Keyboard::getDescription(keyPress->scancode).toAnsiString() << std::endl;
-    if (keyPress && keyPress->code == sf::Keyboard::Key::Escape) {
+bool callback_key_press(AppImplCheckBoxes* gui) {
+    nd::EventManager eman = gui->get_event_manager();
+    const auto* key = eman.get_key_pressed();
+    if (!key) return false;
+
+    std::cout << "Root key pressed: " << sf::Keyboard::getDescription(key->scancode).toAnsiString() << std::endl;
+    if (key->code == sf::Keyboard::Key::Escape) {
         gui->get_window().close();
     }
     return true;
@@ -38,8 +41,8 @@ void AppImplCheckBoxes::_on_create() {
 
     // linking callbacks with lambda expressions
     // note that the AppImplCheckBoxes instance has to be captured with [] to access its methods
-    _event_man.add_on_key_pressed([this](const std::optional<sf::Event> event) {
-        return callback_key_press(this, event);
+    _event_man.add_on_key_pressed([this]() {
+        return callback_key_press(this);
     });
 
     c0->link_on_toggle( [c0](){ callback_on_toggle(c0); } );

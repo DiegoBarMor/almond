@@ -10,14 +10,13 @@ int main() {
     app.setup("layout.ndg");
 
     ////// Callbacks
-    nd::EventManager event_man = app.get_event_manager();
-    event_man.add_on_closed([&app](const std::optional<sf::Event> event) {
+    nd::EventManager eman = app.get_event_manager();
+    eman.add_on_closed([&app]() {
         app.get_window().close();
         return true;
     });
-    event_man.add_on_key_pressed([&app](const std::optional<sf::Event> event) {
-        const auto* keyPress = event->getIf<sf::Event::KeyPressed>();
-        if (keyPress && keyPress->code == sf::Keyboard::Key::Escape) {
+    eman.add_on_key_pressed([&app,&eman]() {
+        if (eman.key_pressed_is(sf::Keyboard::Key::Escape)) {
             app.get_window().close();
             return true;
         }
