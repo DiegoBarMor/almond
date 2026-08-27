@@ -39,7 +39,7 @@ bool nd::ToggleableButton::handle_event(const std::optional<sf::Event> event) { 
     if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonReleased>()) {
         if (
             event->is<sf::Event::MouseButtonReleased>() &&
-            INTERSECTS_MOUSE(mouseButton->position)
+            contains_point(mouseButton->position)
         )
             _internal_on_toggle();
     }

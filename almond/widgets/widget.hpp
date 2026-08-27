@@ -49,7 +49,7 @@ public:
     virtual void link_on_touch_ended             (CALLBACK_BOOL callback) { _on_touch_ended              = callback; }
     virtual void link_on_sensor_changed          (CALLBACK_BOOL callback) { _on_sensor_changed           = callback; }
 
-    bool contains_point(sf::Vector2f point); // HEAD@contains_point
+    bool contains_point(sf::Vector2i point); // HEAD@contains_point
     void force_widget_square(); // HEAD@force_widget_square
 
 protected:

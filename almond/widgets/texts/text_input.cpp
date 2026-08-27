@@ -49,7 +49,7 @@ void nd::TextInput::draw(sf::RenderWindow& window) { // FUNC@draw
 // -----------------------------------------------------------------------------
 bool nd::TextInput::_internal_on_mouse_button_released(const std::optional<sf::Event> event) { // FUNC@_internal_on_mouse_button_released
     if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonReleased>()) {
-        __is_focused = INTERSECTS_MOUSE(mouseButton->position);
+        __is_focused = contains_point(mouseButton->position);
     }
     build();
     if (!_on_mouse_button_released) return false;

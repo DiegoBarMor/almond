@@ -46,8 +46,9 @@ void nd::Widget::set_bg_color(sf::Color color) { // FUNC@set_bg_color
 
 
 // -----------------------------------------------------------------------------
-bool nd::Widget::contains_point(sf::Vector2f point) { // FUNC@contains_point
-    return _shape.getGlobalBounds().contains(point);
+bool nd::Widget::contains_point(sf::Vector2i point) { // FUNC@contains_point
+    sf::Vector2f point_f((float)point.x, (float)point.y);
+    return _shape.getGlobalBounds().contains(point_f);
 } // END@contains_point
 
 
@@ -177,7 +178,7 @@ bool nd::Widget::_internal_on_mouse_wheel_scrolled(const std::optional<sf::Event
 bool nd::Widget::_internal_on_mouse_button_pressed(const std::optional<sf::Event> event) { // FUNC@_internal_on_mouse_button_pressed
     if (!_on_mouse_button_pressed) return false;
     const auto* mouseButton = event->getIf<sf::Event::MouseButtonPressed>();
-    if (mouseButton && INTERSECTS_MOUSE(mouseButton->position))
+    if (mouseButton && contains_point(mouseButton->position))
         return _on_mouse_button_pressed(event);
     return false;
 } // END@_internal_on_mouse_button_pressed
@@ -187,7 +188,7 @@ bool nd::Widget::_internal_on_mouse_button_pressed(const std::optional<sf::Event
 bool nd::Widget::_internal_on_mouse_button_released(const std::optional<sf::Event> event) { // FUNC@_internal_on_mouse_button_released
     if (!_on_mouse_button_released) return false;
     const auto* mouseButton = event->getIf<sf::Event::MouseButtonReleased>();
-    if (mouseButton && INTERSECTS_MOUSE(mouseButton->position))
+    if (mouseButton && contains_point(mouseButton->position))
         return _on_mouse_button_released(event);
     return false;
 } // END@_internal_on_mouse_button_released
@@ -197,7 +198,7 @@ bool nd::Widget::_internal_on_mouse_button_released(const std::optional<sf::Even
 bool nd::Widget::_internal_on_mouse_moved(const std::optional<sf::Event> event) { // FUNC@_internal_on_mouse_moved
     if (!_on_mouse_moved) return false;
     const auto* mouseMove = event->getIf<sf::Event::MouseMoved>();
-    if (mouseMove && INTERSECTS_MOUSE(mouseMove->position))
+    if (mouseMove && contains_point(mouseMove->position))
         return _on_mouse_moved(event);
     return false;
 } // END@_internal_on_mouse_moved

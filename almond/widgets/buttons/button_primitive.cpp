@@ -49,7 +49,7 @@ bool nd::ButtonPrimitive::get_enabled() { // FUNC@get_enabled
 bool nd::ButtonPrimitive::_internal_on_mouse_button_pressed(const std::optional<sf::Event> event) { // FUNC@_internal_on_mouse_button_pressed
     if (_state == State::DISABLED) return false;
     if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonPressed>()) {
-        if (!INTERSECTS_MOUSE(mouseButton->position)) return false;
+        if (!contains_point(mouseButton->position)) return false;
     }
     __set_state(State::PRESSED);
     if (!_on_mouse_button_pressed) return false;
@@ -61,7 +61,7 @@ bool nd::ButtonPrimitive::_internal_on_mouse_button_pressed(const std::optional<
 bool nd::ButtonPrimitive::_internal_on_mouse_button_released(const std::optional<sf::Event> event) { // FUNC@_internal_on_mouse_button_released
     if (_state == State::DISABLED) return false;
     if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonReleased>()) {
-        if (INTERSECTS_MOUSE(mouseButton->position)) {
+        if (contains_point(mouseButton->position)) {
             // update the button state and carry out _on_mouse_button_released as usual
             __set_state(State::HOVER);
             if (!_on_mouse_button_released) return false;
@@ -82,7 +82,7 @@ bool nd::ButtonPrimitive::_internal_on_mouse_button_released(const std::optional
 bool nd::ButtonPrimitive::_internal_on_mouse_moved(const std::optional<sf::Event> event) { // FUNC@_internal_on_mouse_moved
     if (_state == State::DISABLED) return false;
     if (const auto* mouseMove = event->getIf<sf::Event::MouseMoved>()) {
-        if (INTERSECTS_MOUSE(mouseMove->position)) {
+        if (contains_point(mouseMove->position)) {
             if (_state == State::IDLE) {
                 __set_state(State::HOVER);
             }
