@@ -1,80 +1,63 @@
 #pragma once
 #include "../core/globals.hpp"
 
+#define ADD_CALLBACK(event_name) \
+    inline void add_on_##event_name(CALLBACK_BOOL callback) { _on_##event_name.push_back(callback); }
+
 namespace nd {
 class EventManager {
 public:
     EventManager() {};
-    virtual void link_on_closed                  (CALLBACK_BOOL callback) { _on_closed                   = callback; }
-    virtual void link_on_resized                 (CALLBACK_BOOL callback) { _on_resized                  = callback; }
-    virtual void link_on_focus_lost              (CALLBACK_BOOL callback) { _on_focus_lost               = callback; }
-    virtual void link_on_focus_gained            (CALLBACK_BOOL callback) { _on_focus_gained             = callback; }
-    virtual void link_on_mouse_entered           (CALLBACK_BOOL callback) { _on_mouse_entered            = callback; }
-    virtual void link_on_mouse_left              (CALLBACK_BOOL callback) { _on_mouse_left               = callback; }
-    virtual void link_on_text_entered            (CALLBACK_BOOL callback) { _on_text_entered             = callback; }
-    virtual void link_on_key_pressed             (CALLBACK_BOOL callback) { _on_key_pressed              = callback; }
-    virtual void link_on_key_released            (CALLBACK_BOOL callback) { _on_key_released             = callback; }
-    virtual void link_on_mouse_wheel_scrolled    (CALLBACK_BOOL callback) { _on_mouse_wheel_scrolled     = callback; }
-    virtual void link_on_mouse_button_pressed    (CALLBACK_BOOL callback) { _on_mouse_button_pressed     = callback; }
-    virtual void link_on_mouse_button_released   (CALLBACK_BOOL callback) { _on_mouse_button_released    = callback; }
-    virtual void link_on_mouse_moved             (CALLBACK_BOOL callback) { _on_mouse_moved              = callback; }
-    virtual void link_on_joystick_button_pressed (CALLBACK_BOOL callback) { _on_joystick_button_pressed  = callback; }
-    virtual void link_on_joystick_button_released(CALLBACK_BOOL callback) { _on_joystick_button_released = callback; }
-    virtual void link_on_joystick_moved          (CALLBACK_BOOL callback) { _on_joystick_moved           = callback; }
-    virtual void link_on_joystick_connected      (CALLBACK_BOOL callback) { _on_joystick_connected       = callback; }
-    virtual void link_on_joystick_disconnected   (CALLBACK_BOOL callback) { _on_joystick_disconnected    = callback; }
-    virtual void link_on_touch_began             (CALLBACK_BOOL callback) { _on_touch_began              = callback; }
-    virtual void link_on_touch_moved             (CALLBACK_BOOL callback) { _on_touch_moved              = callback; }
-    virtual void link_on_touch_ended             (CALLBACK_BOOL callback) { _on_touch_ended              = callback; }
-    virtual void link_on_sensor_changed          (CALLBACK_BOOL callback) { _on_sensor_changed           = callback; }
+    ADD_CALLBACK(closed)
+    ADD_CALLBACK(resized)
+    ADD_CALLBACK(focus_lost)
+    ADD_CALLBACK(focus_gained)
+    ADD_CALLBACK(mouse_entered)
+    ADD_CALLBACK(mouse_left)
+    ADD_CALLBACK(text_entered)
+    ADD_CALLBACK(key_pressed)
+    ADD_CALLBACK(key_released)
+    ADD_CALLBACK(mouse_wheel_scrolled)
+    ADD_CALLBACK(mouse_button_pressed)
+    ADD_CALLBACK(mouse_button_released)
+    ADD_CALLBACK(mouse_moved)
+    ADD_CALLBACK(joystick_button_pressed)
+    ADD_CALLBACK(joystick_button_released)
+    ADD_CALLBACK(joystick_moved)
+    ADD_CALLBACK(joystick_connected)
+    ADD_CALLBACK(joystick_disconnected)
+    ADD_CALLBACK(touch_began)
+    ADD_CALLBACK(touch_moved)
+    ADD_CALLBACK(touch_ended)
+    ADD_CALLBACK(sensor_changed)
     bool handle_event(const std::optional<sf::Event> event); // HEAD@handle_event
 
 protected:
-    virtual bool _internal_on_closed                  (const std::optional<sf::Event> event); // HEAD@_internal_on_closed
-    virtual bool _internal_on_resized                 (const std::optional<sf::Event> event); // HEAD@_internal_on_resized
-    virtual bool _internal_on_focus_lost              (const std::optional<sf::Event> event); // HEAD@_internal_on_focus_lost
-    virtual bool _internal_on_focus_gained            (const std::optional<sf::Event> event); // HEAD@_internal_on_focus_gained
-    virtual bool _internal_on_mouse_entered           (const std::optional<sf::Event> event); // HEAD@_internal_on_mouse_entered
-    virtual bool _internal_on_mouse_left              (const std::optional<sf::Event> event); // HEAD@_internal_on_mouse_left
-    virtual bool _internal_on_text_entered            (const std::optional<sf::Event> event); // HEAD@_internal_on_text_entered
-    virtual bool _internal_on_key_pressed             (const std::optional<sf::Event> event); // HEAD@_internal_on_key_pressed
-    virtual bool _internal_on_key_released            (const std::optional<sf::Event> event); // HEAD@_internal_on_key_released
-    virtual bool _internal_on_mouse_wheel_scrolled    (const std::optional<sf::Event> event); // HEAD@_internal_on_mouse_wheel_scrolled
-    virtual bool _internal_on_mouse_button_pressed    (const std::optional<sf::Event> event); // HEAD@_internal_on_mouse_button_pressed
-    virtual bool _internal_on_mouse_button_released   (const std::optional<sf::Event> event); // HEAD@_internal_on_mouse_button_released
-    virtual bool _internal_on_mouse_moved             (const std::optional<sf::Event> event); // HEAD@_internal_on_mouse_moved
-    virtual bool _internal_on_joystick_button_pressed (const std::optional<sf::Event> event); // HEAD@_internal_on_joystick_button_pressed
-    virtual bool _internal_on_joystick_button_released(const std::optional<sf::Event> event); // HEAD@_internal_on_joystick_button_released
-    virtual bool _internal_on_joystick_moved          (const std::optional<sf::Event> event); // HEAD@_internal_on_joystick_moved
-    virtual bool _internal_on_joystick_connected      (const std::optional<sf::Event> event); // HEAD@_internal_on_joystick_connected
-    virtual bool _internal_on_joystick_disconnected   (const std::optional<sf::Event> event); // HEAD@_internal_on_joystick_disconnected
-    virtual bool _internal_on_touch_began             (const std::optional<sf::Event> event); // HEAD@_internal_on_touch_began
-    virtual bool _internal_on_touch_moved             (const std::optional<sf::Event> event); // HEAD@_internal_on_touch_moved
-    virtual bool _internal_on_touch_ended             (const std::optional<sf::Event> event); // HEAD@_internal_on_touch_ended
-    virtual bool _internal_on_sensor_changed          (const std::optional<sf::Event> event); // HEAD@_internal_on_sensor_changed
+    std::vector<CALLBACK_BOOL> _on_closed = {};
+    std::vector<CALLBACK_BOOL> _on_resized = {};
+    std::vector<CALLBACK_BOOL> _on_focus_lost = {};
+    std::vector<CALLBACK_BOOL> _on_focus_gained = {};
+    std::vector<CALLBACK_BOOL> _on_mouse_entered = {};
+    std::vector<CALLBACK_BOOL> _on_mouse_left = {};
+    std::vector<CALLBACK_BOOL> _on_text_entered = {};
+    std::vector<CALLBACK_BOOL> _on_key_pressed = {};
+    std::vector<CALLBACK_BOOL> _on_key_released = {};
+    std::vector<CALLBACK_BOOL> _on_mouse_wheel_scrolled = {};
+    std::vector<CALLBACK_BOOL> _on_mouse_button_pressed = {};
+    std::vector<CALLBACK_BOOL> _on_mouse_button_released = {};
+    std::vector<CALLBACK_BOOL> _on_mouse_moved = {};
+    std::vector<CALLBACK_BOOL> _on_joystick_button_pressed = {};
+    std::vector<CALLBACK_BOOL> _on_joystick_button_released = {};
+    std::vector<CALLBACK_BOOL> _on_joystick_moved = {};
+    std::vector<CALLBACK_BOOL> _on_joystick_connected = {};
+    std::vector<CALLBACK_BOOL> _on_joystick_disconnected = {};
+    std::vector<CALLBACK_BOOL> _on_touch_began = {};
+    std::vector<CALLBACK_BOOL> _on_touch_moved = {};
+    std::vector<CALLBACK_BOOL> _on_touch_ended = {};
+    std::vector<CALLBACK_BOOL> _on_sensor_changed = {};
 
-    CALLBACK_BOOL _on_closed;
-    CALLBACK_BOOL _on_resized;
-    CALLBACK_BOOL _on_focus_lost;
-    CALLBACK_BOOL _on_focus_gained;
-    CALLBACK_BOOL _on_mouse_entered;
-    CALLBACK_BOOL _on_mouse_left;
-    CALLBACK_BOOL _on_text_entered;
-    CALLBACK_BOOL _on_key_pressed;
-    CALLBACK_BOOL _on_key_released;
-    CALLBACK_BOOL _on_mouse_wheel_scrolled;
-    CALLBACK_BOOL _on_mouse_button_pressed;
-    CALLBACK_BOOL _on_mouse_button_released;
-    CALLBACK_BOOL _on_mouse_moved;
-    CALLBACK_BOOL _on_joystick_button_pressed;
-    CALLBACK_BOOL _on_joystick_button_released;
-    CALLBACK_BOOL _on_joystick_moved;
-    CALLBACK_BOOL _on_joystick_connected;
-    CALLBACK_BOOL _on_joystick_disconnected;
-    CALLBACK_BOOL _on_touch_began;
-    CALLBACK_BOOL _on_touch_moved;
-    CALLBACK_BOOL _on_touch_ended;
-    CALLBACK_BOOL _on_sensor_changed;
+private:
+    std::vector<CALLBACK_BOOL> __get_callbacks(const std::optional<sf::Event> event); // HEAD@__get_callbacks
 
 };
 }

@@ -11,11 +11,11 @@ int main() {
 
     ////// Callbacks
     nd::EventManager event_man = gui.get_event_manager();
-    event_man.link_on_closed([&gui](const std::optional<sf::Event> event) {
+    event_man.add_on_closed([&gui](const std::optional<sf::Event> event) {
         gui.get_window().close();
         return true;
     });
-    event_man.link_on_key_pressed([&gui](const std::optional<sf::Event> event) {
+    event_man.add_on_key_pressed([&gui](const std::optional<sf::Event> event) {
         const auto* keyPress = event->getIf<sf::Event::KeyPressed>();
         if (keyPress && keyPress->code == sf::Keyboard::Key::Escape) {
             gui.get_window().close();
