@@ -10,7 +10,7 @@ int main() {
     app.setup("layout.ndg");
 
     ////// Callbacks
-    nd::EventManager eman = app.get_event_manager();
+    nd::EventManager& eman = app.get_event_manager();
     eman.add_on_closed([&app]() {
         app.get_window().close();
         return true;

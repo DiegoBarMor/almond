@@ -36,12 +36,9 @@ public:
         inline const sf::Event::pascal_case* get_##snake_case() { \
             return __last_event->getIf<sf::Event::pascal_case>(); \
         }
-    // GET_EVENT_BY_TYPE(closed, Closed) // sf::Event::Closed holds no data, no point in retrieving the object
+    ////// The following sf::Event types hold no data, so their method for retrieving are omitted:
+    ////// Closed, FocusLost, FocusGained, MouseEntered, MouseLeft
     GET_EVENT_BY_TYPE(resized, Resized)
-    // GET_EVENT_BY_TYPE(focus_lost, FocusLost) // sf::Event::FocusLost holds no data, no point in retrieving the object
-    // GET_EVENT_BY_TYPE(focus_gained, FocusGained) // sf::Event::FocusGained holds no data, no point in retrieving the object
-    // GET_EVENT_BY_TYPE(mouse_entered, MouseEntered) // sf::Event::MouseEntered holds no data, no point in retrieving the object
-    // GET_EVENT_BY_TYPE(mouse_left, MouseLeft) // sf::Event::MouseLeft holds no data, no point in retrieving the object
     GET_EVENT_BY_TYPE(text_entered, TextEntered)
     GET_EVENT_BY_TYPE(key_pressed, KeyPressed)
     GET_EVENT_BY_TYPE(key_released, KeyReleased)
@@ -60,7 +57,7 @@ public:
     GET_EVENT_BY_TYPE(sensor_changed, SensorChanged)
     #undef GET_EVENT_BY_TYPE
 
-    bool handle_event(const std::optional<sf::Event> event); // HEAD@handle_event
+    void manage_events(sf::RenderWindow& window); // HEAD@manage_events
 
     std::optional<sf::Event> get_opt_event() { return __last_event; }
     bool key_pressed_is(sf::Keyboard::Key key); // HEAD@key_pressed_is
@@ -93,8 +90,7 @@ protected:
     std::vector<CALLBACK_BOOL> _on_sensor_changed = {};
 
 private:
-    std::vector<CALLBACK_BOOL> __get_callbacks(); // HEAD@__get_callbacks
-    sf::Vector2i __get_last_mouse_pos(); // HEAD@__get_last_mouse_pos
+    void __handle_event_generic(const std::optional<sf::Event> event); // HEAD@__handle_event_generic
 
     std::optional<sf::Event> __last_event = std::nullopt;
     sf::Vector2i __last_mouse_pos = {0, 0};
