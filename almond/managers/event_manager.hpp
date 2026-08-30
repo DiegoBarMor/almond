@@ -94,27 +94,6 @@ protected:
 private:
     void __handle_event_generic(nd::Event event); // HEAD@__handle_event_generic
 
-    // All mouse events are assumed to have a "position" field
-    bool __is_mouse_event(nd::Event event) {
-        switch (event.none.type) {
-            case nd::EventType::MOUSE_MOVED:
-            case nd::EventType::MOUSE_BUTTON_PRESSED:
-            case nd::EventType::MOUSE_BUTTON_RELEASED:
-            case nd::EventType::MOUSE_WHEEL_SCROLLED:
-                return true;
-            default: return false;
-        }
-    }
-
-    bool __is_key_event(nd::Event event) {
-        switch (event.none.type) {
-            case nd::EventType::KEY_PRESSED:
-            case nd::EventType::KEY_RELEASED:
-                return true;
-            default: return false;
-        }
-    }
-
     nd::Event __last_event = __INIT_EVENT_NONE;
 
 };
