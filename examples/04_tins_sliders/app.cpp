@@ -16,7 +16,7 @@ int main() {
         return true;
     });
     eman.add_on_key_pressed([&app,&eman]() {
-        if (eman.key_pressed_is(sf::Keyboard::Key::Escape)) {
+        if (eman.get_key_pressed().code == sf::Keyboard::Key::Escape) {
             app.get_window().close();
             return true;
         }

@@ -34,7 +34,7 @@ public:
     bool set_spec(std::string key, std::string raw_value) override;
     void add_child(Widget* child) override;
     void build() override;
-    bool handle_event(const std::optional<sf::Event> event) override;
+    bool handle_event(nd::Event event) override;
     void draw(sf::RenderWindow& window) override;
 
     // m.0d (Setters/Getters for the spec fields)
@@ -63,10 +63,10 @@ protected:
     void _some_internal_functionality();
 
     // m.1b (Callback wrappers)
-    bool _internal_on_mouse_button_pressed (const std::optional<sf::Event> event) override;
-    bool _internal_on_mouse_button_released(const std::optional<sf::Event> event) override;
-    bool _internal_on_mouse_moved          (const std::optional<sf::Event> event) override;
-    bool _internal_on_key_pressed          (const std::optional<sf::Event> event) override;
+    bool _internal_on_mouse_button_pressed (nd::Event event) override;
+    bool _internal_on_mouse_button_released(nd::Event event) override;
+    bool _internal_on_mouse_moved          (nd::Event event) override;
+    bool _internal_on_key_pressed          (nd::Event event) override;
 
     // d.1b (Spec fields)
     bool _spec_0 = false;

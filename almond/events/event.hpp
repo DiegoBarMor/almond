@@ -172,7 +172,7 @@ union Event {
 
 #define __INIT_EVENT_NONE nd::Event {.none {}}
 
-nd::Event __init_event(const std::optional<sf::Event> sf_event) {
+inline nd::Event __init_event(const std::optional<sf::Event> sf_event) {
     WRAPPER_START(MouseMoved, mouse_moved)
         .position = sf_data->position,
     WRAPPER_END

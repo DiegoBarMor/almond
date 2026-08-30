@@ -1,5 +1,6 @@
 #pragma once
 #include "../core/globals.hpp"
+#include "../events/event.hpp"
 
 namespace nd {
 class EventManager {
@@ -32,53 +33,53 @@ public:
     ADD_CALLBACK(sensor_changed)
     #undef ADD_CALLBACK
 
-    #define GET_EVENT_BY_TYPE(snake_case, pascal_case) \
-        inline const sf::Event::pascal_case* get_##snake_case() { \
-            return __last_event->getIf<sf::Event::pascal_case>(); \
+    #define GET_EVENT_BY_TYPE(snake_case, pascal_case, upper_case) \
+        inline nd::Event::pascal_case get_##snake_case() { \
+            return __last_event.none.type == nd::EventType::upper_case ? \
+            __last_event.snake_case : nd::Event::pascal_case {}; \
         }
-    ////// The following sf::Event types hold no data, so their method for retrieving are omitted:
-    ////// Closed, FocusLost, FocusGained, MouseEntered, MouseLeft
-    GET_EVENT_BY_TYPE(resized, Resized)
-    GET_EVENT_BY_TYPE(text_entered, TextEntered)
-    GET_EVENT_BY_TYPE(key_pressed, KeyPressed)
-    GET_EVENT_BY_TYPE(key_released, KeyReleased)
-    GET_EVENT_BY_TYPE(mouse_wheel_scrolled, MouseWheelScrolled)
-    GET_EVENT_BY_TYPE(mouse_button_pressed, MouseButtonPressed)
-    GET_EVENT_BY_TYPE(mouse_button_released, MouseButtonReleased)
-    GET_EVENT_BY_TYPE(mouse_moved, MouseMoved)
-    GET_EVENT_BY_TYPE(joystick_button_pressed, JoystickButtonPressed)
-    GET_EVENT_BY_TYPE(joystick_button_released, JoystickButtonReleased)
-    GET_EVENT_BY_TYPE(joystick_moved, JoystickMoved)
-    GET_EVENT_BY_TYPE(joystick_connected, JoystickConnected)
-    GET_EVENT_BY_TYPE(joystick_disconnected, JoystickDisconnected)
-    GET_EVENT_BY_TYPE(touch_began, TouchBegan)
-    GET_EVENT_BY_TYPE(touch_moved, TouchMoved)
-    GET_EVENT_BY_TYPE(touch_ended, TouchEnded)
-    GET_EVENT_BY_TYPE(sensor_changed, SensorChanged)
+    GET_EVENT_BY_TYPE(mouse_moved, MouseMoved, MOUSE_MOVED)
+    GET_EVENT_BY_TYPE(mouse_button_pressed, MouseButtonPressed, MOUSE_BUTTON_PRESSED)
+    GET_EVENT_BY_TYPE(mouse_button_released, MouseButtonReleased, MOUSE_BUTTON_RELEASED)
+    GET_EVENT_BY_TYPE(mouse_wheel_scrolled, MouseWheelScrolled, MOUSE_WHEEL_SCROLLED)
+    GET_EVENT_BY_TYPE(key_pressed, KeyPressed, KEY_PRESSED)
+    GET_EVENT_BY_TYPE(key_released, KeyReleased, KEY_RELEASED)
+    GET_EVENT_BY_TYPE(resized, Resized, RESIZED)
+    GET_EVENT_BY_TYPE(focus_lost, FocusLost, FOCUS_LOST)
+    GET_EVENT_BY_TYPE(focus_gained, FocusGained, FOCUS_GAINED)
+    GET_EVENT_BY_TYPE(mouse_entered, MouseEntered, MOUSE_ENTERED)
+    GET_EVENT_BY_TYPE(mouse_left, MouseLeft, MOUSE_LEFT)
+    GET_EVENT_BY_TYPE(text_entered, TextEntered, TEXT_ENTERED)
+    GET_EVENT_BY_TYPE(joystick_button_pressed, JoystickButtonPressed, JOYSTICK_BUTTON_PRESSED)
+    GET_EVENT_BY_TYPE(joystick_button_released, JoystickButtonReleased, JOYSTICK_BUTTON_RELEASED)
+    GET_EVENT_BY_TYPE(joystick_moved, JoystickMoved, JOYSTICK_MOVED)
+    GET_EVENT_BY_TYPE(joystick_connected, JoystickConnected, JOYSTICK_CONNECTED)
+    GET_EVENT_BY_TYPE(joystick_disconnected, JoystickDisconnected, JOYSTICK_DISCONNECTED)
+    GET_EVENT_BY_TYPE(touch_began, TouchBegan, TOUCH_BEGAN)
+    GET_EVENT_BY_TYPE(touch_moved, TouchMoved, TOUCH_MOVED)
+    GET_EVENT_BY_TYPE(touch_ended, TouchEnded, TOUCH_ENDED)
+    GET_EVENT_BY_TYPE(sensor_changed, SensorChanged, SENSOR_CHANGED)
+    GET_EVENT_BY_TYPE(closed, Closed, CLOSED)
     #undef GET_EVENT_BY_TYPE
 
     void manage_events(sf::RenderWindow& window); // HEAD@manage_events
 
-    std::optional<sf::Event> get_opt_event() { return __last_event; }
-    bool key_pressed_is(sf::Keyboard::Key key); // HEAD@key_pressed_is
-    bool key_released_is(sf::Keyboard::Key key); // HEAD@key_released_is
-    sf::Vector2i get_mouse_pos() { return __last_mouse_pos; }
+    nd::Event get_event() { return __last_event; }
 
 
 protected:
-    std::vector<CALLBACK_BOOL> _on_closed = {};
+    std::vector<CALLBACK_BOOL> _on_mouse_moved = {};
+    std::vector<CALLBACK_BOOL> _on_mouse_button_pressed = {};
+    std::vector<CALLBACK_BOOL> _on_mouse_button_released = {};
+    std::vector<CALLBACK_BOOL> _on_mouse_wheel_scrolled = {};
+    std::vector<CALLBACK_BOOL> _on_key_pressed = {};
+    std::vector<CALLBACK_BOOL> _on_key_released = {};
     std::vector<CALLBACK_BOOL> _on_resized = {};
     std::vector<CALLBACK_BOOL> _on_focus_lost = {};
     std::vector<CALLBACK_BOOL> _on_focus_gained = {};
     std::vector<CALLBACK_BOOL> _on_mouse_entered = {};
     std::vector<CALLBACK_BOOL> _on_mouse_left = {};
     std::vector<CALLBACK_BOOL> _on_text_entered = {};
-    std::vector<CALLBACK_BOOL> _on_key_pressed = {};
-    std::vector<CALLBACK_BOOL> _on_key_released = {};
-    std::vector<CALLBACK_BOOL> _on_mouse_wheel_scrolled = {};
-    std::vector<CALLBACK_BOOL> _on_mouse_button_pressed = {};
-    std::vector<CALLBACK_BOOL> _on_mouse_button_released = {};
-    std::vector<CALLBACK_BOOL> _on_mouse_moved = {};
     std::vector<CALLBACK_BOOL> _on_joystick_button_pressed = {};
     std::vector<CALLBACK_BOOL> _on_joystick_button_released = {};
     std::vector<CALLBACK_BOOL> _on_joystick_moved = {};
@@ -88,12 +89,12 @@ protected:
     std::vector<CALLBACK_BOOL> _on_touch_moved = {};
     std::vector<CALLBACK_BOOL> _on_touch_ended = {};
     std::vector<CALLBACK_BOOL> _on_sensor_changed = {};
+    std::vector<CALLBACK_BOOL> _on_closed = {};
 
 private:
-    void __handle_event_generic(const std::optional<sf::Event> event); // HEAD@__handle_event_generic
+    void __handle_event_generic(nd::Event event); // HEAD@__handle_event_generic
 
-    std::optional<sf::Event> __last_event = std::nullopt;
-    sf::Vector2i __last_mouse_pos = {0, 0};
+    nd::Event __last_event = __INIT_EVENT_NONE;
 
 };
 }

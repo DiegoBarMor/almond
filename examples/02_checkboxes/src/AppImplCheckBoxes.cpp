@@ -1,12 +1,10 @@
 #include "AppImplCheckBoxes.hpp"
 
 bool callback_key_press(AppImplCheckBoxes* gui) {
-    nd::EventManager eman = gui->get_event_manager();
-    const auto* key = eman.get_key_pressed();
-    if (!key) return false;
+    nd::Event::KeyPressed key = gui->get_event_manager().get_key_pressed();
 
-    std::cout << "Root key pressed: " << sf::Keyboard::getDescription(key->scancode).toAnsiString() << std::endl;
-    if (key->code == sf::Keyboard::Key::Escape) {
+    std::cout << "Root key pressed: " << sf::Keyboard::getDescription(key.scancode).toAnsiString() << std::endl;
+    if (key.code == sf::Keyboard::Key::Escape) {
         gui->get_window().close();
     }
     return true;
