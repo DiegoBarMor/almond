@@ -8,12 +8,13 @@ public:
     void build() override; // HEAD@build
     void draw(sf::RenderWindow& window) override; // HEAD@draw
 
-    void      set_checked          (bool checked)    { _checked = checked;             }
-    void      set_color_mark       (sf::Color color) { _color_mark = color;            }
-    void      set_outline_thickness(float thickness) { _outline_thickness = thickness; }
-    bool      get_checked          () { return _checked;           }
-    sf::Color get_color_mark       () { return _color_mark;        }
-    float     get_outline_thickness() { return _outline_thickness; }
+    void set_checked          (bool checked)           { _checked = checked;             }
+    void set_color_mark       (const sf::Color& color) { _color_mark = color;            }
+    void set_outline_thickness(float thickness)        { _outline_thickness = thickness; }
+
+    bool             get_checked          () const { return _checked;           }
+    const sf::Color& get_color_mark       () const { return _color_mark;        }
+    float            get_outline_thickness() const { return _outline_thickness; }
 
     void link_on_toggle(CALLBACK_EVENT callback) { _on_toggle = callback; }
 

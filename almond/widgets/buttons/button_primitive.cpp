@@ -60,7 +60,7 @@ void nd::ButtonPrimitive::set_enabled(bool enabled) { // FUNC@set_enabled
 
 
 // -----------------------------------------------------------------------------
-bool nd::ButtonPrimitive::get_enabled() { // FUNC@get_enabled
+bool nd::ButtonPrimitive::get_enabled() const { // FUNC@get_enabled
     return _state != State::DISABLED;
 } // END@get_enabled
 

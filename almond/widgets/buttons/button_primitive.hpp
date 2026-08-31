@@ -8,16 +8,17 @@ public:
     void build() override; // HEAD@build
     bool handle_event(nd::Event event) override; // HEAD@handle_event
 
-    void      set_enabled    (bool enabled); // HEAD@set_enabled
-    void      set_bg_idle    (sf::Color color) { __bg_idle = color;     }
-    void      set_bg_hover   (sf::Color color) { __bg_hover = color;    }
-    void      set_bg_pressed (sf::Color color) { __bg_pressed = color;  }
-    void      set_bg_disabled(sf::Color color) { __bg_disabled = color; }
-    bool      get_enabled    (); // HEAD@get_enabled
-    sf::Color get_bg_idle    () { return __bg_idle;     }
-    sf::Color get_bg_hover   () { return __bg_hover;    }
-    sf::Color get_bg_pressed () { return __bg_pressed;  }
-    sf::Color get_bg_disabled() { return __bg_disabled; }
+    void set_enabled    (bool enabled); // HEAD@set_enabled
+    void set_bg_idle    (const sf::Color& color) { __bg_idle = color;     }
+    void set_bg_hover   (const sf::Color& color) { __bg_hover = color;    }
+    void set_bg_pressed (const sf::Color& color) { __bg_pressed = color;  }
+    void set_bg_disabled(const sf::Color& color) { __bg_disabled = color; }
+
+    bool             get_enabled    () const; // HEAD@get_enabled
+    const sf::Color& get_bg_idle    () const { return __bg_idle;     }
+    const sf::Color& get_bg_hover   () const { return __bg_hover;    }
+    const sf::Color& get_bg_pressed () const { return __bg_pressed;  }
+    const sf::Color& get_bg_disabled() const { return __bg_disabled; }
 
     void link_on_click(CALLBACK_EVENT callback) { _on_click = callback; }
 

@@ -39,7 +39,7 @@ void nd::Widget::draw(sf::RenderWindow& window) { // FUNC@draw
 
 
 // -----------------------------------------------------------------------------
-void nd::Widget::set_bg_color(sf::Color color) { // FUNC@set_bg_color
+void nd::Widget::set_bg_color(const sf::Color& color) { // FUNC@set_bg_color
     _bg_color = color;
     _shape.setFillColor(color);
 } // END@set_bg_color

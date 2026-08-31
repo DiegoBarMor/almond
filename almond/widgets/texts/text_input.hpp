@@ -15,10 +15,11 @@ public:
     bool handle_event(nd::Event event) override; // HEAD@handle_event
     void draw(sf::RenderWindow& window) override; // HEAD@draw
 
-    void        set_hint_str  (std::string hint) { __hint_str = hint;    }
-    void        set_hint_color(sf::Color color)  { __hint_color = color; }
-    std::string get_hint_str  () { return __hint_str;   }
-    sf::Color   get_hint_color() { return __hint_color; }
+    void set_hint_str  (const std::string& hint) { __hint_str = hint;    }
+    void set_hint_color(const sf::Color& color)  { __hint_color = color; }
+
+    const std::string& get_hint_str  () const { return __hint_str;   }
+    const sf::Color&   get_hint_color() const { return __hint_color; }
 
 protected:
     float _outline_thickness = 0.1f; // ratio (0.0f-1.0f) [WIP]

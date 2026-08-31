@@ -15,10 +15,11 @@ public:
     virtual bool handle_event(nd::Event event); // HEAD@handle_event
     virtual void draw(sf::RenderWindow& window); // HEAD@draw
 
-    void        set_weight  (float weight   ) { __weight = weight; }
-    void        set_bg_color(sf::Color color); // HEAD@set_bg_color
-    float       get_weight  () { return __weight;  }
-    sf::Color   get_bg_color() { return _bg_color; }
+    void set_weight  (float weight   ) { __weight = weight; }
+    void set_bg_color(const sf::Color& color); // HEAD@set_bg_color
+
+    float            get_weight  () const { return __weight;  }
+    const sf::Color& get_bg_color() const { return _bg_color; }
 
     virtual void set_pos   (sf::Vector2f pos ) { _pos = pos;        }
     virtual void set_size  (sf::Vector2f size) { _size = size;      }

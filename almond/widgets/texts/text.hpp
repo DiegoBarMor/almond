@@ -12,12 +12,13 @@ public:
     void build() override; // HEAD@build
     void draw(sf::RenderWindow& window) override; // HEAD@draw
 
-    void         set_text_str  (std::string text)  { _text_str = text;    }
-    void         set_font_size (unsigned int size) { __font_size = size;  }
-    void         set_font_color(sf::Color color)   { _font_color = color; }
-    std::string  get_text_str  () { return _text_str;   }
-    unsigned int get_font_size () { return __font_size; }
-    sf::Color    get_font_color() { return _font_color; }
+    void set_text_str  (const std::string& text)  { _text_str = text;    }
+    void set_font_size (unsigned int size)        { __font_size = size;  }
+    void set_font_color(const sf::Color& color)   { _font_color = color; }
+
+    const std::string& get_text_str  () const { return _text_str;   }
+    unsigned int       get_font_size () const { return __font_size; }
+    const sf::Color&   get_font_color() const { return _font_color; }
 
     sf::Font font = sf::Font();
 
