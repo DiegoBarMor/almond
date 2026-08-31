@@ -10,7 +10,7 @@ bool callback_key_press(AppImplCheckBoxes* gui) {
     return true;
 }
 
-void callback_on_toggle(nd::CheckBox* cb) {
+bool callback_on_toggle(nd::CheckBox* cb) {
     std::string t;
     sf::Color color_0, color_1;
     if (cb->get_checked()) {
@@ -25,6 +25,7 @@ void callback_on_toggle(nd::CheckBox* cb) {
     std::cout << "CheckBox  " << cb << " toggled " << t << std::endl;
     cb->set_bg_idle(color_0);
     cb->set_bg_hover(color_1);
+    return true;
 }
 
 void AppImplCheckBoxes::_on_init() {
@@ -43,10 +44,10 @@ void AppImplCheckBoxes::_on_create() {
         return callback_key_press(this);
     });
 
-    c0->link_on_toggle( [c0](){ callback_on_toggle(c0); } );
-    c1->link_on_toggle( [c1](){ callback_on_toggle(c1); } );
-    c2->link_on_toggle( [c2](){ callback_on_toggle(c2); } );
-    c3->link_on_toggle( [c3](){ callback_on_toggle(c3); } );
+    c0->link_on_toggle( [c0](nd::Event event){ return callback_on_toggle(c0); } );
+    c1->link_on_toggle( [c1](nd::Event event){ return callback_on_toggle(c1); } );
+    c2->link_on_toggle( [c2](nd::Event event){ return callback_on_toggle(c2); } );
+    c3->link_on_toggle( [c3](nd::Event event){ return callback_on_toggle(c3); } );
 }
 
 void AppImplCheckBoxes::_on_build() {

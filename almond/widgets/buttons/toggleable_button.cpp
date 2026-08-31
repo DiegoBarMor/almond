@@ -34,24 +34,25 @@ void nd::ToggleableButton::build() { // FUNC@build
 
 
 // -----------------------------------------------------------------------------
-bool nd::ToggleableButton::handle_event(const std::optional<sf::Event> event) { // FUNC@handle_event
-    if (_state == State::DISABLED) return false;
-    if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonReleased>()) {
-        if (
-            event->is<sf::Event::MouseButtonReleased>() &&
-            contains_point(mouseButton->position)
-        )
-            _internal_on_toggle();
-    }
-    return nd::ButtonPrimitive::handle_event(event);
-} // END@handle_event
-
-
-// -----------------------------------------------------------------------------
 void nd::ToggleableButton::draw(sf::RenderWindow& window) { // FUNC@draw
     nd::ButtonPrimitive::draw(window);
     window.draw(_shape_overlay);
 } // END@draw
+
+
+// -----------------------------------------------------------------------------
+bool nd::ToggleableButton::_on_mouse_button_released(nd::Event event) { // FUNC@_on_mouse_button_released
+    if (_state == State::DISABLED) return false;
+
+    if (contains_point(event.mouse_button_released.position)) {
+        set_checked(!_checked);
+        if (_on_toggle) {
+            bool consumed = _on_toggle(event);
+            if (consumed) return true;
+        }
+    }
+    return nd::ButtonPrimitive::_on_mouse_button_released(event);
+} // END@_on_mouse_button_released
 
 
 // -----------------------------------------------------------------------------

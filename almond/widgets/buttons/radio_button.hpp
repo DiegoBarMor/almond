@@ -21,7 +21,7 @@ public:
     void first_build(std::vector<nd::RadioButton*> list_radiobuttons); // HEAD@first_build
 
 protected:
-    void _internal_on_toggle() override; // HEAD@_internal_on_toggle
+    bool _on_mouse_button_released(nd::Event event) override; // HEAD@_on_mouse_button_released
 
 private:
     std::string __group_id = "";

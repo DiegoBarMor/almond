@@ -34,18 +34,6 @@ void nd::Container::build() { // FUNC@build
 
 
 // -----------------------------------------------------------------------------
-bool nd::Container::handle_event(const std::optional<sf::Event> event) { // FUNC@handle_event
-    for (auto& child : _children) {
-        if (child->handle_event(event))
-            return true; // event handled by child, no need to continue
-    }
-    // event not handled by children, now the container tries to handle it.
-    // this implies that children can override the container's event handling
-    return _internal_handle_event(event);
-} // END@handle_event
-
-
-// -----------------------------------------------------------------------------
 void nd::Container::draw(sf::RenderWindow& window) { // FUNC@draw
     window.draw(_shape);
     for (auto& child : _children) {

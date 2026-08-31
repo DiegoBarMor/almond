@@ -9,7 +9,6 @@
     - `nd::GridLayout`.
     - `nd::ScrollLayout`.
     - `nd::Draggable`.
-- Polish the event handling (e.g. prioritize overriding internal callback wrappers instead of overriding handle_event).
 - Improve the `nd::TextInput`
     - Add cursor, capable of moving around when using the arrows and selecting sections of text. Clipboard operations should behave differently when a selection is active.
     - Add spec to enable or disable multiline.

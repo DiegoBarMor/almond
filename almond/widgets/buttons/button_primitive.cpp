@@ -34,6 +34,26 @@ void nd::ButtonPrimitive::build() { // FUNC@build
 
 
 // -----------------------------------------------------------------------------
+bool nd::ButtonPrimitive::handle_event(nd::Event event) { // FUNC@handle_event
+    if (_state == State::DISABLED) return false;
+
+    bool consumed = false;
+    switch (event.none.type) {
+        case nd::EventType::MOUSE_BUTTON_PRESSED:
+            consumed = _on_mouse_button_pressed(event); break;
+        case nd::EventType::MOUSE_BUTTON_RELEASED:
+            consumed = _on_mouse_button_released(event); break;
+        case nd::EventType::MOUSE_MOVED:
+            consumed = _on_mouse_moved(event); break;
+        default: break;
+    }
+    if (consumed) return true;
+
+    return nd::Widget::handle_event(event);
+} // END@handle_event
+
+
+// -----------------------------------------------------------------------------
 void nd::ButtonPrimitive::set_enabled(bool enabled) { // FUNC@set_enabled
     __set_state(enabled ? State::IDLE : State::DISABLED);
 } // END@set_enabled
@@ -46,55 +66,38 @@ bool nd::ButtonPrimitive::get_enabled() { // FUNC@get_enabled
 
 
 // -----------------------------------------------------------------------------
-bool nd::ButtonPrimitive::_internal_on_mouse_button_pressed(const std::optional<sf::Event> event) { // FUNC@_internal_on_mouse_button_pressed
-    if (_state == State::DISABLED) return false;
-    if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonPressed>()) {
-        if (!contains_point(mouseButton->position)) return false;
-    }
+bool nd::ButtonPrimitive::_on_mouse_button_pressed(nd::Event event) { // FUNC@_on_mouse_button_pressed
+    if (!contains_point(event.mouse_button_pressed.position)) return false;
     __set_state(State::PRESSED);
-    if (!_on_mouse_button_pressed) return false;
-    return _on_mouse_button_pressed(event);
-} // END@_internal_on_mouse_button_pressed
+
+    return _on_click ? _on_click(event) : false;
+} // END@_on_mouse_button_pressed
 
 
 // -----------------------------------------------------------------------------
-bool nd::ButtonPrimitive::_internal_on_mouse_button_released(const std::optional<sf::Event> event) { // FUNC@_internal_on_mouse_button_released
-    if (_state == State::DISABLED) return false;
-    if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonReleased>()) {
-        if (contains_point(mouseButton->position)) {
-            // update the button state and carry out _on_mouse_button_released as usual
+bool nd::ButtonPrimitive::_on_mouse_button_released(nd::Event event) { // FUNC@_on_mouse_button_released
+    if (contains_point(event.mouse_button_released.position)) {
+        __set_state(State::HOVER);
+    }
+    else if (_state == State::PRESSED) {
+        __set_state(State::IDLE);
+    }
+    return false;
+} // END@_on_mouse_button_released
+
+
+// -----------------------------------------------------------------------------
+bool nd::ButtonPrimitive::_on_mouse_moved(nd::Event event) { // FUNC@_on_mouse_moved
+    if (contains_point(event.mouse_moved.position)) {
+        if (_state == State::IDLE) {
             __set_state(State::HOVER);
-            if (!_on_mouse_button_released) return false;
-            return _on_mouse_button_released(event);
         }
     }
-    if (_state == State::PRESSED) {
-        // mouse was pressed on the button but released outside its bounds
-        // the button state is updated, but _on_mouse_button_released is not called
-        // basically, the on_release action is cancelled
+    else if (_state == State::HOVER) {
         __set_state(State::IDLE);
     }
     return false;
-} // END@_internal_on_mouse_button_released
-
-
-// -----------------------------------------------------------------------------
-bool nd::ButtonPrimitive::_internal_on_mouse_moved(const std::optional<sf::Event> event) { // FUNC@_internal_on_mouse_moved
-    if (_state == State::DISABLED) return false;
-    if (const auto* mouseMove = event->getIf<sf::Event::MouseMoved>()) {
-        if (contains_point(mouseMove->position)) {
-            if (_state == State::IDLE) {
-                __set_state(State::HOVER);
-            }
-            if (!_on_mouse_moved) return false;
-            return _on_mouse_moved(event);
-        }
-    }
-    if (_state == State::HOVER) {
-        __set_state(State::IDLE);
-    }
-    return false;
-} // END@_internal_on_mouse_moved
+} // END@_on_mouse_moved
 
 
 // -----------------------------------------------------------------------------

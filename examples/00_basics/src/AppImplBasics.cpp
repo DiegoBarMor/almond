@@ -17,8 +17,8 @@ void AppImplBasics::_on_init() {
 
 void AppImplBasics::_on_create() {
     nd::Widget* col0 = get_widget("col0");
-    nd::Widget* b0   = get_widget("b0");
-    nd::Widget* b1   = get_widget("b1");
+    nd::LabeledButton* b0 = (nd::LabeledButton*)get_widget("b0");
+    nd::LabeledButton* b1 = (nd::LabeledButton*)get_widget("b1");
 
     // arbitrary post-creation operations
     b1->set_spec("TEXT", "New text");
@@ -30,17 +30,19 @@ void AppImplBasics::_on_create() {
         return callback_key_press(this);
     });
 
-    // can also link callbacks directly to widgets, to avoid wasting time searching for them multiple times
-    col0->link_on_mouse_button_pressed([](const std::optional<sf::Event> event) {
+    // can also link callbacks directly to widgets
+    col0->link_on_event([](nd::Event event) {
+        if (event.none.type != nd::EventType::MOUSE_BUTTON_PRESSED) return false;
         // any kind of widget can handle events, even containers
         std::cout << "Column 0 clicked" << std::endl;
         return true;
     });
-    col0->link_on_mouse_button_released([](const std::optional<sf::Event> event) {
+    col0->link_on_event([](nd::Event event) {
+        if (event.none.type != nd::EventType::MOUSE_BUTTON_RELEASED) return false;
         std::cout << "Column 0 released" << std::endl;
         return true;
     });
-    b0->link_on_mouse_button_pressed([this](const std::optional<sf::Event> event) {
+    b0->link_on_click([this](nd::Event event) {
         std::cout << "Button 0 clicked" << std::endl;
         nd::Widget* custom = this->get_widget("custom");
         custom->set_spec("COLOR_0", "128,128,128");
@@ -48,7 +50,7 @@ void AppImplBasics::_on_create() {
         // return true to stop the event propagation
         return true;
     });
-    b0->link_on_mouse_button_released([this](const std::optional<sf::Event> event) {
+    b0->link_on_click([this](nd::Event event) {
         std::cout << "Button 0 released" << std::endl;
         nd::Widget* custom = this->get_widget("custom");
         custom->set_spec("COLOR_0", "128,0,0");

@@ -62,12 +62,6 @@ protected:
     // m.1a (Internal functionalities)
     void _some_internal_functionality();
 
-    // m.1b (Callback wrappers)
-    bool _internal_on_mouse_button_pressed (nd::Event event) override;
-    bool _internal_on_mouse_button_released(nd::Event event) override;
-    bool _internal_on_mouse_moved          (nd::Event event) override;
-    bool _internal_on_key_pressed          (nd::Event event) override;
-
     // d.1b (Spec fields)
     bool _spec_0 = false;
 

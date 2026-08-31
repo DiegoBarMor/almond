@@ -65,13 +65,20 @@ void nd::RadioButton::first_build(std::vector<nd::RadioButton*> list_radiobutton
 
 
 // -----------------------------------------------------------------------------
-void nd::RadioButton::_internal_on_toggle() { // FUNC@_internal_on_toggle
-    if (_checked || __group == nullptr) return;
-    set_checked(true);
-    __group->buttons[__group->selected_idx]->set_checked(false);
-    __group->selected_idx = __idx_in_group;
-    if (_on_toggle) _on_toggle();
-} // END@_internal_on_toggle
+bool nd::RadioButton::_on_mouse_button_released(nd::Event event) { // FUNC@_on_mouse_button_released
+    if (_checked || __group == nullptr) return false;
+
+    if (contains_point(event.mouse_button_released.position)) {
+        set_checked(true);
+        __group->buttons[__group->selected_idx]->set_checked(false);
+        __group->selected_idx = __idx_in_group;
+        if (_on_toggle) {
+            bool consumed = _on_toggle(event);
+            if (consumed) return true;
+        }
+    }
+    return nd::ButtonPrimitive::_on_mouse_button_released(event);
+} // END@_on_mouse_button_released
 
 
 // -----------------------------------------------------------------------------

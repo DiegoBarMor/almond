@@ -39,6 +39,22 @@ void nd::TextInput::build() { // FUNC@build
 
 
 // -----------------------------------------------------------------------------
+bool nd::TextInput::handle_event(nd::Event event) { // FUNC@handle_event
+    bool consumed = false;
+    switch (event.none.type) {
+        case nd::EventType::MOUSE_BUTTON_RELEASED:
+            consumed = _on_mouse_button_released(event); break;
+        case nd::EventType::TEXT_ENTERED:
+            consumed = _on_text_entered(event); break;
+        default: break;
+    }
+    if (consumed) return true;
+
+    return nd::Text::handle_event(event);
+} // END@handle_event
+
+
+// -----------------------------------------------------------------------------
 void nd::TextInput::draw(sf::RenderWindow& window) { // FUNC@draw
     window.draw(_shape);
     window.draw(__shape_overlay);
@@ -47,26 +63,21 @@ void nd::TextInput::draw(sf::RenderWindow& window) { // FUNC@draw
 
 
 // -----------------------------------------------------------------------------
-bool nd::TextInput::_internal_on_mouse_button_released(const std::optional<sf::Event> event) { // FUNC@_internal_on_mouse_button_released
-    if (const auto* mouseButton = event->getIf<sf::Event::MouseButtonReleased>()) {
-        __is_focused = contains_point(mouseButton->position);
-    }
+bool nd::TextInput::_on_mouse_button_released(nd::Event event) { // FUNC@_on_mouse_button_released
+    ////// [WIP] do it on_mouse_button_pressed instead? (same for the toggleable buttons)
+    __is_focused = contains_point(event.mouse_button_pressed.position);
     build();
-    if (!_on_mouse_button_released) return false;
-    return _on_mouse_button_released(event);
-} // END@_internal_on_mouse_button_released
+    return false;
+} // END@_on_mouse_button_released
 
 
 // -----------------------------------------------------------------------------
-bool nd::TextInput::_internal_on_text_entered(const std::optional<sf::Event> event) { // FUNC@_internal_on_text_entered
+bool nd::TextInput::_on_text_entered(nd::Event event) { // FUNC@_on_text_entered
     if (!__is_focused) return false;
 
-    const auto* text = event->getIf<sf::Event::TextEntered>();
-    if (!text) return false;
+    std::cout << event.text_entered.unicode << std::endl; // [DEBUG]
 
-    std::cout << text->unicode << std::endl; // [DEBUG]
-
-    switch (text->unicode) {
+    switch (event.text_entered.unicode) {
     case 3:  // Ctrl+C (Copy)
         sf::Clipboard::setString(_text_str);
         break;
@@ -84,12 +95,12 @@ bool nd::TextInput::_internal_on_text_entered(const std::optional<sf::Event> eve
         _text_str += sf::Clipboard::getString().toAnsiString();
         break;
     default:
-        _text_str += text->unicode;
+        _text_str += event.text_entered.unicode;
         break;
     }
     build();
-    return nd::Text::_internal_on_text_entered(event);
-} // END@_internal_on_text_entered
+    return false;
+} // END@_on_text_entered
 
 
 // -----------------------------------------------------------------------------
