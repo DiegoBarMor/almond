@@ -1,16 +1,7 @@
 #include "event_manager.hpp"
 
 // -----------------------------------------------------------------------------
-void nd::EventManager::manage_events(sf::RenderWindow& window) { // FUNC@manage_events
-    while (const std::optional sf_event = window.pollEvent()) {
-        nd::Event nd_event = __init_event(sf_event);
-        __handle_event_generic(nd_event);
-    }
-} // END@manage_events
-
-
-// -----------------------------------------------------------------------------
-void nd::EventManager::__handle_event_generic(nd::Event event) { // FUNC@__handle_event_generic
+void nd::EventManager::handle_event(nd::Event event) { // FUNC@handle_event
     __last_event = event;
     std::vector<CALLBACK_BOOL> callbacks;
 
@@ -44,7 +35,7 @@ void nd::EventManager::__handle_event_generic(nd::Event event) { // FUNC@__handl
         bool consumed = callback();
         if (consumed) return;
     }
-} // END@__handle_event_generic
+} // END@handle_event
 
 
 // -----------------------------------------------------------------------------

@@ -25,6 +25,8 @@ public:
     void set_id(nd::Widget* widget, std::string id) { __id_widgets[id] = widget; }
     Widget* get_widget_by_id(std::string id); // HEAD@get_widget_by_id
 
+    const std::vector<nd::Widget*>& get_all_widgets() { return __all_widgets; }
+
     void group_radiobuttons(); // HEAD@group_radiobuttons
 
     sf::Font get_font() { return __font; }
@@ -37,5 +39,6 @@ private:
     sf::Font __font;
     bool __is_first_build = true;
     std::vector<nd::RadioButton*> __list_radiobuttons = {};
+    std::vector<nd::Widget*> __all_widgets = {};
 };
 }

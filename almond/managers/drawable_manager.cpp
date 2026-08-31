@@ -45,6 +45,8 @@ nd::Widget* nd::DrawableManager::create_widget(std::string type) { // FUNC@creat
     }
 
     nd::Widget* widget = __prototypes[type]->clone();
+    __all_widgets.push_back(widget);
+
     if (type == "RBN" || type == "RADIOBUTTON") {
         __list_radiobuttons.push_back((nd::RadioButton*)widget);
     }

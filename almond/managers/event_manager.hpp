@@ -62,10 +62,9 @@ public:
     GET_EVENT_BY_TYPE(closed, Closed, CLOSED)
     #undef GET_EVENT_BY_TYPE
 
-    void manage_events(sf::RenderWindow& window); // HEAD@manage_events
-
     nd::Event get_event() { return __last_event; }
 
+    void handle_event(nd::Event event); // HEAD@handle_event
 
 protected:
     std::vector<CALLBACK_BOOL> _on_mouse_moved = {};
@@ -92,8 +91,6 @@ protected:
     std::vector<CALLBACK_BOOL> _on_closed = {};
 
 private:
-    void __handle_event_generic(nd::Event event); // HEAD@__handle_event_generic
-
     nd::Event __last_event = __INIT_EVENT_NONE;
 
 };

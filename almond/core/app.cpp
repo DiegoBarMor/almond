@@ -24,7 +24,15 @@ nd::Widget* nd::App::get_widget(std::string id) { // FUNC@get_widget
 
 // -----------------------------------------------------------------------------
 void nd::App::manage_events() { // FUNC@manage_events
-    _event_man.manage_events(__window);
+    while (const std::optional sf_event = __window.pollEvent()) {
+        nd::Event nd_event = __init_event(sf_event);
+        _event_man.handle_event(nd_event);
+
+        for (nd::Widget* widget : _drawable_man.get_all_widgets()) {
+            bool consumed = widget->handle_event(nd_event);
+            if (consumed) break;
+        }
+    }
 } // END@manage_events
 
 
