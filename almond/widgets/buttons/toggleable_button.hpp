@@ -20,7 +20,7 @@ public:
 protected:
     ToggleableButton() : ButtonPrimitive() {}
 
-    bool _on_mouse_button_released(nd::Event event) override; // HEAD@_on_mouse_button_released
+    bool _on_mouse_button_pressed(nd::Event event) override; // HEAD@_on_mouse_button_pressed
 
     bool _checked = false;
     sf::Color _color_mark = sf::Color(0,0,200,200);

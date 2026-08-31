@@ -22,7 +22,7 @@ public:
 
 protected:
     float _outline_thickness = 0.1f; // ratio (0.0f-1.0f) [WIP]
-    bool _on_mouse_button_released(nd::Event event); // HEAD@_on_mouse_button_released
+    bool _on_mouse_button_pressed(nd::Event event); // HEAD@_on_mouse_button_pressed
     bool _on_text_entered(nd::Event event); // HEAD@_on_text_entered
 
 private:

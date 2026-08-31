@@ -65,7 +65,7 @@ void nd::RadioButton::first_build(std::vector<nd::RadioButton*> list_radiobutton
 
 
 // -----------------------------------------------------------------------------
-bool nd::RadioButton::_on_mouse_button_released(nd::Event event) { // FUNC@_on_mouse_button_released
+bool nd::RadioButton::_on_mouse_button_pressed(nd::Event event) { // FUNC@_on_mouse_button_pressed
     if (_checked || __group == nullptr) return false;
 
     if (contains_point(event.mouse_button_released.position)) {
@@ -77,8 +77,8 @@ bool nd::RadioButton::_on_mouse_button_released(nd::Event event) { // FUNC@_on_m
             if (consumed) return true;
         }
     }
-    return nd::ButtonPrimitive::_on_mouse_button_released(event);
-} // END@_on_mouse_button_released
+    return nd::ButtonPrimitive::_on_mouse_button_pressed(event);
+} // END@_on_mouse_button_pressed
 
 
 // -----------------------------------------------------------------------------

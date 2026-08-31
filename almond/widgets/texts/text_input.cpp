@@ -42,8 +42,8 @@ void nd::TextInput::build() { // FUNC@build
 bool nd::TextInput::handle_event(nd::Event event) { // FUNC@handle_event
     bool consumed = false;
     switch (event.none.type) {
-        case nd::EventType::MOUSE_BUTTON_RELEASED:
-            consumed = _on_mouse_button_released(event); break;
+        case nd::EventType::MOUSE_BUTTON_PRESSED:
+            consumed = _on_mouse_button_pressed(event); break;
         case nd::EventType::TEXT_ENTERED:
             consumed = _on_text_entered(event); break;
         default: break;
@@ -63,12 +63,11 @@ void nd::TextInput::draw(sf::RenderWindow& window) { // FUNC@draw
 
 
 // -----------------------------------------------------------------------------
-bool nd::TextInput::_on_mouse_button_released(nd::Event event) { // FUNC@_on_mouse_button_released
-    ////// [WIP] do it on_mouse_button_pressed instead? (same for the toggleable buttons)
+bool nd::TextInput::_on_mouse_button_pressed(nd::Event event) { // FUNC@_on_mouse_button_pressed
     __is_focused = contains_point(event.mouse_button_pressed.position);
     build();
     return false;
-} // END@_on_mouse_button_released
+} // END@_on_mouse_button_pressed
 
 
 // -----------------------------------------------------------------------------

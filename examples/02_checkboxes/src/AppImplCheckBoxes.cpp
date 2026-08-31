@@ -29,7 +29,7 @@ bool callback_on_toggle(nd::CheckBox* cb) {
 }
 
 void AppImplCheckBoxes::_on_init() {
-    // pre-creation operations, custom prototypes must be added here before parsing the GUI file
+    ////// pre-creation operations, custom prototypes must be added here before parsing the GUI file
 }
 
 void AppImplCheckBoxes::_on_create() {
@@ -38,8 +38,8 @@ void AppImplCheckBoxes::_on_create() {
     nd::CheckBox* c2 = (nd::CheckBox*)get_widget("c2");
     nd::CheckBox* c3 = (nd::CheckBox*)get_widget("c3");
 
-    // linking callbacks with lambda expressions
-    // note that the AppImplCheckBoxes instance has to be captured with [] to access its methods
+    ////////linking callbacks with lambda expressions
+    ////// note that the AppImplCheckBoxes instance has to be captured with [] to access its methods
     _event_man.add_on_key_pressed([this]() {
         return callback_key_press(this);
     });
@@ -51,5 +51,5 @@ void AppImplCheckBoxes::_on_create() {
 }
 
 void AppImplCheckBoxes::_on_build() {
-    // post-building operations
+    ////// post-building operations
 }
