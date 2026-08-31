@@ -1,4 +1,5 @@
 #pragma once
+#include "event_manager.hpp"
 #include "../widgets/widget.hpp"
 #include "../widgets/buttons/button_primitive.hpp"
 #include "../widgets/buttons/check_box.hpp"
@@ -12,9 +13,9 @@
 #include "../widgets/texts/text_input.hpp"
 
 namespace nd {
-class ManagerDrawables {
+class DrawableManager {
 public:
-    ManagerDrawables(); // HEAD@ManagerDrawables
+    DrawableManager(); // HEAD@DrawableManager
 
     void add_prototype(std::string type, nd::Widget* prototype) {
         __prototypes[type] = prototype;
@@ -23,6 +24,8 @@ public:
 
     void set_id(nd::Widget* widget, std::string id) { __id_widgets[id] = widget; }
     Widget* get_widget_by_id(std::string id); // HEAD@get_widget_by_id
+
+    const std::vector<nd::Widget*>& get_all_widgets() { return __all_widgets; }
 
     void group_radiobuttons(); // HEAD@group_radiobuttons
 
@@ -36,5 +39,6 @@ private:
     sf::Font __font;
     bool __is_first_build = true;
     std::vector<nd::RadioButton*> __list_radiobuttons = {};
+    std::vector<nd::Widget*> __all_widgets = {};
 };
 }

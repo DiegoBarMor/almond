@@ -1,6 +1,6 @@
 #pragma once
 #include "../core/globals.hpp"
-#include "../core/manager_drawables.hpp"
+#include "../managers/drawable_manager.hpp"
 #include "../widgets/widget.hpp"
 
 namespace nd {
@@ -12,7 +12,7 @@ public:
         SPECS_VAL, // parsing the value for the current spec
         NEXT_GUI   // parsing brackets, deal with staying in the same GUI or moving to the next
     };
-    ParserNDG(nd::ManagerDrawables& manager_drawables) : __manager_drawables(manager_drawables) {}
+    ParserNDG(nd::DrawableManager& manager_drawables) : __drawable_man(manager_drawables) {}
     Widget* parse(const std::string& filename); // HEAD@parse
 
 private:
@@ -29,7 +29,7 @@ private:
     std::string __buffer = "";
     std::string __specs_key = "";
 
-    nd::ManagerDrawables& __manager_drawables;
+    nd::DrawableManager& __drawable_man;
 
     State __state = State::TYPE;
     Widget* __root = nullptr;

@@ -41,10 +41,3 @@ void nd::CheckBox::draw(sf::RenderWindow& window) { // FUNC@draw
 
 
 // -----------------------------------------------------------------------------
-void nd::CheckBox::_internal_on_toggle() { // FUNC@_internal_on_toggle
-    set_checked(!_checked);
-    if (_on_toggle) _on_toggle();
-} // END@_internal_on_toggle
-
-
-// -----------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 #pragma once
-#include "manager_drawables.hpp"
+#include "../managers/drawable_manager.hpp"
 #include "../parsers/parser_ndg.hpp"
 
 namespace nd {
@@ -17,11 +17,9 @@ public:
     void manage_events(); // HEAD@manage_events
     void draw(); // HEAD@draw
 
-protected:
-    // Override this to link callbacks that could be handled "globally" by the App.
-    // For example, closing the window when pressing the Escape key or handling the window resizing.
-    virtual bool _internal_manage_event(const std::optional<sf::Event> event) { return false; }
+    nd::EventManager& get_event_manager() { return _event_man; }
 
+protected:
     // Override this to add behaviour that should happen before creating the root widget.
     // For example, adding custom prototypes.
     virtual void _on_init() {};
@@ -35,7 +33,8 @@ protected:
     // Linking widget callbacks could be done here.
     virtual void _on_build() {};
 
-    ManagerDrawables _manager_drawables = ManagerDrawables();
+    nd::DrawableManager _drawable_man = nd::DrawableManager();
+    nd::EventManager _event_man = nd::EventManager();
 
 private:
     void __create(const std::string& filename); // HEAD@__create

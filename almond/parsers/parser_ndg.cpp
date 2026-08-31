@@ -81,7 +81,7 @@ void nd::ParserNDG::__parse_specs_val(char ch) { // FUNC@__parse_specs_val
     }
     if (__current != nullptr) {
         if (__specs_key == "ID" || __specs_key == "IDENTIFIER") {
-            __manager_drawables.set_id(__current, __buffer);
+            __drawable_man.set_id(__current, __buffer);
         }
         else if (!__current->set_spec(__specs_key, __buffer)) {
             std::cerr << "Failed to set spec: " <<
@@ -118,7 +118,7 @@ void nd::ParserNDG::__parse_next_gui(char ch) { // FUNC@__parse_next_gui
 
 // -----------------------------------------------------------------------------
 void nd::ParserNDG::__add_gui_widget() { // FUNC@__add_gui_widget
-    __current = __manager_drawables.create_widget(__buffer);
+    __current = __drawable_man.create_widget(__buffer);
     if (__current == nullptr) {
         std::cerr << "Failed to create widget: " << __buffer << std::endl;
         return;

@@ -6,19 +6,18 @@ int main() {
     sf::RenderWindow window(sf::VideoMode({800, 600}), "ALMOND Example 04 - TextINputs and Sliders");
     window.setFramerateLimit(60);
 
-    nd::App gui = nd::App(window);
-    gui.setup("layout.ndg");
+    nd::App app = nd::App(window);
+    app.setup("layout.ndg");
 
     ////// Callbacks
-    nd::Widget* root = gui.get_widget("root");
-    root->link_on_closed([&gui](const std::optional<sf::Event> event) {
-        gui.get_window().close();
+    nd::EventManager& eman = app.get_event_manager();
+    eman.add_on_closed([&app]() {
+        app.get_window().close();
         return true;
     });
-    root->link_on_key_pressed([&gui](const std::optional<sf::Event> event) {
-        const auto* keyPress = event->getIf<sf::Event::KeyPressed>();
-        if (keyPress && keyPress->code == sf::Keyboard::Key::Escape) {
-            gui.get_window().close();
+    eman.add_on_key_pressed([&app,&eman]() {
+        if (eman.get_key_pressed().code == sf::Keyboard::Key::Escape) {
+            app.get_window().close();
             return true;
         }
         return false;
@@ -26,9 +25,9 @@ int main() {
 
     ////// Main loop
     while (window.isOpen()) {
-        gui.manage_events();
+        app.manage_events();
         window.clear(sf::Color::Black);
-        gui.draw();
+        app.draw();
         window.display();
     }
     return 0;

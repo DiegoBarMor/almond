@@ -50,31 +50,34 @@ ALMOND works by instantiating an implementation of `nd::App` into the part of th
 
 <!-- ****************************************************************************************** CLASSES -->
 ## GUI Class Hierarcy
-The following is the class inheritance hierarchy for the widgets.
-
+The following is the class inheritance hierarchy for the drawables.
+[WIP] considering a preferable new organization.
 ```
-Widget (x)?
+Drawable (x)
+|-- Primitive (x)
+|   |-- PrimitiveText (x) [TODO]
+|   |-- PrimitiveButton (x) [WIP]
+|   `-- PrimitiveToggleable (x) [WIP]
 |-- Container
 |   |-- LayoutRow
 |   `-- LayoutColumn
-|-- Text
-|   `-- TextInput
-|-- ButtonPrimitive (x)
-|   |-- LabeledButton
-|   `-- ToggleableButton (x)
-|       |-- CheckBox
-|       `-- RadioButton
-`-- Slider [TODO]
+`-- Widget
+    |-- TextLabel [TODO]
+    |-- TextInput
+    |-- Button
+    |-- CheckBox
+    |-- RadioButton
+    `-- Slider [TODO]
 ```
 
 Classes that can't be instantiated directly are denoted with a `(x)`.
 
 ### About the classes
-- `nd::Widget`: Provides a public interface common to any kind of widget. It implements basic GUI behaviour, such as building and displaying a shape and event handling. This allows the `ParserNDG` to construct different widgets, containers, etc without the need of knowing what they are, as it just passes construction responsability to `nd::ManagerDrawables::create_widget` in the form of strings, and `nd::Widget` instantiates the widgets by cloning their respective prototype from the  `nd::ManagerDrawables::__prototypes` hashtable. This table is to be filled out by the `nd::ManagerDrawables` at instantiation, before performing any parsing. The `ParserNDG` uses a similar approach with setting `specs`: it passes responsability to the virtual `nd::Widget::set_spec`, which can be overriden by derived classes to accept more kinds of `specs`. `nd::Widget` shouldn't be instantiated directly, so it has no prototype.
+- `nd::Widget`: Provides a public interface common to any kind of widget. It implements basic GUI behaviour, such as building and displaying a shape and event handling. This allows the `ParserNDG` to construct different widgets, containers, etc without the need of knowing what they are, as it just passes construction responsability to `nd::DrawableManager::create_widget` in the form of strings, and `nd::Widget` instantiates the widgets by cloning their respective prototype from the  `nd::DrawableManager::__prototypes` hashtable. This table is to be filled out by the `nd::DrawableManager` at instantiation, before performing any parsing. The `ParserNDG` uses a similar approach with setting `specs`: it passes responsability to the virtual `nd::Widget::set_spec`, which can be overriden by derived classes to accept more kinds of `specs`. `nd::Widget` shouldn't be instantiated directly, so it has no prototype.
 - `nd::Container`: Implements the possibility of building and holding other widgets as children. Instantiating `nd::Container` directly provides a container that makes its children overlap by assigning them the same size and position.
 - `nd::LayoutRow`: This is a more specialized container that space its children horizontally according to their weights.
 - `nd::LayoutColumn`: This is a more specialized container that space its children vertically according to their weights.
-- `nd::Text`: This widget displays a string of text. All `nd::Text` instances use the same font (loaded as `nd::ManagerDrawables::__font`).
+- `nd::Text`: This widget displays a string of text. All `nd::Text` instances use the same font (loaded as `nd::DrawableManager::__font`).
 - `nd::TextInput`: This version of `nd::Text` displays a *hint* when its content string is empty. When a `nd::TextInput` instance is *focused*, its content string can be populated or deleted via user input. The content can be copied/cut/pasted with the standard shortcuts.
 - `nd::ButtonPrimitive`: This widget primitive is capable of storing a *click* state, which allows for better handling of click operations. It also changes `bg_color` dinamically according to its *click* state. `nd::ButtonPrimitive` shouldn't be instantiated directly, so it has no prototype.
 - `nd::LabeledButton`: This is an implementation of `nd::ButtonPrimitive` that also contains a `nd::Text` member, which allows for buttons with text labels. It passes the unique specs of `nd::Text` to it.
@@ -121,7 +124,7 @@ type (spec=value; spec=value; ...) { # an inline comment
 - `types`, and `spec=value` pairs are case-insensitive (except for the content of text values).
 - `spec=value` are separated with semicolons (`;`). Ending the last `spec=value` pair of a widget with semicolon is optional.
 - If used, `{}` must have at least one child widget.
-- If an `id` is provided, the widget will be registered in the `nd::ManagerDrawables::__id_widgets` hashmap.
+- If an `id` is provided, the widget will be registered in the `nd::DrawableManager::__id_widgets` hashmap.
 - The `specs` introduced by one class carry on in whoever inherits from it.
 
 #### Convenience features

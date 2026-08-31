@@ -12,6 +12,7 @@ public:
 
     bool set_spec(std::string key, std::string raw_value) override; // HEAD@set_spec
     void build() override; // HEAD@build
+    bool handle_event(nd::Event event) override; // HEAD@handle_event
     void draw(sf::RenderWindow& window) override; // HEAD@draw
 
     void        set_hint_str  (std::string hint) { __hint_str = hint;    }
@@ -20,10 +21,9 @@ public:
     sf::Color   get_hint_color() { return __hint_color; }
 
 protected:
-    bool _internal_on_mouse_button_released(const std::optional<sf::Event> event) override; // HEAD@_internal_on_mouse_button_released
-    bool _internal_on_text_entered(const std::optional<sf::Event> event) override; // HEAD@_internal_on_text_entered
-
     float _outline_thickness = 0.1f; // ratio (0.0f-1.0f) [WIP]
+    bool _on_mouse_button_pressed(nd::Event event); // HEAD@_on_mouse_button_pressed
+    bool _on_text_entered(nd::Event event); // HEAD@_on_text_entered
 
 private:
     std::string __hint_str = "";
