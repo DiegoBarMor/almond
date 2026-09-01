@@ -6,7 +6,7 @@ class ButtonPrimitive : public Widget {
 public:
     bool set_spec(std::string key, std::string raw_value) override; // HEAD@set_spec
     void build() override; // HEAD@build
-    bool handle_event(nd::Event event) override; // HEAD@handle_event
+    bool handle_event(const nd::Event& event) override; // HEAD@handle_event
 
     void set_enabled    (bool enabled); // HEAD@set_enabled
     void set_bg_idle    (const sf::Color& color) { __bg_idle = color;     }
@@ -25,9 +25,9 @@ public:
 protected:
     ButtonPrimitive() : Widget() { _bg_color = __bg_idle; }
 
-    virtual bool _on_mouse_button_pressed(nd::Event event); // HEAD@_on_mouse_button_pressed
-    virtual bool _on_mouse_button_released(nd::Event event); // HEAD@_on_mouse_button_released
-    virtual bool _on_mouse_moved(nd::Event event); // HEAD@_on_mouse_moved
+    virtual bool _on_mouse_button_pressed(const nd::Event& event); // HEAD@_on_mouse_button_pressed
+    virtual bool _on_mouse_button_released(const nd::Event& event); // HEAD@_on_mouse_button_released
+    virtual bool _on_mouse_moved(const nd::Event& event); // HEAD@_on_mouse_moved
 
     enum class State {
         IDLE,    // button isn't pressed and mouse isn't over it

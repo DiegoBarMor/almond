@@ -39,9 +39,9 @@ void nd::TextInput::build() { // FUNC@build
 
 
 // -----------------------------------------------------------------------------
-bool nd::TextInput::handle_event(nd::Event event) { // FUNC@handle_event
+bool nd::TextInput::handle_event(const nd::Event& event) { // FUNC@handle_event
     bool consumed = false;
-    switch (event.none.type) {
+    switch (event.generic.type) {
         case nd::EventType::MOUSE_BUTTON_PRESSED:
             consumed = _on_mouse_button_pressed(event); break;
         case nd::EventType::TEXT_ENTERED:
@@ -63,7 +63,7 @@ void nd::TextInput::draw(sf::RenderWindow& window) { // FUNC@draw
 
 
 // -----------------------------------------------------------------------------
-bool nd::TextInput::_on_mouse_button_pressed(nd::Event event) { // FUNC@_on_mouse_button_pressed
+bool nd::TextInput::_on_mouse_button_pressed(const nd::Event& event) { // FUNC@_on_mouse_button_pressed
     __is_focused = contains_point(event.mouse_button_pressed.position);
     build();
     return false;
@@ -71,7 +71,7 @@ bool nd::TextInput::_on_mouse_button_pressed(nd::Event event) { // FUNC@_on_mous
 
 
 // -----------------------------------------------------------------------------
-bool nd::TextInput::_on_text_entered(nd::Event event) { // FUNC@_on_text_entered
+bool nd::TextInput::_on_text_entered(const nd::Event& event) { // FUNC@_on_text_entered
     if (!__is_focused) return false;
 
     std::cout << event.text_entered.unicode << std::endl; // [DEBUG]

@@ -11,11 +11,11 @@ int main() {
 
     ////// Callbacks
     nd::EventManager& eman = app.get_event_manager();
-    eman.add_on_closed([&app]() {
+    eman.add_on_closed([&app](const nd::Event& event) {
         app.get_window().close();
         return true;
     });
-    eman.add_on_key_pressed([&app,&eman]() {
+    eman.add_on_key_pressed([&app,&eman](const nd::Event& event) {
         if (eman.get_key_pressed().code == sf::Keyboard::Key::Escape) {
             app.get_window().close();
             return true;

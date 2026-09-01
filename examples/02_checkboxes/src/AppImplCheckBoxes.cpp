@@ -40,14 +40,14 @@ void AppImplCheckBoxes::_on_create() {
 
     ////////linking callbacks with lambda expressions
     ////// note that the AppImplCheckBoxes instance has to be captured with [] to access its methods
-    _event_man.add_on_key_pressed([this]() {
+    _event_man.add_on_key_pressed([this](const nd::Event& event) {
         return callback_key_press(this);
     });
 
-    c0->link_on_toggle( [c0](nd::Event event){ return callback_on_toggle(c0); } );
-    c1->link_on_toggle( [c1](nd::Event event){ return callback_on_toggle(c1); } );
-    c2->link_on_toggle( [c2](nd::Event event){ return callback_on_toggle(c2); } );
-    c3->link_on_toggle( [c3](nd::Event event){ return callback_on_toggle(c3); } );
+    c0->link_on_toggle( [c0](const nd::Event& event){ return callback_on_toggle(c0); } );
+    c1->link_on_toggle( [c1](const nd::Event& event){ return callback_on_toggle(c1); } );
+    c2->link_on_toggle( [c2](const nd::Event& event){ return callback_on_toggle(c2); } );
+    c3->link_on_toggle( [c3](const nd::Event& event){ return callback_on_toggle(c3); } );
 }
 
 void AppImplCheckBoxes::_on_build() {

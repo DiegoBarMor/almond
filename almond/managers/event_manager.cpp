@@ -1,11 +1,11 @@
 #include "event_manager.hpp"
 
 // -----------------------------------------------------------------------------
-void nd::EventManager::handle_event(nd::Event event) { // FUNC@handle_event
+void nd::EventManager::handle_event(const nd::Event& event) { // FUNC@handle_event
     __last_event = event;
-    std::vector<CALLBACK_BOOL> callbacks;
+    std::vector<CALLBACK_EVENT> callbacks;
 
-    switch (event.none.type) {
+    switch (event.generic.type) {
         case nd::EventType::MOUSE_MOVED:              callbacks = _on_mouse_moved; break;
         case nd::EventType::MOUSE_BUTTON_PRESSED:     callbacks = _on_mouse_button_pressed; break;
         case nd::EventType::MOUSE_BUTTON_RELEASED:    callbacks = _on_mouse_button_released; break;
@@ -31,8 +31,8 @@ void nd::EventManager::handle_event(nd::Event event) { // FUNC@handle_event
         default: callbacks = {}; break;
     }
 
-    for (CALLBACK_BOOL callback : callbacks) {
-        bool consumed = callback();
+    for (CALLBACK_EVENT callback : callbacks) {
+        bool consumed = callback(event);
         if (consumed) return;
     }
 } // END@handle_event

@@ -34,11 +34,11 @@ void nd::ButtonPrimitive::build() { // FUNC@build
 
 
 // -----------------------------------------------------------------------------
-bool nd::ButtonPrimitive::handle_event(nd::Event event) { // FUNC@handle_event
+bool nd::ButtonPrimitive::handle_event(const nd::Event& event) { // FUNC@handle_event
     if (_state == State::DISABLED) return false;
 
     bool consumed = false;
-    switch (event.none.type) {
+    switch (event.generic.type) {
         case nd::EventType::MOUSE_BUTTON_PRESSED:
             consumed = _on_mouse_button_pressed(event); break;
         case nd::EventType::MOUSE_BUTTON_RELEASED:
@@ -66,7 +66,7 @@ bool nd::ButtonPrimitive::get_enabled() const { // FUNC@get_enabled
 
 
 // -----------------------------------------------------------------------------
-bool nd::ButtonPrimitive::_on_mouse_button_pressed(nd::Event event) { // FUNC@_on_mouse_button_pressed
+bool nd::ButtonPrimitive::_on_mouse_button_pressed(const nd::Event& event) { // FUNC@_on_mouse_button_pressed
     if (!contains_point(event.mouse_button_pressed.position)) return false;
     __set_state(State::PRESSED);
 
@@ -75,7 +75,7 @@ bool nd::ButtonPrimitive::_on_mouse_button_pressed(nd::Event event) { // FUNC@_o
 
 
 // -----------------------------------------------------------------------------
-bool nd::ButtonPrimitive::_on_mouse_button_released(nd::Event event) { // FUNC@_on_mouse_button_released
+bool nd::ButtonPrimitive::_on_mouse_button_released(const nd::Event& event) { // FUNC@_on_mouse_button_released
     if (contains_point(event.mouse_button_released.position)) {
         __set_state(State::HOVER);
     }
@@ -87,7 +87,7 @@ bool nd::ButtonPrimitive::_on_mouse_button_released(nd::Event event) { // FUNC@_
 
 
 // -----------------------------------------------------------------------------
-bool nd::ButtonPrimitive::_on_mouse_moved(nd::Event event) { // FUNC@_on_mouse_moved
+bool nd::ButtonPrimitive::_on_mouse_moved(const nd::Event& event) { // FUNC@_on_mouse_moved
     if (contains_point(event.mouse_moved.position)) {
         if (_state == State::IDLE) {
             __set_state(State::HOVER);

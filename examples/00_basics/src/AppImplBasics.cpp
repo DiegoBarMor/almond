@@ -26,13 +26,13 @@ void AppImplBasics::_on_create() {
 
     ////// linking callbacks with lambda expressions
     ////// note that the AppImplBasics instance has to be captured with [] to access its methods
-    _event_man.add_on_key_pressed([this]() {
+    _event_man.add_on_key_pressed([this](const nd::Event& event) {
         return callback_key_press(this);
     });
 
     ////// can also link callbacks directly to widgets
-    b0->link_on_event([this](nd::Event event) {
-        if (event.none.type != nd::EventType::MOUSE_BUTTON_RELEASED) return false;
+    b0->link_on_event([this](const nd::Event& event) {
+        if (event.generic.type != nd::EventType::MOUSE_BUTTON_RELEASED) return false;
 
         std::cout << "Button 0 released" << std::endl;
         nd::Widget* custom = this->get_widget("custom");
@@ -45,7 +45,7 @@ void AppImplBasics::_on_create() {
     });
 
     ////// some widget types also provide their own specific callbacks, e.g. buttons have on_click
-    b0->link_on_click([this](nd::Event event) {
+    b0->link_on_click([this](const nd::Event& event) {
         std::cout << "Button 0 clicked" << std::endl;
         nd::Widget* custom = this->get_widget("custom");
         custom->set_spec("COLOR_0", "128,128,128");
@@ -54,10 +54,10 @@ void AppImplBasics::_on_create() {
     });
 
     ////// any kind of widget can handle events, even containers
-    col0->link_on_event([](nd::Event event) {
-        if (event.none.type == nd::EventType::MOUSE_BUTTON_PRESSED)
+    col0->link_on_event([](const nd::Event& event) {
+        if (event.generic.type == nd::EventType::MOUSE_BUTTON_PRESSED)
             std::cout << "Column 0 clicked" << std::endl;
-        else if (event.none.type == nd::EventType::MOUSE_BUTTON_RELEASED)
+        else if (event.generic.type == nd::EventType::MOUSE_BUTTON_RELEASED)
             std::cout << "Column 0 released" << std::endl;
         return false;
     });

@@ -34,7 +34,7 @@ public:
     bool set_spec(std::string key, std::string raw_value) override;
     void add_child(Widget* child) override;
     void build() override;
-    bool handle_event(nd::Event event) override;
+    bool handle_event(const nd::Event& event) override;
     void draw(sf::RenderWindow& window) override;
 
     // m.0d (Setters/Getters for the spec fields)
@@ -50,10 +50,7 @@ public:
     float get_protected_field() { return _protected_field; }
 
     // m.0f (Linkers for the callbacks)
-    void link_on_mouse_button_pressed (CALLBACK_BOOL callback) override;
-    void link_on_mouse_button_released(CALLBACK_BOOL callback) override;
-    void link_on_mouse_moved          (CALLBACK_BOOL callback) override;
-    void link_on_key_pressed          (CALLBACK_BOOL callback) override;
+    void link_on_event(CALLBACK_EVENT callback) override;
 
     // m.0g (Other functionalities)
     bool some_public_functionality();
@@ -66,10 +63,7 @@ protected:
     bool _spec_0 = false;
 
     // d.1c (Client callbacks)
-    CALLBACK_BOOL _on_mouse_button_pressed;
-    CALLBACK_BOOL _on_mouse_button_released;
-    CALLBACK_BOOL _on_mouse_moved;
-    CALLBACK_BOOL _on_key_pressed;
+    CALLBACK_EVENT _on_event;
 
     // d.1d (Other fields)
     float _protected_field = 0.0f;

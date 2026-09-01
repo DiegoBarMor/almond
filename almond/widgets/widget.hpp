@@ -12,7 +12,7 @@ public:
     virtual bool set_spec(std::string key, std::string raw_value); // HEAD@set_spec
     virtual void add_child(Widget* child); // HEAD@add_child
     virtual void build(); // HEAD@build
-    virtual bool handle_event(nd::Event event); // HEAD@handle_event
+    virtual bool handle_event(const nd::Event& event); // HEAD@handle_event
     virtual void draw(sf::RenderWindow& window); // HEAD@draw
 
     void set_weight  (float weight   ) { __weight = weight; }

@@ -8,7 +8,7 @@ public:
     EventManager() {};
 
     #define ADD_CALLBACK(event_name) \
-        inline void add_on_##event_name(CALLBACK_BOOL callback) { _on_##event_name.push_back(callback); }
+        inline void add_on_##event_name(CALLBACK_EVENT callback) { _on_##event_name.push_back(callback); }
     ADD_CALLBACK(closed)
     ADD_CALLBACK(resized)
     ADD_CALLBACK(focus_lost)
@@ -35,7 +35,7 @@ public:
 
     #define GET_EVENT_BY_TYPE(snake_case, pascal_case, upper_case) \
         inline nd::Event::pascal_case get_##snake_case() { \
-            return __last_event.none.type == nd::EventType::upper_case ? \
+            return __last_event.generic.type == nd::EventType::upper_case ? \
             __last_event.snake_case : nd::Event::pascal_case {}; \
         }
     GET_EVENT_BY_TYPE(mouse_moved, MouseMoved, MOUSE_MOVED)
@@ -64,34 +64,34 @@ public:
 
     nd::Event get_event() { return __last_event; }
 
-    void handle_event(nd::Event event); // HEAD@handle_event
+    void handle_event(const nd::Event& event); // HEAD@handle_event
 
 protected:
-    std::vector<CALLBACK_BOOL> _on_mouse_moved = {};
-    std::vector<CALLBACK_BOOL> _on_mouse_button_pressed = {};
-    std::vector<CALLBACK_BOOL> _on_mouse_button_released = {};
-    std::vector<CALLBACK_BOOL> _on_mouse_wheel_scrolled = {};
-    std::vector<CALLBACK_BOOL> _on_key_pressed = {};
-    std::vector<CALLBACK_BOOL> _on_key_released = {};
-    std::vector<CALLBACK_BOOL> _on_resized = {};
-    std::vector<CALLBACK_BOOL> _on_focus_lost = {};
-    std::vector<CALLBACK_BOOL> _on_focus_gained = {};
-    std::vector<CALLBACK_BOOL> _on_mouse_entered = {};
-    std::vector<CALLBACK_BOOL> _on_mouse_left = {};
-    std::vector<CALLBACK_BOOL> _on_text_entered = {};
-    std::vector<CALLBACK_BOOL> _on_joystick_button_pressed = {};
-    std::vector<CALLBACK_BOOL> _on_joystick_button_released = {};
-    std::vector<CALLBACK_BOOL> _on_joystick_moved = {};
-    std::vector<CALLBACK_BOOL> _on_joystick_connected = {};
-    std::vector<CALLBACK_BOOL> _on_joystick_disconnected = {};
-    std::vector<CALLBACK_BOOL> _on_touch_began = {};
-    std::vector<CALLBACK_BOOL> _on_touch_moved = {};
-    std::vector<CALLBACK_BOOL> _on_touch_ended = {};
-    std::vector<CALLBACK_BOOL> _on_sensor_changed = {};
-    std::vector<CALLBACK_BOOL> _on_closed = {};
+    std::vector<CALLBACK_EVENT> _on_mouse_moved = {};
+    std::vector<CALLBACK_EVENT> _on_mouse_button_pressed = {};
+    std::vector<CALLBACK_EVENT> _on_mouse_button_released = {};
+    std::vector<CALLBACK_EVENT> _on_mouse_wheel_scrolled = {};
+    std::vector<CALLBACK_EVENT> _on_key_pressed = {};
+    std::vector<CALLBACK_EVENT> _on_key_released = {};
+    std::vector<CALLBACK_EVENT> _on_resized = {};
+    std::vector<CALLBACK_EVENT> _on_focus_lost = {};
+    std::vector<CALLBACK_EVENT> _on_focus_gained = {};
+    std::vector<CALLBACK_EVENT> _on_mouse_entered = {};
+    std::vector<CALLBACK_EVENT> _on_mouse_left = {};
+    std::vector<CALLBACK_EVENT> _on_text_entered = {};
+    std::vector<CALLBACK_EVENT> _on_joystick_button_pressed = {};
+    std::vector<CALLBACK_EVENT> _on_joystick_button_released = {};
+    std::vector<CALLBACK_EVENT> _on_joystick_moved = {};
+    std::vector<CALLBACK_EVENT> _on_joystick_connected = {};
+    std::vector<CALLBACK_EVENT> _on_joystick_disconnected = {};
+    std::vector<CALLBACK_EVENT> _on_touch_began = {};
+    std::vector<CALLBACK_EVENT> _on_touch_moved = {};
+    std::vector<CALLBACK_EVENT> _on_touch_ended = {};
+    std::vector<CALLBACK_EVENT> _on_sensor_changed = {};
+    std::vector<CALLBACK_EVENT> _on_closed = {};
 
 private:
-    nd::Event __last_event = __INIT_EVENT_NONE;
+    nd::Event __last_event = __INIT_EVENT_GENERIC;
 
 };
 }

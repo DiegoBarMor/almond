@@ -27,7 +27,7 @@ void nd::Widget::build() { // FUNC@build
 
 
 // -----------------------------------------------------------------------------
-bool nd::Widget::handle_event(nd::Event event) { // FUNC@handle_event
+bool nd::Widget::handle_event(const nd::Event& event) { // FUNC@handle_event
     return _on_event ? _on_event(event) : false;
 } // END@handle_event
 

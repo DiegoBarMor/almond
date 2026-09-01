@@ -41,7 +41,7 @@ void nd::ToggleableButton::draw(sf::RenderWindow& window) { // FUNC@draw
 
 
 // -----------------------------------------------------------------------------
-bool nd::ToggleableButton::_on_mouse_button_pressed(nd::Event event) { // FUNC@_on_mouse_button_pressed
+bool nd::ToggleableButton::_on_mouse_button_pressed(const nd::Event& event) { // FUNC@_on_mouse_button_pressed
     if (_state == State::DISABLED) return false;
 
     if (contains_point(event.mouse_button_released.position)) {

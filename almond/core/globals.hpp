@@ -5,5 +5,4 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Main.hpp>
 
-#define CALLBACK_BOOL std::function<bool()>
-#define CALLBACK_EVENT std::function<bool(nd::Event event)>
+#define CALLBACK_EVENT std::function<bool(const nd::Event& event)>

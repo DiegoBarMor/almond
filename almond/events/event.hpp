@@ -3,7 +3,7 @@
 
 namespace nd {
 enum class EventType {
-    NONE,
+    GENERIC,
     MOUSE_MOVED,
     MOUSE_BUTTON_PRESSED,
     MOUSE_BUTTON_RELEASED,
@@ -29,9 +29,9 @@ enum class EventType {
 };
 
 union Event {
-    struct None {
-        EventType type {EventType::NONE};
-    } none;
+    struct Generic {
+        EventType type {EventType::GENERIC};
+    } generic;
 
     struct MouseMoved {
         EventType type {EventType::MOUSE_MOVED};
@@ -170,7 +170,7 @@ union Event {
         }}; \
     };
 
-#define __INIT_EVENT_NONE nd::Event {.none {}}
+#define __INIT_EVENT_GENERIC nd::Event {.generic {}}
 
 inline nd::Event __init_event(const std::optional<sf::Event> sf_event) {
     WRAPPER_START(MouseMoved, mouse_moved)
@@ -278,7 +278,7 @@ inline nd::Event __init_event(const std::optional<sf::Event> sf_event) {
     WRAPPER_START(Closed, closed)
     WRAPPER_END
 
-    return __INIT_EVENT_NONE;
+    return __INIT_EVENT_GENERIC;
 }
 #undef WRAPPER_START
 #undef WRAPPER_END
