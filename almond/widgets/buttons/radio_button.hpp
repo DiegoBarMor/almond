@@ -10,7 +10,9 @@ public:
     };
 
     RadioButton() : ToggleableButton() { }
-    RadioButton* clone() override { return new RadioButton(); }
+    std::unique_ptr<Widget> clone() const override {
+        return std::make_unique<RadioButton>();
+    }
 
     bool set_spec(std::string key, std::string raw_value) override; // HEAD@set_spec
     void build() override; // HEAD@build

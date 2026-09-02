@@ -8,7 +8,9 @@ public:
         _font_color = sf::Color::Black;
         set_bg_color(sf::Color(0x4A4A4AFF));
     }
-    TextInput* clone() override { return new TextInput(font); }
+    std::unique_ptr<Widget> clone() const override {
+        return std::make_unique<TextInput>(font);
+    }
 
     bool set_spec(std::string key, std::string raw_value) override; // HEAD@set_spec
     void build() override; // HEAD@build

@@ -28,7 +28,9 @@ class NewClass : public ParentClass {
 public:
     // m.0a (Construction methods)
     NewClass : ParentClass {}
-    NewClass* clone() override { return new NewClass(); }
+    std::unique_ptr<Widget> clone() const override {
+        return std::make_unique<NewClass>();
+    }
 
     // m.0c (Lifecycle methods - SABHD)
     bool set_spec(std::string key, std::string raw_value) override;

@@ -6,8 +6,11 @@
 namespace nd {
 class Widget {
 public:
+    virtual ~Widget() = default;
     Widget() {};
-    virtual Widget* clone() { return new Widget(); }
+    virtual std::unique_ptr<Widget> clone() const {
+        return std::make_unique<Widget>();
+    }
 
     virtual bool set_spec(std::string key, std::string raw_value); // HEAD@set_spec
     virtual void add_child(Widget* child); // HEAD@add_child

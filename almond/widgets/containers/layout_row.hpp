@@ -5,7 +5,9 @@ namespace nd {
 class LayoutRow : public Container {
 public:
     LayoutRow() : Container() {}
-    LayoutRow* clone() override { return new LayoutRow(); }
+    std::unique_ptr<Widget> clone() const override {
+        return std::make_unique<LayoutRow>();
+    }
 
     void build() override; // HEAD@build
 };

@@ -6,7 +6,9 @@ namespace nd {
 class LabeledButton : public ButtonPrimitive {
 public:
     LabeledButton(sf::Font font) : ButtonPrimitive(), __text_widget(nd::Text(font)) {}
-    LabeledButton* clone() override { return new LabeledButton(__text_widget.font); }
+    std::unique_ptr<Widget> clone() const override {
+        return std::make_unique<LabeledButton>(__text_widget.font);
+    }
 
     bool set_spec(std::string key, std::string raw_value) override; // HEAD@set_spec
     void build() override; // HEAD@build

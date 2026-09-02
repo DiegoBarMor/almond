@@ -5,7 +5,9 @@ namespace nd {
 class CheckBox : public ToggleableButton {
 public:
     CheckBox() : ToggleableButton() {}
-    CheckBox* clone() override { return new CheckBox(); }
+    std::unique_ptr<Widget> clone() const override {
+        return std::make_unique<CheckBox>();
+    }
 
     void build() override; // HEAD@build
     void draw(sf::RenderWindow& window) override; // HEAD@draw

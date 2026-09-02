@@ -5,7 +5,9 @@ namespace nd {
 class Container : public Widget {
 public:
     Container() : Widget() {}
-    Container* clone() override { return new Container(); }
+    std::unique_ptr<Widget> clone() const override {
+        return std::make_unique<Container>();
+    }
 
     bool set_spec(std::string key, std::string raw_value) override; // HEAD@set_spec
     void add_child(Widget* child) override; // HEAD@add_child

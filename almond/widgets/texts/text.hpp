@@ -6,7 +6,9 @@ namespace nd {
 class Text : public Widget {
 public:
     Text(sf::Font font) : Widget(), font(font), _text_obj(sf::Text(font)) {}
-    Text* clone() override { return new Text(font); }
+    std::unique_ptr<Widget> clone() const override {
+        return std::make_unique<Text>(font);
+    }
 
     bool set_spec(std::string key, std::string raw_value) override; // HEAD@set_spec
     void build() override; // HEAD@build

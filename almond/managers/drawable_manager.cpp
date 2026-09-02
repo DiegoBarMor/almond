@@ -45,13 +45,13 @@ nd::Widget* nd::DrawableManager::create_widget(std::string type) { // FUNC@creat
         return nullptr;
     }
 
-    nd::Widget* widget = __prototypes[type]->clone();
+    std::shared_ptr<nd::Widget> widget = __prototypes[type]->clone();
     __all_widgets.push_back(widget);
 
     if (type == "RBN" || type == "RADIOBUTTON") {
-        __list_radiobuttons.push_back((nd::RadioButton*)widget);
+        __list_radiobuttons.push_back((nd::RadioButton*)widget.get());
     }
-    return widget;
+    return widget.get(); // [WIP]
 } // END@create_widget
 
 
