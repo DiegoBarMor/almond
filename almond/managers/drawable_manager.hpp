@@ -17,7 +17,7 @@ class DrawableManager {
 public:
     DrawableManager(); // HEAD@DrawableManager
 
-    void add_prototype(std::string type, nd::Widget* prototype) {
+    void add_prototype(std::string type, std::shared_ptr<Widget> prototype) {
         __prototypes[type] = prototype;
     }
     nd::Widget* create_widget(std::string type); // HEAD@create_widget
@@ -33,7 +33,7 @@ public:
     void set_font(sf::Font font) { __font = font; }
 
 private:
-    std::unordered_map<std::string, nd::Widget*> __prototypes;
+    std::unordered_map<std::string, std::shared_ptr<Widget>> __prototypes;
     std::unordered_map<std::string, nd::Widget*> __id_widgets;
 
     sf::Font __font;

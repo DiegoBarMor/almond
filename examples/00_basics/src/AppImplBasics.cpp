@@ -12,7 +12,7 @@ bool callback_key_press(AppImplBasics* gui) {
 
 void AppImplBasics::_on_init() {
     ////// pre-creation operations, custom prototypes must be added here before parsing the GUI file
-    _drawable_man.add_prototype("CUSTOM_WIDGET", new CustomWidget());
+    _drawable_man.add_prototype("CUSTOM_WIDGET", std::make_shared<CustomWidget>());
 }
 
 void AppImplBasics::_on_create() {
