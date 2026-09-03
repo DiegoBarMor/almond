@@ -38,7 +38,6 @@ private:
 
     sf::Font __font;
     bool __is_first_build = true;
-    std::vector<nd::RadioButton*> __list_radiobuttons = {};
     std::vector<nd::Widget*> __all_widgets = {};
 };
 }

@@ -36,32 +36,17 @@ void nd::RadioButton::draw(sf::RenderWindow& window) { // FUNC@draw
 
 
 // -----------------------------------------------------------------------------
-void nd::RadioButton::first_build(std::vector<nd::RadioButton*> list_radiobuttons) { // FUNC@first_build
-    std::unordered_map<std::string, nd::RadioButton::RadioButtonGroup*> table_groups = {};
-    for (auto rb : list_radiobuttons) {
-        nd::RadioButton::RadioButtonGroup* group = table_groups[rb->__group_id];
-        if (group == nullptr) {
-            group = new nd::RadioButton::RadioButtonGroup();
-            table_groups[rb->__group_id] = group;
-        }
-        rb->__group = group;
-        rb->__idx_in_group = (int)(group->buttons.size());
-        if (rb->_checked) {
-            group->selected_idx = rb->__idx_in_group;
-            rb->_checked = false;
-        }
-        group->buttons.push_back(rb);
-    }
+void nd::RadioButton::add_to_group(RadioButtonGroup* group) { // FUNC@add_to_group
+    if (group == nullptr) return;
 
-    // this list is no longer needed
-    list_radiobuttons.clear();
-    list_radiobuttons.shrink_to_fit();
-
-    for (auto& [group_id, group] : table_groups) {
-        if (group->selected_idx == -1) group->selected_idx = 0;
-        group->buttons[group->selected_idx]->_checked = true;
+    __group = group;
+    __idx_in_group = (int)(group->buttons.size());
+    if (_checked) {
+        group->selected_idx = __idx_in_group;
+        _checked = false;
     }
-} // END@first_build
+    group->buttons.push_back(this);
+} // END@add_to_group
 
 
 // -----------------------------------------------------------------------------

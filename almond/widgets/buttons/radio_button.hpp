@@ -16,9 +16,9 @@ public:
     void build() override; // HEAD@build
     void draw(sf::RenderWindow& window) override; // HEAD@draw
 
-    std::string get_group_id() { return __group_id; }
+    const std::string& get_group_id() const { return __group_id; }
 
-    void first_build(std::vector<nd::RadioButton*> list_radiobuttons); // HEAD@first_build
+    void add_to_group(RadioButtonGroup* group); // HEAD@add_to_group
 
 protected:
     bool _on_mouse_button_pressed(const nd::Event& event) override; // HEAD@_on_mouse_button_pressed
