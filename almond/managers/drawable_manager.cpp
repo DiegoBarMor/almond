@@ -48,9 +48,6 @@ nd::Widget* nd::DrawableManager::create_widget(std::string type) { // FUNC@creat
     std::shared_ptr<nd::Widget> widget = __prototypes[type]->clone();
     __all_widgets.push_back(widget);
 
-    if (type == "RBN" || type == "RADIOBUTTON") {
-        __list_radiobuttons.push_back((nd::RadioButton*)widget.get());
-    }
     return widget.get(); // [WIP]
 } // END@create_widget
 
@@ -70,8 +67,26 @@ void nd::DrawableManager::group_radiobuttons() { // FUNC@group_radiobuttons
     if (!__is_first_build) return;
     __is_first_build = false;
 
-    if (__list_radiobuttons.size() == 0) return;
-    __list_radiobuttons[0]->first_build(__list_radiobuttons);
+    std::unordered_map<std::string, nd::RadioButton::RadioButtonGroup*> table_groups = {};
+    for (std::shared_ptr<nd::Widget> widget : __all_widgets) {
+        nd::RadioButton* rb = dynamic_cast<nd::RadioButton*>(widget.get()); // [WIP]
+        if (rb == nullptr) continue;
+
+        const std::string& group_id = rb->get_group_id();
+
+        nd::RadioButton::RadioButtonGroup* group = table_groups[group_id];
+        if (group == nullptr) {
+            group = new nd::RadioButton::RadioButtonGroup();
+            table_groups[group_id] = group;
+        }
+        rb->add_to_group(group);
+    }
+
+    for (auto& [group_id, group] : table_groups) {
+        if (group->selected_idx == -1) group->selected_idx = 0;
+        auto selected_button = group->buttons[group->selected_idx];
+        selected_button->set_checked(true);
+    }
 } // END@group_radiobuttons
 
 
