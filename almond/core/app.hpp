@@ -40,7 +40,7 @@ private:
     void __create(const std::string& filename); // HEAD@__create
     void __build(sf::Vector2f pos, sf::Vector2f size); // HEAD@__build
 
-    std::unique_ptr<Widget> __root_widget = nullptr;
+    std::shared_ptr<Widget> __root_widget = nullptr;
     sf::RenderWindow& __window;
     sf::Vector2f __pos = {0, 0};
     sf::Vector2f __size = {0, 0};

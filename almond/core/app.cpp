@@ -50,11 +50,11 @@ void nd::App::__create(const std::string& filename) { // FUNC@__create
         if (__root_widget == nullptr) {
             std::cerr << "Failed to parse NDG file: " << filename << std::endl;
             std::cout << "Creating empty Container as the root widget." << std::endl;
-            __root_widget.reset(_drawable_man.create_widget("CONTAINER"));
+            __root_widget = _drawable_man.create_widget("CONTAINER");
         }
     } else {
         std::cout << "No NDG file provided. Creating empty Container as the root widget." << std::endl;
-        __root_widget.reset(_drawable_man.create_widget("CONTAINER"));
+        __root_widget = _drawable_man.create_widget("CONTAINER");
     }
     _drawable_man.set_id(__root_widget.get(), "root");
 } // END@__create

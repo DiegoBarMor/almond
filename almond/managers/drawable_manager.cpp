@@ -39,7 +39,7 @@ nd::DrawableManager::DrawableManager() { // FUNC@DrawableManager
 
 
 // -----------------------------------------------------------------------------
-nd::Widget* nd::DrawableManager::create_widget(std::string type) { // FUNC@create_widget
+std::shared_ptr<nd::Widget> nd::DrawableManager::create_widget(std::string type) { // FUNC@create_widget
     if (__prototypes.find(type) == __prototypes.end()) {
         std::cerr << "WARNING: Invalid GUI type: " << type << std::endl;
         return nullptr;
@@ -48,7 +48,7 @@ nd::Widget* nd::DrawableManager::create_widget(std::string type) { // FUNC@creat
     std::shared_ptr<nd::Widget> widget = __prototypes[type]->clone();
     __all_widgets.push_back(widget);
 
-    return widget.get(); // [WIP]
+    return widget; // [WIP]
 } // END@create_widget
 
 

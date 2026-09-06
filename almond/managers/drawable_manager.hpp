@@ -20,7 +20,7 @@ public:
     void add_prototype(std::string type, std::shared_ptr<Widget> prototype) {
         __prototypes[type] = prototype;
     }
-    nd::Widget* create_widget(std::string type); // HEAD@create_widget
+    std::shared_ptr<nd::Widget> create_widget(std::string type); // HEAD@create_widget
 
     void set_id(nd::Widget* widget, std::string id) { __id_widgets[id] = widget; }
     Widget* get_widget_by_id(std::string id); // HEAD@get_widget_by_id

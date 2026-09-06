@@ -118,7 +118,7 @@ void nd::ParserNDG::__parse_next_gui(char ch) { // FUNC@__parse_next_gui
 
 // -----------------------------------------------------------------------------
 void nd::ParserNDG::__add_gui_widget() { // FUNC@__add_gui_widget
-    __current = __drawable_man.create_widget(__buffer);
+    __current = __drawable_man.create_widget(__buffer).get();
     if (__current == nullptr) {
         std::cerr << "Failed to create widget: " << __buffer << std::endl;
         return;
