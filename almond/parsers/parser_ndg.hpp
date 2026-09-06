@@ -13,7 +13,7 @@ public:
         NEXT_GUI   // parsing brackets, deal with staying in the same GUI or moving to the next
     };
     ParserNDG(nd::DrawableManager& manager_drawables) : __drawable_man(manager_drawables) {}
-    std::unique_ptr<Widget> parse(const std::string& filename); // HEAD@parse
+    std::shared_ptr<Widget> parse(const std::string& filename); // HEAD@parse
 
 private:
     void __parse_file(std::ifstream& file); // HEAD@__parse_file
@@ -32,8 +32,8 @@ private:
     nd::DrawableManager& __drawable_man;
 
     State __state = State::TYPE;
-    std::unique_ptr<Widget> __root = nullptr;
-    Widget* __parent = nullptr;
-    Widget* __current = nullptr;
+    std::shared_ptr<Widget> __root = nullptr;
+    std::shared_ptr<Widget> __parent = nullptr;
+    std::shared_ptr<Widget> __current = nullptr;
 };
 }
