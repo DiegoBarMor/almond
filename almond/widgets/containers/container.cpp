@@ -15,9 +15,13 @@ bool nd::Container::set_spec(std::string key, std::string raw_value) { // FUNC@s
 
 
 // -----------------------------------------------------------------------------
-void nd::Container::add_child(nd::Widget* child) { // FUNC@add_child
-    _children.push_back(child);
+void nd::Container::add_child(std::shared_ptr<Widget> child) { // FUNC@add_child
+    if (child == nullptr) {
+        std::cerr << "Can't add null child to container" << std::endl;
+        return;
+    }
     child->set_parent(this);
+    _children.push_back(child);
     _num_children++;
 } // END@add_child
 

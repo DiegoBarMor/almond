@@ -118,7 +118,7 @@ void nd::ParserNDG::__parse_next_gui(char ch) { // FUNC@__parse_next_gui
 
 // -----------------------------------------------------------------------------
 void nd::ParserNDG::__add_gui_widget() { // FUNC@__add_gui_widget
-    __current = __drawable_man.create_widget(__buffer).get();
+    __current = __drawable_man.create_widget(__buffer).get(); // [WIP]
     if (__current == nullptr) {
         std::cerr << "Failed to create widget: " << __buffer << std::endl;
         return;
@@ -127,8 +127,10 @@ void nd::ParserNDG::__add_gui_widget() { // FUNC@__add_gui_widget
         __root.reset(__current);
         return;
     }
-    if (__parent == nullptr) { __parent = __root.get(); }
-    __parent->add_child(__current);
+    if (__parent == nullptr) {
+        __parent = __root.get();
+    }
+    __parent->add_child(std::shared_ptr<Widget>(__current)); // [WIP]
 } // END@__add_gui_widget
 
 
