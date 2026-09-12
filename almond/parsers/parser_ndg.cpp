@@ -81,7 +81,7 @@ void nd::ParserNDG::__parse_specs_val(char ch) { // FUNC@__parse_specs_val
     }
     if (__current != nullptr) {
         if (__specs_key == "ID" || __specs_key == "IDENTIFIER") {
-            __drawable_man.set_id(__current.get(), __buffer);
+            __drawable_man.set_id(__current, __buffer);
         }
         else if (!__current->set_spec(__specs_key, __buffer)) {
             std::cerr << "Failed to set spec: " <<

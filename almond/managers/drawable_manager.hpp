@@ -22,7 +22,7 @@ public:
     }
     std::shared_ptr<nd::Widget> create_widget(std::string type); // HEAD@create_widget
 
-    void set_id(nd::Widget* widget, std::string id) { __id_widgets[id] = widget; }
+    void set_id(std::shared_ptr<Widget> widget, std::string id) { __id_widgets[id] = widget; }
     Widget* get_widget_by_id(std::string id); // HEAD@get_widget_by_id
 
     const std::vector<std::shared_ptr<Widget>>& get_all_widgets() { return __all_widgets; }
@@ -33,11 +33,12 @@ public:
     void set_font(sf::Font font) { __font = font; }
 
 private:
-    std::unordered_map<std::string, std::shared_ptr<Widget>> __prototypes;
-    std::unordered_map<std::string, nd::Widget*> __id_widgets;
+    std::unordered_map<std::string, std::shared_ptr<Widget>> __prototypes = {};
+
+    std::vector<std::shared_ptr<nd::Widget>> __all_widgets = {};
+    std::unordered_map<std::string, std::weak_ptr<nd::Widget>> __id_widgets = {};
 
     sf::Font __font;
     bool __is_first_build = true;
-    std::vector<std::shared_ptr<Widget>> __all_widgets = {};
 };
 }

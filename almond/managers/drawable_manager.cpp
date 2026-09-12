@@ -16,7 +16,6 @@ nd::DrawableManager::DrawableManager() { // FUNC@DrawableManager
     auto checkbox  = std::make_shared<CheckBox>();
     auto radio     = std::make_shared<RadioButton>();
 
-    __prototypes = {};
     __prototypes["SPACE"]       = generic;
     __prototypes[""]            = generic;
     __prototypes["CONTAINER"]   = container;
@@ -58,7 +57,7 @@ nd::Widget* nd::DrawableManager::get_widget_by_id(std::string id) { // FUNC@get_
         std::cerr << "WARNING: Widget with id '" << id << "' not found." << std::endl;
         return nullptr;
     }
-    return __id_widgets[id];
+    return __id_widgets[id].lock().get(); // [WIP]
 } // END@get_widget_by_id
 
 

@@ -56,7 +56,7 @@ void nd::App::__create(const std::string& filename) { // FUNC@__create
         std::cout << "No NDG file provided. Creating empty Container as the root widget." << std::endl;
         __root_widget = _drawable_man.create_widget("CONTAINER");
     }
-    _drawable_man.set_id(__root_widget.get(), "root");
+    _drawable_man.set_id(__root_widget, "root");
 } // END@__create
 
 
