@@ -4,7 +4,9 @@
 class CustomWidget : public nd::Widget {
 public:
     CustomWidget() : nd::Widget() {}
-    CustomWidget* clone() override { return new CustomWidget(); }
+    std::unique_ptr<Widget> clone() const override {
+        return std::make_unique<CustomWidget>();
+    }
 
     bool set_spec(std::string key, std::string raw_value) override;
     void build() override;

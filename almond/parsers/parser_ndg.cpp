@@ -1,7 +1,7 @@
 #include "parser_ndg.hpp"
 
 // -----------------------------------------------------------------------------
-nd::Widget* nd::ParserNDG::parse(const std::string& filename) { // FUNC@parse
+std::shared_ptr<nd::Widget> nd::ParserNDG::parse(const std::string& filename) { // FUNC@parse
     std::ifstream file(filename);
     if (!file.is_open()) {
         std::cerr << "Failed to open file: " << filename << std::endl;
@@ -9,7 +9,7 @@ nd::Widget* nd::ParserNDG::parse(const std::string& filename) { // FUNC@parse
     }
     __parse_file(file);
     file.close();
-    return __root;
+    return std::move(__root);
 } // END@parse
 
 
@@ -127,7 +127,9 @@ void nd::ParserNDG::__add_gui_widget() { // FUNC@__add_gui_widget
         __root = __current;
         return;
     }
-    if (__parent == nullptr) { __parent = __root; }
+    if (__parent == nullptr) {
+        __parent = __root;
+    }
     __parent->add_child(__current);
 } // END@__add_gui_widget
 

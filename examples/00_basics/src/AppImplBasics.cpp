@@ -12,13 +12,17 @@ bool callback_key_press(AppImplBasics* gui) {
 
 void AppImplBasics::_on_init() {
     ////// pre-creation operations, custom prototypes must be added here before parsing the GUI file
-    _drawable_man.add_prototype("CUSTOM_WIDGET", new CustomWidget());
+    _drawable_man.add_prototype("CUSTOM_WIDGET", std::make_shared<CustomWidget>());
 }
 
 void AppImplBasics::_on_create() {
-    nd::Widget* col0 = get_widget("col0");
-    nd::LabeledButton* b0 = (nd::LabeledButton*)get_widget("b0");
-    nd::LabeledButton* b1 = (nd::LabeledButton*)get_widget("b1");
+    std::shared_ptr<nd::Widget> col0 = get_widget("col0").lock();
+    std::shared_ptr<nd::LabeledButton> b1 = std::static_pointer_cast<nd::LabeledButton>(get_widget("b1").lock());
+    std::shared_ptr<nd::LabeledButton> b0 = std::static_pointer_cast<nd::LabeledButton>(get_widget("b0").lock());
+    if (!col0 || !b1 || !b0) {
+        std::cerr << "Error: Failed to retrieve widgets by ID." << std::endl;
+        return;
+    }
 
     ////// arbitrary post-creation operations
     b1->set_spec("TEXT", "New text");
@@ -35,7 +39,9 @@ void AppImplBasics::_on_create() {
         if (event.generic.type != nd::EventType::MOUSE_BUTTON_RELEASED) return false;
 
         std::cout << "Button 0 released" << std::endl;
-        nd::Widget* custom = this->get_widget("custom");
+        std::shared_ptr<nd::Widget> custom = get_widget("custom").lock();
+        if (!custom) return false;
+
         custom->set_spec("COLOR_0", "128,0,0");
         custom->build();
         ////// return values indicate whether the event is to be "consumed"
@@ -47,7 +53,9 @@ void AppImplBasics::_on_create() {
     ////// some widget types also provide their own specific callbacks, e.g. buttons have on_click
     b0->link_on_click([this](const nd::Event& event) {
         std::cout << "Button 0 clicked" << std::endl;
-        nd::Widget* custom = this->get_widget("custom");
+        std::shared_ptr<nd::Widget> custom = get_widget("custom").lock();
+        if (!custom) return false;
+
         custom->set_spec("COLOR_0", "128,128,128");
         custom->build();
         return false;

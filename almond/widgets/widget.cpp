@@ -15,7 +15,7 @@ bool nd::Widget::set_spec(std::string key, std::string raw_value) { // FUNC@set_
 
 
 // -----------------------------------------------------------------------------
-void nd::Widget::add_child(nd::Widget* child) { // FUNC@add_child
+void nd::Widget::add_child(std::shared_ptr<Widget> child) { // FUNC@add_child
     std::cerr << "Can't add child to non-container widget" << std::endl;
 } // END@add_child
 

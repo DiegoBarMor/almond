@@ -5,10 +5,12 @@ namespace nd {
 class Container : public Widget {
 public:
     Container() : Widget() {}
-    Container* clone() override { return new Container(); }
+    std::unique_ptr<Widget> clone() const override {
+        return std::make_unique<Container>();
+    }
 
     bool set_spec(std::string key, std::string raw_value) override; // HEAD@set_spec
-    void add_child(Widget* child) override; // HEAD@add_child
+    void add_child(std::shared_ptr<Widget> child) override; // HEAD@add_child
     void build() override; // HEAD@build
     void draw(sf::RenderWindow& window) override; // HEAD@draw
 
@@ -22,7 +24,7 @@ protected:
     float _calc_offset_pos (int child_index); // HEAD@_calc_offset_pos
     float _calc_offset_size(int child_index); // HEAD@_calc_offset_size
 
-    std::vector<Widget*> _children;
+    std::vector<std::shared_ptr<Widget>> _children;
     int _num_children = 0;
 
 private:

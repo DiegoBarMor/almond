@@ -1,8 +1,5 @@
 # TODO
 
-## Priority
-- Replace raw pointers with smart pointers
-
 ## Implementations / Improvements
 - Implement more widget types:
     - `nd::Slider`.

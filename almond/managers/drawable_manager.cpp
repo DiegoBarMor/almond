@@ -6,45 +6,45 @@ nd::DrawableManager::DrawableManager() { // FUNC@DrawableManager
         std::cerr << "Error loading font" << std::endl;
     }
 
-    __prototypes = {};
-    nd::Widget* pt_generic   = new nd::Widget();
-    nd::Widget* pt_container = new nd::Container();
-    nd::Widget* pt_row       = new nd::LayoutRow();
-    nd::Widget* pt_col       = new nd::LayoutColumn();
-    nd::Widget* pt_text      = new nd::Text(__font);
-    nd::Widget* pt_textinput = new nd::TextInput(__font);
-    nd::Widget* pt_button    = new nd::LabeledButton(__font);
-    nd::Widget* pt_checkbox  = new nd::CheckBox();
-    nd::Widget* pt_radio     = new nd::RadioButton();
-    __prototypes["SPACE"]       = pt_generic  ;
-    __prototypes[""]            = pt_generic  ;
-    __prototypes["CONTAINER"]   = pt_container;
-    __prototypes["BOX"]         = pt_container;
-    __prototypes["LAYOUTROW"]   = pt_row      ;
-    __prototypes["ROW"]         = pt_row      ;
-    __prototypes["LAYOUTCOL"]   = pt_col      ;
-    __prototypes["COL"]         = pt_col      ;
-    __prototypes["TEXT"]        = pt_text     ;
-    __prototypes["TXT"]         = pt_text     ;
-    __prototypes["TEXTINPUT"]   = pt_textinput;
-    __prototypes["TIN"]         = pt_textinput;
-    __prototypes["BUTTON"]      = pt_button   ;
-    __prototypes["BTT"]         = pt_button   ;
-    __prototypes["CHECKBOX"]    = pt_checkbox ;
-    __prototypes["CBX"]         = pt_checkbox ;
-    __prototypes["RADIOBUTTON"] = pt_radio    ;
-    __prototypes["RBN"]         = pt_radio    ;
+    auto generic   = std::make_shared<Widget>();
+    auto container = std::make_shared<Container>();
+    auto row       = std::make_shared<LayoutRow>();
+    auto col       = std::make_shared<LayoutColumn>();
+    auto text      = std::make_shared<Text>(__font);
+    auto textInput = std::make_shared<TextInput>(__font);
+    auto button    = std::make_shared<LabeledButton>(__font);
+    auto checkbox  = std::make_shared<CheckBox>();
+    auto radio     = std::make_shared<RadioButton>();
+
+    __prototypes["SPACE"]       = generic;
+    __prototypes[""]            = generic;
+    __prototypes["CONTAINER"]   = container;
+    __prototypes["BOX"]         = container;
+    __prototypes["LAYOUTROW"]   = row;
+    __prototypes["ROW"]         = row;
+    __prototypes["LAYOUTCOL"]   = col;
+    __prototypes["COL"]         = col;
+    __prototypes["TEXT"]        = text;
+    __prototypes["TXT"]         = text;
+    __prototypes["TEXTINPUT"]   = textInput;
+    __prototypes["TIN"]         = textInput;
+    __prototypes["BUTTON"]      = button;
+    __prototypes["BTT"]         = button;
+    __prototypes["CHECKBOX"]    = checkbox;
+    __prototypes["CBX"]         = checkbox;
+    __prototypes["RADIOBUTTON"] = radio;
+    __prototypes["RBN"]         = radio;
 } // END@DrawableManager
 
 
 // -----------------------------------------------------------------------------
-nd::Widget* nd::DrawableManager::create_widget(std::string type) { // FUNC@create_widget
+std::shared_ptr<nd::Widget> nd::DrawableManager::create_widget(std::string type) { // FUNC@create_widget
     if (__prototypes.find(type) == __prototypes.end()) {
         std::cerr << "WARNING: Invalid GUI type: " << type << std::endl;
         return nullptr;
     }
 
-    nd::Widget* widget = __prototypes[type]->clone();
+    std::shared_ptr<nd::Widget> widget = __prototypes[type]->clone();
     __all_widgets.push_back(widget);
 
     return widget;
@@ -52,10 +52,10 @@ nd::Widget* nd::DrawableManager::create_widget(std::string type) { // FUNC@creat
 
 
 // -----------------------------------------------------------------------------
-nd::Widget* nd::DrawableManager::get_widget_by_id(std::string id) { // FUNC@get_widget_by_id
+std::weak_ptr<nd::Widget> nd::DrawableManager::get_widget_by_id(std::string id) { // FUNC@get_widget_by_id
     if (__id_widgets.find(id) == __id_widgets.end()) {
         std::cerr << "WARNING: Widget with id '" << id << "' not found." << std::endl;
-        return nullptr;
+        return std::weak_ptr<nd::Widget>();
     }
     return __id_widgets[id];
 } // END@get_widget_by_id
@@ -67,8 +67,8 @@ void nd::DrawableManager::group_radiobuttons() { // FUNC@group_radiobuttons
     __is_first_build = false;
 
     std::unordered_map<std::string, nd::RadioButton::RadioButtonGroup*> table_groups = {};
-    for (nd::Widget* widget : __all_widgets) {
-        nd::RadioButton* rb = dynamic_cast<nd::RadioButton*>(widget);
+    for (std::shared_ptr<nd::Widget> widget : __all_widgets) {
+        std::shared_ptr<nd::RadioButton> rb = std::dynamic_pointer_cast<nd::RadioButton>(widget);
         if (rb == nullptr) continue;
 
         const std::string& group_id = rb->get_group_id();

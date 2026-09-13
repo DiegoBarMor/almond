@@ -13,7 +13,7 @@ public:
 
     // These methods are called by the client code when interacting with the GUI.
     sf::RenderWindow& get_window() { return __window; }
-    nd::Widget* get_widget(std::string id); // HEAD@get_widget
+    std::weak_ptr<nd::Widget> get_widget(std::string id); // HEAD@get_widget
     void manage_events(); // HEAD@manage_events
     void draw(); // HEAD@draw
 
@@ -40,7 +40,7 @@ private:
     void __create(const std::string& filename); // HEAD@__create
     void __build(sf::Vector2f pos, sf::Vector2f size); // HEAD@__build
 
-    Widget* __root = nullptr;
+    std::shared_ptr<Widget> __root_widget = nullptr;
     sf::RenderWindow& __window;
     sf::Vector2f __pos = {0, 0};
     sf::Vector2f __size = {0, 0};
