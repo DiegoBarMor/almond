@@ -28,7 +28,7 @@ void nd::EventManager::handle_event(const nd::Event& event) { // FUNC@handle_eve
         case nd::EventType::TOUCH_ENDED:              callbacks = _on_touch_ended; break;
         case nd::EventType::SENSOR_CHANGED:           callbacks = _on_sensor_changed; break;
         case nd::EventType::CLOSED:                   callbacks = _on_closed; break;
-        default: callbacks = {}; break;
+        default: return;
     }
 
     for (CALLBACK_EVENT callback : callbacks) {

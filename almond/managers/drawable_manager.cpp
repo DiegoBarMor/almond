@@ -47,7 +47,7 @@ std::shared_ptr<nd::Widget> nd::DrawableManager::create_widget(std::string type)
     std::shared_ptr<nd::Widget> widget = __prototypes[type]->clone();
     __all_widgets.push_back(widget);
 
-    return widget; // [WIP]
+    return widget;
 } // END@create_widget
 
 

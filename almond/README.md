@@ -34,7 +34,7 @@ public:
 
     // m.0c (Lifecycle methods - SABHD)
     bool set_spec(std::string key, std::string raw_value) override;
-    void add_child(Widget* child) override;
+    void add_child(std::shared_ptr<Widget> child) override;
     void build() override;
     bool handle_event(const nd::Event& event) override;
     void draw(sf::RenderWindow& window) override;
