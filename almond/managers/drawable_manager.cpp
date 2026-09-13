@@ -52,12 +52,12 @@ std::shared_ptr<nd::Widget> nd::DrawableManager::create_widget(std::string type)
 
 
 // -----------------------------------------------------------------------------
-nd::Widget* nd::DrawableManager::get_widget_by_id(std::string id) { // FUNC@get_widget_by_id
+std::weak_ptr<nd::Widget> nd::DrawableManager::get_widget_by_id(std::string id) { // FUNC@get_widget_by_id
     if (__id_widgets.find(id) == __id_widgets.end()) {
         std::cerr << "WARNING: Widget with id '" << id << "' not found." << std::endl;
-        return nullptr;
+        return std::weak_ptr<nd::Widget>();
     }
-    return __id_widgets[id].lock().get(); // [WIP]
+    return __id_widgets[id];
 } // END@get_widget_by_id
 
 
@@ -68,7 +68,7 @@ void nd::DrawableManager::group_radiobuttons() { // FUNC@group_radiobuttons
 
     std::unordered_map<std::string, nd::RadioButton::RadioButtonGroup*> table_groups = {};
     for (std::shared_ptr<nd::Widget> widget : __all_widgets) {
-        nd::RadioButton* rb = dynamic_cast<nd::RadioButton*>(widget.get()); // [WIP]
+        std::shared_ptr<nd::RadioButton> rb = std::dynamic_pointer_cast<nd::RadioButton>(widget);
         if (rb == nullptr) continue;
 
         const std::string& group_id = rb->get_group_id();

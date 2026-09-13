@@ -13,7 +13,7 @@ public:
 
     // These methods are called by the client code when interacting with the GUI.
     sf::RenderWindow& get_window() { return __window; }
-    nd::Widget* get_widget(std::string id); // HEAD@get_widget
+    std::weak_ptr<nd::Widget> get_widget(std::string id); // HEAD@get_widget
     void manage_events(); // HEAD@manage_events
     void draw(); // HEAD@draw
 

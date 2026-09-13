@@ -10,7 +10,7 @@ bool callback_key_press(AppImplCheckBoxes* gui) {
     return true;
 }
 
-bool callback_on_toggle(nd::CheckBox* cb) {
+bool callback_on_toggle(std::shared_ptr<nd::CheckBox> cb) {
     std::string t;
     sf::Color color_0, color_1;
     if (cb->get_checked()) {
@@ -33,10 +33,14 @@ void AppImplCheckBoxes::_on_init() {
 }
 
 void AppImplCheckBoxes::_on_create() {
-    nd::CheckBox* c0 = (nd::CheckBox*)get_widget("c0");
-    nd::CheckBox* c1 = (nd::CheckBox*)get_widget("c1");
-    nd::CheckBox* c2 = (nd::CheckBox*)get_widget("c2");
-    nd::CheckBox* c3 = (nd::CheckBox*)get_widget("c3");
+    std::shared_ptr<nd::CheckBox> c0 = std::static_pointer_cast<nd::CheckBox>(get_widget("c0").lock());
+    std::shared_ptr<nd::CheckBox> c1 = std::static_pointer_cast<nd::CheckBox>(get_widget("c1").lock());
+    std::shared_ptr<nd::CheckBox> c2 = std::static_pointer_cast<nd::CheckBox>(get_widget("c2").lock());
+    std::shared_ptr<nd::CheckBox> c3 = std::static_pointer_cast<nd::CheckBox>(get_widget("c3").lock());
+    if (!c0 || !c1 || !c2 || !c3) {
+        std::cerr << "Error: Failed to retrieve widgets by ID." << std::endl;
+        return;
+    }
 
     ////////linking callbacks with lambda expressions
     ////// note that the AppImplCheckBoxes instance has to be captured with [] to access its methods
