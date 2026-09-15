@@ -28,9 +28,13 @@ void nd::App::manage_events() { // FUNC@manage_events
         nd::Event nd_event = __init_event(sf_event);
         _event_man.handle_event(nd_event);
 
+        if (_on_event) {
+            bool consumed = _on_event(nd_event);
+            if (consumed) continue;
+        }
         for (std::shared_ptr<nd::Widget> widget : _drawable_man.get_all_widgets()) {
             bool consumed = widget->handle_event(nd_event);
-            if (consumed) break;
+            if (consumed) continue;
         }
     }
 } // END@manage_events

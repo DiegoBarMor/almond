@@ -1,11 +1,11 @@
 #include "AppImplBasics.hpp"
 
-bool callback_key_press(AppImplBasics* gui) {
-    nd::Event::KeyPressed key = gui->get_event_manager().get_key_pressed();
+bool AppImplBasics::callback_key_press() {
+    nd::Event::KeyPressed key = get_event_manager().get_key_pressed();
 
     std::cout << "Root key pressed: " << sf::Keyboard::getDescription(key.scancode).toAnsiString() << std::endl;
     if (key.code == sf::Keyboard::Key::Escape) {
-        gui->get_window().close();
+        get_window().close();
     }
     return true;
 }
@@ -27,12 +27,6 @@ void AppImplBasics::_on_create() {
     ////// arbitrary post-creation operations
     b1->set_spec("TEXT", "New text");
     b1->set_spec("BG_IDLE", "255,0,0,120");
-
-    ////// linking callbacks with lambda expressions
-    ////// note that the AppImplBasics instance has to be captured with [] to access its methods
-    _event_man.add_on_key_pressed([this](const nd::Event& event) {
-        return callback_key_press(this);
-    });
 
     ////// can also link callbacks directly to widgets
     b0->link_on_event([this](const nd::Event& event) {

@@ -4,6 +4,7 @@
 class AppImplCheckBoxes : public nd::App {
 public:
     AppImplCheckBoxes(sf::RenderWindow& window) : nd::App(window) {}
+    bool callback_key_press();
 
 protected:
     void _on_init() override;

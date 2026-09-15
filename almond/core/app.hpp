@@ -17,6 +17,8 @@ public:
     void manage_events(); // HEAD@manage_events
     void draw(); // HEAD@draw
 
+    void link_on_event(CALLBACK_EVENT callback) { _on_event = callback; }
+
     nd::EventManager& get_event_manager() { return _event_man; }
 
 protected:
@@ -35,6 +37,8 @@ protected:
 
     nd::DrawableManager _drawable_man = nd::DrawableManager();
     nd::EventManager _event_man = nd::EventManager();
+
+    CALLBACK_EVENT _on_event;
 
 private:
     void __create(const std::string& filename); // HEAD@__create
