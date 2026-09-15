@@ -1,7 +1,7 @@
 #include "AppImplBasics.hpp"
 
-bool AppImplBasics::callback_key_press() {
-    nd::Event::KeyPressed key = get_event_manager().get_key_pressed();
+bool AppImplBasics::callback_key_press(const nd::Event& event) {
+    nd::Event::KeyPressed key = event.key_pressed;
 
     std::cout << "Root key pressed: " << sf::Keyboard::getDescription(key.scancode).toAnsiString() << std::endl;
     if (key.code == sf::Keyboard::Key::Escape) {

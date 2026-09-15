@@ -19,8 +19,6 @@ public:
 
     void link_on_event(CALLBACK_EVENT callback) { _on_event = callback; }
 
-    nd::EventManager& get_event_manager() { return _event_man; }
-
 protected:
     // Override this to add behaviour that should happen before creating the root widget.
     // For example, adding custom prototypes.
@@ -36,7 +34,6 @@ protected:
     virtual void _on_build() {};
 
     nd::DrawableManager _drawable_man = nd::DrawableManager();
-    nd::EventManager _event_man = nd::EventManager();
 
     CALLBACK_EVENT _on_event;
 

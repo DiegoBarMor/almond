@@ -26,8 +26,6 @@ std::weak_ptr<nd::Widget> nd::App::get_widget(std::string id) { // FUNC@get_widg
 void nd::App::manage_events() { // FUNC@manage_events
     while (const std::optional sf_event = __window.pollEvent()) {
         nd::Event nd_event = __init_event(sf_event);
-        _event_man.handle_event(nd_event);
-
         if (_on_event) {
             bool consumed = _on_event(nd_event);
             if (consumed) continue;

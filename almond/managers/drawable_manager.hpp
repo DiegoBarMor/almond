@@ -1,5 +1,4 @@
 #pragma once
-#include "event_manager.hpp"
 #include "../widgets/widget.hpp"
 #include "../widgets/buttons/button_primitive.hpp"
 #include "../widgets/buttons/check_box.hpp"
