@@ -2,15 +2,15 @@
 #include "../widget.hpp"
 
 namespace nd {
-class Container : public Widget {
+class Container : public nd::Widget {
 public:
-    Container() : Widget() {}
-    std::unique_ptr<Widget> clone() const override {
-        return std::make_unique<Container>();
+    Container() : nd::Widget() {}
+    std::unique_ptr<nd::Widget> clone() const override {
+        return std::make_unique<nd::Container>();
     }
 
-    bool set_spec(std::string key, std::string raw_value) override; // HEAD@set_spec
-    void add_child(std::shared_ptr<Widget> child) override; // HEAD@add_child
+    bool set_spec(const std::string& key, const std::string& raw_value) override; // HEAD@set_spec
+    void add_child(std::shared_ptr<nd::Widget> child) override; // HEAD@add_child
     void build() override; // HEAD@build
     void draw(sf::RenderWindow& window) override; // HEAD@draw
 
@@ -24,7 +24,7 @@ protected:
     float _calc_offset_pos (int child_index); // HEAD@_calc_offset_pos
     float _calc_offset_size(int child_index); // HEAD@_calc_offset_size
 
-    std::vector<std::shared_ptr<Widget>> _children;
+    std::vector<std::shared_ptr<nd::Widget>> _children;
     int _num_children = 0;
 
 private:

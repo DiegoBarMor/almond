@@ -3,14 +3,14 @@
 #include "font_crimson_roman.hpp"
 
 namespace nd {
-class Text : public Widget {
+class Text : public nd::Widget {
 public:
-    Text(sf::Font font) : Widget(), font(font), _text_obj(sf::Text(font)) {}
-    std::unique_ptr<Widget> clone() const override {
-        return std::make_unique<Text>(font);
+    Text(sf::Font font) : nd::Widget(), font(font), _text_obj(sf::Text(font)) {}
+    std::unique_ptr<nd::Widget> clone() const override {
+        return std::make_unique<nd::Text>(font);
     }
 
-    bool set_spec(std::string key, std::string raw_value) override; // HEAD@set_spec
+    bool set_spec(const std::string& key, const std::string& raw_value) override; // HEAD@set_spec
     void build() override; // HEAD@build
     void draw(sf::RenderWindow& window) override; // HEAD@draw
 

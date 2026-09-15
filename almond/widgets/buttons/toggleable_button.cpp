@@ -1,7 +1,7 @@
 #include "toggleable_button.hpp"
 
 // -----------------------------------------------------------------------------
-bool nd::ToggleableButton::set_spec(std::string key, std::string raw_value) { // FUNC@set_spec
+bool nd::ToggleableButton::set_spec(const std::string& key, const std::string& raw_value) { // FUNC@set_spec
     if (key == "CHK" || key == "CHECKED") {
         set_checked(nd::ParserStrings::str2bool(raw_value));
         return true;

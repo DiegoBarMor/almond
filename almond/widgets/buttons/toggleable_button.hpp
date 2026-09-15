@@ -2,9 +2,9 @@
 #include "button_primitive.hpp"
 
 namespace nd {
-class ToggleableButton : public ButtonPrimitive {
+class ToggleableButton : public nd::ButtonPrimitive {
 public:
-    bool set_spec(std::string key, std::string raw_value) override; // HEAD@set_spec
+    bool set_spec(const std::string& key, const std::string& raw_value) override; // HEAD@set_spec
     void build() override; // HEAD@build
     void draw(sf::RenderWindow& window) override; // HEAD@draw
 
@@ -19,7 +19,7 @@ public:
     void link_on_toggle(CALLBACK_EVENT callback) { _on_toggle = callback; }
 
 protected:
-    ToggleableButton() : ButtonPrimitive() {}
+    ToggleableButton() : nd::ButtonPrimitive() {}
 
     bool _on_mouse_button_pressed(const nd::Event& event) override; // HEAD@_on_mouse_button_pressed
 

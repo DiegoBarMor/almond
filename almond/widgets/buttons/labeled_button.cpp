@@ -1,7 +1,7 @@
 #include "labeled_button.hpp"
 
 // -----------------------------------------------------------------------------
-bool nd::LabeledButton::set_spec(std::string key, std::string raw_value) { // FUNC@set_spec
+bool nd::LabeledButton::set_spec(const std::string& key, const std::string& raw_value) { // FUNC@set_spec
     if (nd::ButtonPrimitive::set_spec(key, raw_value))
         return true;
     return __text_widget.set_spec(key, raw_value);

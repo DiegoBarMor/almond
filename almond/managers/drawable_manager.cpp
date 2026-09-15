@@ -6,15 +6,15 @@ nd::DrawableManager::DrawableManager() { // FUNC@DrawableManager
         std::cerr << "Error loading font" << std::endl;
     }
 
-    auto generic   = std::make_shared<Widget>();
-    auto container = std::make_shared<Container>();
-    auto row       = std::make_shared<LayoutRow>();
-    auto col       = std::make_shared<LayoutColumn>();
-    auto text      = std::make_shared<Text>(__font);
-    auto textInput = std::make_shared<TextInput>(__font);
-    auto button    = std::make_shared<LabeledButton>(__font);
-    auto checkbox  = std::make_shared<CheckBox>();
-    auto radio     = std::make_shared<RadioButton>();
+    auto generic   = std::make_shared<nd::Widget>();
+    auto container = std::make_shared<nd::Container>();
+    auto row       = std::make_shared<nd::LayoutRow>();
+    auto col       = std::make_shared<nd::LayoutColumn>();
+    auto text      = std::make_shared<nd::Text>(__font);
+    auto textInput = std::make_shared<nd::TextInput>(__font);
+    auto button    = std::make_shared<nd::LabeledButton>(__font);
+    auto checkbox  = std::make_shared<nd::CheckBox>();
+    auto radio     = std::make_shared<nd::RadioButton>();
 
     __prototypes["SPACE"]       = generic;
     __prototypes[""]            = generic;
@@ -38,7 +38,7 @@ nd::DrawableManager::DrawableManager() { // FUNC@DrawableManager
 
 
 // -----------------------------------------------------------------------------
-std::shared_ptr<nd::Widget> nd::DrawableManager::create_widget(std::string type) { // FUNC@create_widget
+std::shared_ptr<nd::Widget> nd::DrawableManager::create_widget(const std::string& type) { // FUNC@create_widget
     if (__prototypes.find(type) == __prototypes.end()) {
         std::cerr << "WARNING: Invalid GUI type: " << type << std::endl;
         return nullptr;
@@ -52,7 +52,7 @@ std::shared_ptr<nd::Widget> nd::DrawableManager::create_widget(std::string type)
 
 
 // -----------------------------------------------------------------------------
-std::weak_ptr<nd::Widget> nd::DrawableManager::get_widget_by_id(std::string id) { // FUNC@get_widget_by_id
+std::weak_ptr<nd::Widget> nd::DrawableManager::get_widget_by_id(const std::string& id) { // FUNC@get_widget_by_id
     if (__id_widgets.find(id) == __id_widgets.end()) {
         std::cerr << "WARNING: Widget with id '" << id << "' not found." << std::endl;
         return std::weak_ptr<nd::Widget>();

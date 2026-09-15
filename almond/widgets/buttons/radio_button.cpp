@@ -1,7 +1,7 @@
 #include "radio_button.hpp"
 
 // -----------------------------------------------------------------------------
-bool nd::RadioButton::set_spec(std::string key, std::string raw_value) { // FUNC@set_spec
+bool nd::RadioButton::set_spec(const std::string& key, const std::string& raw_value) { // FUNC@set_spec
     if (key == "GRP" || key == "GROUP") {
         __group_id = raw_value;
         return true;

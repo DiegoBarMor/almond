@@ -2,11 +2,11 @@
 #include "toggleable_button.hpp"
 
 namespace nd {
-class CheckBox : public ToggleableButton {
+class CheckBox : public nd::ToggleableButton {
 public:
-    CheckBox() : ToggleableButton() {}
-    std::unique_ptr<Widget> clone() const override {
-        return std::make_unique<CheckBox>();
+    CheckBox() : nd::ToggleableButton() {}
+    std::unique_ptr<nd::Widget> clone() const override {
+        return std::make_unique<nd::CheckBox>();
     }
 
     void build() override; // HEAD@build

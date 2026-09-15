@@ -17,7 +17,7 @@ void nd::App::setup(const std::string& filename, sf::Vector2f pos, sf::Vector2f 
 
 
 // -----------------------------------------------------------------------------
-std::weak_ptr<nd::Widget> nd::App::get_widget(std::string id) { // FUNC@get_widget
+std::weak_ptr<nd::Widget> nd::App::get_widget(const std::string& id) { // FUNC@get_widget
     return _drawable_man.get_widget_by_id(id);
 } // END@get_widget
 

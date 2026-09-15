@@ -1,7 +1,7 @@
 #include "button_primitive.hpp"
 
 // -----------------------------------------------------------------------------
-bool nd::ButtonPrimitive::set_spec(std::string key, std::string raw_value) { // FUNC@set_spec
+bool nd::ButtonPrimitive::set_spec(const std::string& key, const std::string& raw_value) { // FUNC@set_spec
     if (key == "E" || key == "ENABLED") {
         set_enabled(nd::ParserStrings::str2bool(raw_value));
         return true;

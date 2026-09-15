@@ -4,16 +4,16 @@
 #include "../events/event.hpp"
 
 namespace nd {
-class Widget : public std::enable_shared_from_this<Widget> {
+class Widget : public std::enable_shared_from_this<nd::Widget> {
 public:
     virtual ~Widget() = default;
     Widget() {};
-    virtual std::unique_ptr<Widget> clone() const {
-        return std::make_unique<Widget>();
+    virtual std::unique_ptr<nd::Widget> clone() const {
+        return std::make_unique<nd::Widget>();
     }
 
-    virtual bool set_spec(std::string key, std::string raw_value); // HEAD@set_spec
-    virtual void add_child(std::shared_ptr<Widget> child); // HEAD@add_child
+    virtual bool set_spec(const std::string& key, const std::string& raw_value); // HEAD@set_spec
+    virtual void add_child(std::shared_ptr<nd::Widget> child); // HEAD@add_child
     virtual void build(); // HEAD@build
     virtual bool handle_event(const nd::Event& event); // HEAD@handle_event
     virtual void draw(sf::RenderWindow& window); // HEAD@draw
@@ -29,10 +29,10 @@ public:
     sf::Vector2f get_pos () { return _pos;  }
     sf::Vector2f get_size() { return _size; }
 
-    void set_parent(std::weak_ptr<Widget> parent) {
+    void set_parent(std::weak_ptr<nd::Widget> parent) {
         __parent = std::move(parent);
     }
-    std::shared_ptr<Widget> get_parent() const {
+    std::shared_ptr<nd::Widget> get_parent() const {
         return __parent.lock();
     }
 
@@ -54,6 +54,6 @@ protected:
 private:
     float __weight = 1.f;
 
-    std::weak_ptr<Widget> __parent = std::weak_ptr<Widget>();
+    std::weak_ptr<nd::Widget> __parent = std::weak_ptr<nd::Widget>();
 };
 }

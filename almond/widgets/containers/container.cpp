@@ -1,7 +1,7 @@
 #include "container.hpp"
 
 // -----------------------------------------------------------------------------
-bool nd::Container::set_spec(std::string key, std::string raw_value) { // FUNC@set_spec
+bool nd::Container::set_spec(const std::string& key, const std::string& raw_value) { // FUNC@set_spec
     if (key == "P" || key == "PADDING") {
         __padding = nd::ParserStrings::str2float(raw_value);
         return true;
@@ -15,7 +15,7 @@ bool nd::Container::set_spec(std::string key, std::string raw_value) { // FUNC@s
 
 
 // -----------------------------------------------------------------------------
-void nd::Container::add_child(std::shared_ptr<Widget> child) { // FUNC@add_child
+void nd::Container::add_child(std::shared_ptr<nd::Widget> child) { // FUNC@add_child
     if (child == nullptr) {
         std::cerr << "Can't add null child to container" << std::endl;
         return;

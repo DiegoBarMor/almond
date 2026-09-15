@@ -8,7 +8,7 @@ public:
         return std::make_unique<CustomWidget>();
     }
 
-    bool set_spec(std::string key, std::string raw_value) override;
+    bool set_spec(const std::string& key, const std::string& raw_value) override;
     void build() override;
     void draw(sf::RenderWindow& window) override;
 

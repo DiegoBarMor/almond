@@ -1,7 +1,7 @@
 #include "widget.hpp"
 
 // -----------------------------------------------------------------------------
-bool nd::Widget::set_spec(std::string key, std::string raw_value) { // FUNC@set_spec
+bool nd::Widget::set_spec(const std::string& key, const std::string& raw_value) { // FUNC@set_spec
     if (key == "W" || key == "WEIGHT") {
         __weight = nd::ParserStrings::str2float(raw_value);
         return true;
@@ -15,7 +15,7 @@ bool nd::Widget::set_spec(std::string key, std::string raw_value) { // FUNC@set_
 
 
 // -----------------------------------------------------------------------------
-void nd::Widget::add_child(std::shared_ptr<Widget> child) { // FUNC@add_child
+void nd::Widget::add_child(std::shared_ptr<nd::Widget> child) { // FUNC@add_child
     std::cerr << "Can't add child to non-container widget" << std::endl;
 } // END@add_child
 

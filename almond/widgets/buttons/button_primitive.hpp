@@ -2,9 +2,9 @@
 #include "../widget.hpp"
 
 namespace nd {
-class ButtonPrimitive : public Widget {
+class ButtonPrimitive : public nd::Widget {
 public:
-    bool set_spec(std::string key, std::string raw_value) override; // HEAD@set_spec
+    bool set_spec(const std::string& key, const std::string& raw_value) override; // HEAD@set_spec
     void build() override; // HEAD@build
     bool handle_event(const nd::Event& event) override; // HEAD@handle_event
 
@@ -23,7 +23,7 @@ public:
     void link_on_click(CALLBACK_EVENT callback) { _on_click = callback; }
 
 protected:
-    ButtonPrimitive() : Widget() { _bg_color = __bg_idle; }
+    ButtonPrimitive() : nd::Widget() { _bg_color = __bg_idle; }
 
     virtual bool _on_mouse_button_pressed(const nd::Event& event); // HEAD@_on_mouse_button_pressed
     virtual bool _on_mouse_button_released(const nd::Event& event); // HEAD@_on_mouse_button_released

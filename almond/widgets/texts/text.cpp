@@ -1,7 +1,7 @@
 #include "text.hpp"
 
 // -----------------------------------------------------------------------------
-bool nd::Text::set_spec(std::string key, std::string raw_value) { // FUNC@set_spec
+bool nd::Text::set_spec(const std::string& key, const std::string& raw_value) { // FUNC@set_spec
     if (key == "T" || key == "TEXT") {
         _text_str = raw_value;
         __update_sfml_text();

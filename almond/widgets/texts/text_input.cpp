@@ -1,7 +1,7 @@
 #include "text_input.hpp"
 
 // -----------------------------------------------------------------------------
-bool nd::TextInput::set_spec(std::string key, std::string raw_value) { // FUNC@set_spec
+bool nd::TextInput::set_spec(const std::string& key, const std::string& raw_value) { // FUNC@set_spec
     if (key == "H" || key == "HINT") {
         __hint_str = raw_value;
         return true;

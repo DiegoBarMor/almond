@@ -2,17 +2,17 @@
 #include "text.hpp"
 
 namespace nd {
-class TextInput : public Text {
+class TextInput : public nd::Text {
 public:
-    TextInput(sf::Font font) : Text(font) {
+    TextInput(sf::Font font) : nd::Text(font) {
         _font_color = sf::Color::Black;
         set_bg_color(sf::Color(0x4A4A4AFF));
     }
-    std::unique_ptr<Widget> clone() const override {
-        return std::make_unique<TextInput>(font);
+    std::unique_ptr<nd::Widget> clone() const override {
+        return std::make_unique<nd::TextInput>(font);
     }
 
-    bool set_spec(std::string key, std::string raw_value) override; // HEAD@set_spec
+    bool set_spec(const std::string& key, const std::string& raw_value) override; // HEAD@set_spec
     void build() override; // HEAD@build
     bool handle_event(const nd::Event& event) override; // HEAD@handle_event
     void draw(sf::RenderWindow& window) override; // HEAD@draw

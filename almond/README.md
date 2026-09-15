@@ -28,20 +28,20 @@ class NewClass : public ParentClass {
 public:
     // m.0a (Construction methods)
     NewClass : ParentClass {}
-    std::unique_ptr<Widget> clone() const override {
+    std::unique_ptr<nd::Widget> clone() const override {
         return std::make_unique<NewClass>();
     }
 
     // m.0c (Lifecycle methods - SABHD)
-    bool set_spec(std::string key, std::string raw_value) override;
-    void add_child(std::shared_ptr<Widget> child) override;
+    bool set_spec(const std::string& key, const std::string& raw_value) override;
+    void add_child(std::shared_ptr<nd::Widget> child) override;
     void build() override;
     bool handle_event(const nd::Event& event) override;
     void draw(sf::RenderWindow& window) override;
 
     // m.0d (Setters/Getters for the spec fields)
-    void                set_spec_0(bool spec0) override { _spec_0 = spec0; }
-    virtual void        set_spec_1(std::string s1)      { __spec_1 = s1;   }
+    void                set_spec_0(bool spec0) override   { _spec_0 = spec0; }
+    virtual void        set_spec_1(const std::string& s1) { __spec_1 = s1;   }
     bool                get_spec_0() override { return _spec_0;  }
     virtual std::string get_spec_1()          { return __spec_1; }
 

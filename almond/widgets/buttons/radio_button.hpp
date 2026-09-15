@@ -2,19 +2,19 @@
 #include "toggleable_button.hpp"
 
 namespace nd {
-class RadioButton : public ToggleableButton {
+class RadioButton : public nd::ToggleableButton {
 public:
     struct RadioButtonGroup {
         int selected_idx = -1;
         std::vector<RadioButton*> buttons = {};
     };
 
-    RadioButton() : ToggleableButton() { }
-    std::unique_ptr<Widget> clone() const override {
-        return std::make_unique<RadioButton>();
+    RadioButton() : nd::ToggleableButton() { }
+    std::unique_ptr<nd::Widget> clone() const override {
+        return std::make_unique<nd::RadioButton>();
     }
 
-    bool set_spec(std::string key, std::string raw_value) override; // HEAD@set_spec
+    bool set_spec(const std::string& key, const std::string& raw_value) override; // HEAD@set_spec
     void build() override; // HEAD@build
     void draw(sf::RenderWindow& window) override; // HEAD@draw
 
