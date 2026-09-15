@@ -29,11 +29,13 @@ void AppImplBasics::_on_create() {
     b1->set_spec("BG_IDLE", "255,0,0,120");
 
     ////// can also link callbacks directly to widgets
-    b0->link_on_event([this](const nd::Event& event) {
+    b0->link_on_event([this,b0](const nd::Event& event) {
         if (event.generic.type != nd::EventType::MOUSE_BUTTON_RELEASED) return false;
 
-        std::cout << "Button 0 released" << std::endl;
-        std::shared_ptr<nd::Widget> custom = get_widget("custom").lock();
+        if (b0->contains_point(event.mouse_button_released.position))
+            std::cout << "... Button 0 released" << std::endl;
+
+        std::shared_ptr<nd::Widget> custom = this->get_widget("custom").lock();
         if (!custom) return false;
 
         custom->set_spec("COLOR_0", "128,0,0");
@@ -46,8 +48,8 @@ void AppImplBasics::_on_create() {
 
     ////// some widget types also provide their own specific callbacks, e.g. buttons have on_click
     b0->link_on_click([this](const nd::Event& event) {
-        std::cout << "Button 0 clicked" << std::endl;
-        std::shared_ptr<nd::Widget> custom = get_widget("custom").lock();
+        std::cout << "... Button 0 clicked" << std::endl;
+        std::shared_ptr<nd::Widget> custom = this->get_widget("custom").lock();
         if (!custom) return false;
 
         custom->set_spec("COLOR_0", "128,128,128");
@@ -56,11 +58,15 @@ void AppImplBasics::_on_create() {
     });
 
     ////// any kind of widget can handle events, even containers
-    col0->link_on_event([](const nd::Event& event) {
-        if (event.generic.type == nd::EventType::MOUSE_BUTTON_PRESSED)
-            std::cout << "Column 0 clicked" << std::endl;
-        else if (event.generic.type == nd::EventType::MOUSE_BUTTON_RELEASED)
-            std::cout << "Column 0 released" << std::endl;
+    col0->link_on_event([col0](const nd::Event& event) {
+        bool overlap = col0->contains_point(event.mouse_moved.position); // position can be accessed from any of the mouse events
+
+        if (event.generic.type == nd::EventType::MOUSE_BUTTON_PRESSED) {
+            if (overlap) std::cout << "Column 0 clicked" << std::endl;
+        }
+        else if (event.generic.type == nd::EventType::MOUSE_BUTTON_RELEASED) {
+            if (overlap) std::cout << "Column 0 released" << std::endl;
+        }
         return false;
     });
 }
