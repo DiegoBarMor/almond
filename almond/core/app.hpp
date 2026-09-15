@@ -17,7 +17,7 @@ public:
     void manage_events(); // HEAD@manage_events
     void draw(); // HEAD@draw
 
-    nd::EventManager& get_event_manager() { return _event_man; }
+    void link_on_event(CALLBACK_EVENT callback) { _on_event = callback; }
 
 protected:
     // Override this to add behaviour that should happen before creating the root widget.
@@ -34,7 +34,8 @@ protected:
     virtual void _on_build() {};
 
     nd::DrawableManager _drawable_man = nd::DrawableManager();
-    nd::EventManager _event_man = nd::EventManager();
+
+    CALLBACK_EVENT _on_event;
 
 private:
     void __create(const std::string& filename); // HEAD@__create
