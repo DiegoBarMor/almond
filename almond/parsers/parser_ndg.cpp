@@ -1,7 +1,7 @@
 #include "parser_ndg.hpp"
 
 // -----------------------------------------------------------------------------
-nd::Widget* nd::ParserNDG::parse(const std::string& filename) { // FUNC@parse
+std::shared_ptr<nd::Widget> nd::ParserNDG::parse(const std::string& filename) { // FUNC@parse
     std::ifstream file(filename);
     if (!file.is_open()) {
         std::cerr << "Failed to open file: " << filename << std::endl;
@@ -9,7 +9,7 @@ nd::Widget* nd::ParserNDG::parse(const std::string& filename) { // FUNC@parse
     }
     __parse_file(file);
     file.close();
-    return __root;
+    return std::move(__root);
 } // END@parse
 
 
@@ -81,7 +81,7 @@ void nd::ParserNDG::__parse_specs_val(char ch) { // FUNC@__parse_specs_val
     }
     if (__current != nullptr) {
         if (__specs_key == "ID" || __specs_key == "IDENTIFIER") {
-            __widget_manager.set_id(__current, __buffer);
+            __drawable_man.set_id(__current, __buffer);
         }
         else if (!__current->set_spec(__specs_key, __buffer)) {
             std::cerr << "Failed to set spec: " <<
@@ -118,7 +118,7 @@ void nd::ParserNDG::__parse_next_gui(char ch) { // FUNC@__parse_next_gui
 
 // -----------------------------------------------------------------------------
 void nd::ParserNDG::__add_gui_widget() { // FUNC@__add_gui_widget
-    __current = __widget_manager.create_widget(__buffer);
+    __current = __drawable_man.create_widget(__buffer);
     if (__current == nullptr) {
         std::cerr << "Failed to create widget: " << __buffer << std::endl;
         return;
@@ -127,7 +127,9 @@ void nd::ParserNDG::__add_gui_widget() { // FUNC@__add_gui_widget
         __root = __current;
         return;
     }
-    if (__parent == nullptr) { __parent = __root; }
+    if (__parent == nullptr) {
+        __parent = __root;
+    }
     __parent->add_child(__current);
 } // END@__add_gui_widget
 

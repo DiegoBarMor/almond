@@ -28,18 +28,20 @@ class NewClass : public ParentClass {
 public:
     // m.0a (Construction methods)
     NewClass : ParentClass {}
-    NewClass* clone() override { return new NewClass(); }
+    std::unique_ptr<nd::Widget> clone() const override {
+        return std::make_unique<NewClass>();
+    }
 
     // m.0c (Lifecycle methods - SABHD)
-    bool set_spec(std::string key, std::string raw_value) override;
-    void add_child(Widget* child) override;
+    bool set_spec(const std::string& key, const std::string& raw_value) override;
+    void add_child(std::shared_ptr<nd::Widget> child) override;
     void build() override;
-    bool handle_event(const std::optional<sf::Event> event) override;
+    bool handle_event(const nd::Event& event) override;
     void draw(sf::RenderWindow& window) override;
 
     // m.0d (Setters/Getters for the spec fields)
-    void                set_spec_0(bool spec0) override { _spec_0 = spec0; }
-    virtual void        set_spec_1(std::string s1)      { __spec_1 = s1;   }
+    void                set_spec_0(bool spec0) override   { _spec_0 = spec0; }
+    virtual void        set_spec_1(const std::string& s1) { __spec_1 = s1;   }
     bool                get_spec_0() override { return _spec_0;  }
     virtual std::string get_spec_1()          { return __spec_1; }
 
@@ -50,10 +52,7 @@ public:
     float get_protected_field() { return _protected_field; }
 
     // m.0f (Linkers for the callbacks)
-    void link_on_mouse_button_pressed (CALLBACK_BOOL callback) override;
-    void link_on_mouse_button_released(CALLBACK_BOOL callback) override;
-    void link_on_mouse_moved          (CALLBACK_BOOL callback) override;
-    void link_on_key_pressed          (CALLBACK_BOOL callback) override;
+    void link_on_event(CALLBACK_EVENT callback) override;
 
     // m.0g (Other functionalities)
     bool some_public_functionality();
@@ -62,20 +61,11 @@ protected:
     // m.1a (Internal functionalities)
     void _some_internal_functionality();
 
-    // m.1b (Callback wrappers)
-    bool _internal_on_mouse_button_pressed (const std::optional<sf::Event> event) override;
-    bool _internal_on_mouse_button_released(const std::optional<sf::Event> event) override;
-    bool _internal_on_mouse_moved          (const std::optional<sf::Event> event) override;
-    bool _internal_on_key_pressed          (const std::optional<sf::Event> event) override;
-
     // d.1b (Spec fields)
     bool _spec_0 = false;
 
     // d.1c (Client callbacks)
-    CALLBACK_BOOL _on_mouse_button_pressed;
-    CALLBACK_BOOL _on_mouse_button_released;
-    CALLBACK_BOOL _on_mouse_moved;
-    CALLBACK_BOOL _on_key_pressed;
+    CALLBACK_EVENT _on_event;
 
     // d.1d (Other fields)
     float _protected_field = 0.0f;

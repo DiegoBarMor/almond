@@ -2,10 +2,12 @@
 #include "container.hpp"
 
 namespace nd {
-class LayoutRow : public Container {
+class LayoutRow : public nd::Container {
 public:
-    LayoutRow() : Container() {}
-    LayoutRow* clone() override { return new LayoutRow(); }
+    LayoutRow() : nd::Container() {}
+    std::unique_ptr<nd::Widget> clone() const override {
+        return std::make_unique<nd::LayoutRow>();
+    }
 
     void build() override; // HEAD@build
 };

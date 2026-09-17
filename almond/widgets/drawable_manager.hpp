@@ -12,17 +12,19 @@
 #include "../widgets/texts/text_input.hpp"
 
 namespace nd {
-class WidgetManager {
+class DrawableManager {
 public:
-    WidgetManager(); // HEAD@WidgetManager
+    DrawableManager(); // HEAD@DrawableManager
 
-    void add_prototype(std::string type, nd::Widget* prototype) {
+    void add_prototype(const std::string& type, std::shared_ptr<nd::Widget> prototype) {
         __prototypes[type] = prototype;
     }
-    nd::Widget* create_widget(std::string type); // HEAD@create_widget
+    std::shared_ptr<nd::Widget> create_widget(const std::string& type); // HEAD@create_widget
 
-    void set_id(nd::Widget* widget, std::string id) { __id_widgets[id] = widget; }
-    Widget* get_widget_by_id(std::string id); // HEAD@get_widget_by_id
+    void set_id(std::shared_ptr<nd::Widget> widget, const std::string& id) { __id_widgets[id] = widget; }
+    std::weak_ptr<nd::Widget> get_widget_by_id(const std::string& id); // HEAD@get_widget_by_id
+
+    const std::vector<std::shared_ptr<nd::Widget>>& get_all_widgets() { return __all_widgets; }
 
     void group_radiobuttons(); // HEAD@group_radiobuttons
 
@@ -30,11 +32,12 @@ public:
     void set_font(sf::Font font) { __font = font; }
 
 private:
-    std::unordered_map<std::string, nd::Widget*> __prototypes;
-    std::unordered_map<std::string, nd::Widget*> __id_widgets;
+    std::unordered_map<std::string, std::shared_ptr<nd::Widget>> __prototypes = {};
+
+    std::vector<std::shared_ptr<nd::Widget>> __all_widgets = {};
+    std::unordered_map<std::string, std::weak_ptr<nd::Widget>> __id_widgets = {};
 
     sf::Font __font;
     bool __is_first_build = true;
-    std::vector<nd::RadioButton*> __list_radiobuttons = {};
 };
 }

@@ -1,7 +1,7 @@
 #include "container.hpp"
 
 // -----------------------------------------------------------------------------
-bool nd::Container::set_spec(std::string key, std::string raw_value) { // FUNC@set_spec
+bool nd::Container::set_spec(const std::string& key, const std::string& raw_value) { // FUNC@set_spec
     if (key == "P" || key == "PADDING") {
         __padding = nd::ParserStrings::str2float(raw_value);
         return true;
@@ -15,9 +15,13 @@ bool nd::Container::set_spec(std::string key, std::string raw_value) { // FUNC@s
 
 
 // -----------------------------------------------------------------------------
-void nd::Container::add_child(nd::Widget* child) { // FUNC@add_child
+void nd::Container::add_child(std::shared_ptr<nd::Widget> child) { // FUNC@add_child
+    if (child == nullptr) {
+        std::cerr << "Can't add null child to container" << std::endl;
+        return;
+    }
+    child->set_parent(weak_from_this());
     _children.push_back(child);
-    child->set_parent(this);
     _num_children++;
 } // END@add_child
 
@@ -31,18 +35,6 @@ void nd::Container::build() { // FUNC@build
         child->build();
     }
 } // END@build
-
-
-// -----------------------------------------------------------------------------
-bool nd::Container::handle_event(const std::optional<sf::Event> event) { // FUNC@handle_event
-    for (auto& child : _children) {
-        if (child->handle_event(event))
-            return true; // event handled by child, no need to continue
-    }
-    // event not handled by children, now the container tries to handle it.
-    // this implies that children can override the container's event handling
-    return _internal_handle_event(event);
-} // END@handle_event
 
 
 // -----------------------------------------------------------------------------

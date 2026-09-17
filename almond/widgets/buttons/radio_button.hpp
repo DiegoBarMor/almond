@@ -2,26 +2,28 @@
 #include "toggleable_button.hpp"
 
 namespace nd {
-class RadioButton : public ToggleableButton {
+class RadioButton : public nd::ToggleableButton {
 public:
     struct RadioButtonGroup {
         int selected_idx = -1;
         std::vector<RadioButton*> buttons = {};
     };
 
-    RadioButton() : ToggleableButton() { }
-    RadioButton* clone() override { return new RadioButton(); }
+    RadioButton() : nd::ToggleableButton() { }
+    std::unique_ptr<nd::Widget> clone() const override {
+        return std::make_unique<nd::RadioButton>();
+    }
 
-    bool set_spec(std::string key, std::string raw_value) override; // HEAD@set_spec
+    bool set_spec(const std::string& key, const std::string& raw_value) override; // HEAD@set_spec
     void build() override; // HEAD@build
     void draw(sf::RenderWindow& window) override; // HEAD@draw
 
-    std::string get_group_id() { return __group_id; }
+    const std::string& get_group_id() const { return __group_id; }
 
-    void first_build(std::vector<nd::RadioButton*> list_radiobuttons); // HEAD@first_build
+    void add_to_group(RadioButtonGroup* group); // HEAD@add_to_group
 
 protected:
-    void _internal_on_toggle() override; // HEAD@_internal_on_toggle
+    bool _on_mouse_button_pressed(const nd::Event& event) override; // HEAD@_on_mouse_button_pressed
 
 private:
     std::string __group_id = "";

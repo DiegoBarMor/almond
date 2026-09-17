@@ -1,5 +1,5 @@
 #pragma once
-#include "widget_manager.hpp"
+#include "../widgets/drawable_manager.hpp"
 #include "../parsers/parser_ndg.hpp"
 
 namespace nd {
@@ -13,15 +13,13 @@ public:
 
     // These methods are called by the client code when interacting with the GUI.
     sf::RenderWindow& get_window() { return __window; }
-    nd::Widget* get_widget(std::string id); // HEAD@get_widget
+    std::weak_ptr<nd::Widget> get_widget(const std::string& id); // HEAD@get_widget
     void manage_events(); // HEAD@manage_events
     void draw(); // HEAD@draw
 
-protected:
-    // Override this to link callbacks that could be handled "globally" by the App.
-    // For example, closing the window when pressing the Escape key or handling the window resizing.
-    virtual bool _internal_manage_event(const std::optional<sf::Event> event) { return false; }
+    void link_on_event(CALLBACK_EVENT callback) { _on_event = callback; }
 
+protected:
     // Override this to add behaviour that should happen before creating the root widget.
     // For example, adding custom prototypes.
     virtual void _on_init() {};
@@ -35,13 +33,15 @@ protected:
     // Linking widget callbacks could be done here.
     virtual void _on_build() {};
 
-    WidgetManager _widget_manager = WidgetManager();
+    nd::DrawableManager _drawable_man = nd::DrawableManager();
+
+    CALLBACK_EVENT _on_event;
 
 private:
     void __create(const std::string& filename); // HEAD@__create
     void __build(sf::Vector2f pos, sf::Vector2f size); // HEAD@__build
 
-    Widget* __root = nullptr;
+    std::shared_ptr<nd::Widget> __root_widget = nullptr;
     sf::RenderWindow& __window;
     sf::Vector2f __pos = {0, 0};
     sf::Vector2f __size = {0, 0};

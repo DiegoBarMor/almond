@@ -1,6 +1,6 @@
 #include "CustomWidget.hpp"
 
-bool CustomWidget::set_spec(std::string key, std::string raw_value) {
+bool CustomWidget::set_spec(const std::string& key, const std::string& raw_value) {
     if (key == "C0" || key == "COLOR_0") {
         __color_0 = nd::ParserStrings::str2color(raw_value);
         return true;
