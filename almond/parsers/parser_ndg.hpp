@@ -1,6 +1,6 @@
 #pragma once
 #include "../core/globals.hpp"
-#include "../managers/drawable_manager.hpp"
+#include "../widgets/drawable_manager.hpp"
 #include "../widgets/widget.hpp"
 
 namespace nd {

@@ -1,5 +1,5 @@
 #pragma once
-#include "../managers/drawable_manager.hpp"
+#include "../widgets/drawable_manager.hpp"
 #include "../parsers/parser_ndg.hpp"
 
 namespace nd {
