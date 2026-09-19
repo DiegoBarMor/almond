@@ -1,5 +1,5 @@
 #pragma once
-#include "../core/globals.hpp"
+#include "../globals.hpp"
 
 namespace nd {
 enum class EventType {

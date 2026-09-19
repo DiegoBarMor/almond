@@ -1,15 +1,15 @@
 #pragma once
-#include "../widgets/widget.hpp"
-#include "../widgets/buttons/button_primitive.hpp"
-#include "../widgets/buttons/check_box.hpp"
-#include "../widgets/buttons/labeled_button.hpp"
-#include "../widgets/buttons/radio_button.hpp"
-#include "../widgets/buttons/toggleable_button.hpp"
-#include "../widgets/containers/container.hpp"
-#include "../widgets/containers/layout_column.hpp"
-#include "../widgets/containers/layout_row.hpp"
-#include "../widgets/texts/text.hpp"
-#include "../widgets/texts/text_input.hpp"
+#include "../drawables/widget.hpp"
+#include "../drawables/buttons/button_primitive.hpp"
+#include "../drawables/buttons/check_box.hpp"
+#include "../drawables/buttons/labeled_button.hpp"
+#include "../drawables/buttons/radio_button.hpp"
+#include "../drawables/buttons/toggleable_button.hpp"
+#include "../drawables/containers/container.hpp"
+#include "../drawables/containers/layout_column.hpp"
+#include "../drawables/containers/layout_row.hpp"
+#include "../drawables/texts/text.hpp"
+#include "../drawables/texts/text_input.hpp"
 
 namespace nd {
 class DrawableManager {

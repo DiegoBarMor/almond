@@ -1,5 +1,5 @@
 #pragma once
-#include "../core/globals.hpp"
+#include "../globals.hpp"
 #include "../parsers/parser_strings.hpp"
 #include "../events/event.hpp"
 

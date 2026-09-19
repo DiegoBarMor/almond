@@ -1,7 +1,7 @@
 #pragma once
-#include "../core/globals.hpp"
-#include "../widgets/drawable_manager.hpp"
-#include "../widgets/widget.hpp"
+#include "../globals.hpp"
+#include "../drawables/drawable_manager.hpp"
+#include "../drawables/widget.hpp"
 
 namespace nd {
 class ParserNDG {

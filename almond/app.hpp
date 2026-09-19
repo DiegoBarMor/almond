@@ -1,6 +1,6 @@
 #pragma once
-#include "../widgets/drawable_manager.hpp"
-#include "../parsers/parser_ndg.hpp"
+#include "drawables/drawable_manager.hpp"
+#include "parsers/parser_ndg.hpp"
 
 namespace nd {
 class App {
