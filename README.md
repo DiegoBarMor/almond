@@ -51,7 +51,21 @@ ALMOND works by instantiating an implementation of `nd::App` into the part of th
 <!-- ****************************************************************************************** CLASSES -->
 ## GUI Class Hierarcy
 The following is the class inheritance hierarchy for the drawables.
-[WIP] considering a preferable new organization.
+```
+Widget (x)
+|-- Container
+|   |-- LayoutRow
+|   `-- LayoutColumn
+|-- Text
+|   `-- TextInput
+|-- ButtonPrimitive (x)
+|   |-- LabeledButton
+|   `-- ToggleableButton (x)
+|       |-- CheckBox
+|       `-- RadioButton
+`-- Slider [TODO]
+```
+<!-- [WIP] considering a preferable new organization.
 ```
 Drawable (x)
 |-- Primitive (x)
@@ -68,7 +82,7 @@ Drawable (x)
     |-- CheckBox
     |-- RadioButton
     `-- Slider [TODO]
-```
+``` -->
 
 Classes that can't be instantiated directly are denoted with a `(x)`.
 
